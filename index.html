@@ -2,17 +2,12 @@
 <html lang="en" data-theme="classic">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2563eb">
 <title>DS-F — PPT Submission Portal</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-
-/* ============ THEMES ============ */
 :root,[data-theme=classic]{
 --bg:#e7edf7;--surface:#fafbfe;--surface2:#eef2f9;--line:#dde4ee;--line2:#c8d3e0;
 --text:#0f172a;--text2:#334155;--muted:#64748b;
@@ -25,7 +20,6 @@
 --sh:rgba(15,23,42,.05);--shL:rgba(15,23,42,.12);--shX:rgba(15,23,42,.25);
 --track:#dbe3ee;--modal:rgba(15,23,42,.5);
 --waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(37,99,235,.5)}
-
 [data-theme=midnight]{
 --bg:#0b1120;--surface:#131c31;--surface2:#1a2540;--line:#26334f;--line2:#334160;
 --text:#e8ecf6;--text2:#c2cade;--muted:#8a97b4;
@@ -38,7 +32,6 @@
 --sh:rgba(0,0,0,.35);--shL:rgba(0,0,0,.5);--shX:rgba(0,0,0,.6);
 --track:#1e2b48;--modal:rgba(0,0,0,.72);
 --waBg:#052e16;--waBd:#166534;--waTx:#bbf7d0;--glow:rgba(91,140,255,.5)}
-
 [data-theme=ocean]{
 --bg:#e3f6f2;--surface:#f9fdfc;--surface2:#e7f6f3;--line:#cbeae4;--line2:#a5dbd1;
 --text:#042f2e;--text2:#134e4a;--muted:#0d9488;
@@ -51,7 +44,6 @@
 --sh:rgba(13,148,136,.06);--shL:rgba(13,148,136,.12);--shX:rgba(13,148,136,.15);
 --track:#c3e9e1;--modal:rgba(4,47,46,.5);
 --waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(13,148,136,.5)}
-
 [data-theme=forest]{
 --bg:#e4f5e9;--surface:#f9fdfa;--surface2:#e9f5e2;--line:#c9ead3;--line2:#a3d8b4;
 --text:#14532d;--text2:#166534;--muted:#16a34a;
@@ -64,7 +56,6 @@
 --sh:rgba(22,163,74,.06);--shL:rgba(22,163,74,.12);--shX:rgba(22,163,74,.15);
 --track:#c7e8cf;--modal:rgba(20,83,45,.5);
 --waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(22,163,74,.5)}
-
 [data-theme=violet]{
 --bg:#f2eafc;--surface:#fcf9fe;--surface2:#ece4fa;--line:#dcd0f2;--line2:#c3b1e8;
 --text:#2e1065;--text2:#4c1d95;--muted:#7c3aed;
@@ -77,7 +68,6 @@
 --sh:rgba(124,58,237,.06);--shL:rgba(124,58,237,.12);--shX:rgba(124,58,237,.18);
 --track:#ded1f4;--modal:rgba(46,16,101,.5);
 --waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(124,58,237,.5)}
-
 [data-theme=sunset]{
 --bg:#fbead9;--surface:#fefaf4;--surface2:#f5ead5;--line:#f2d3ab;--line2:#e8ba7e;
 --text:#7c2d12;--text2:#9a3412;--muted:#ea580c;
@@ -89,822 +79,519 @@
 --head:rgba(254,250,244,.9);--headS:rgba(254,250,244,.95);
 --sh:rgba(234,88,12,.06);--shL:rgba(234,88,12,.12);--shX:rgba(234,88,12,.18);
 --track:#f0d6b5;--modal:rgba(124,45,18,.5);
---waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(234,88,12,.5)}:root, [data-theme="classic"]{
-  --bg:#f4f7fc;--surface:#ffffff;--surface-2:#f8fafc;
-  --line:#e2e8f0;--line-strong:#cbd5e1;
-  --text:#0f172a;--text-2:#334155;--muted:#64748b;
-  --primary:#2563eb;--primary-dark:#1d4ed8;--primary-soft:#eff6ff;
-  --accent:#0ea5e9;
-  --ok:#16a34a;--ok-soft:#f0fdf4;--ok-border:#bbf7d0;
-  --warn:#d97706;--warn-soft:#fffbeb;--warn-border:#fde68a;
-  --bad:#dc2626;--bad-soft:#fef2f2;--bad-border:#fecaca;
-  --hero-grad-1:#dbeafe;--hero-grad-2:#e0f2fe;
-  --header-bg:rgba(255,255,255,.88);--header-bg-strong:rgba(255,255,255,.94);
-  --shadow-tint:rgba(15,23,42,.05);--shadow-tint-lg:rgba(15,23,42,.10);--shadow-color:rgba(15,23,42,.10);
-  --progress-track:#e6ecf5;
-  --modal-bg:rgba(15,23,42,.5);
-  --wa-bg:#e7ffdb;--wa-border:#b5e6a0;--wa-text:#0b3d0b;
-  --primary-glow:rgba(37,99,235,.5);
-}
-[data-theme="midnight"]{
-  --bg:#0b1120;--surface:#131c31;--surface-2:#1a2540;
-  --line:#26334f;--line-strong:#334160;
-  --text:#e8ecf6;--text-2:#c2cade;--muted:#8a97b4;
-  --primary:#5b8cff;--primary-dark:#7ba3ff;--primary-soft:#1a2540;
-  --accent:#22d3ee;
-  --ok:#4ade80;--ok-soft:rgba(74,222,128,.12);--ok-border:rgba(74,222,128,.35);
-  --warn:#fbbf24;--warn-soft:rgba(251,191,36,.12);--warn-border:rgba(251,191,36,.35);
-  --bad:#f87171;--bad-soft:rgba(248,113,113,.12);--bad-border:rgba(248,113,113,.35);
-  --hero-grad-1:#1e3a8a;--hero-grad-2:#0c4a6e;
-  --header-bg:rgba(11,17,32,.88);--header-bg-strong:rgba(11,17,32,.94);
-  --shadow-tint:rgba(0,0,0,.35);--shadow-tint-lg:rgba(0,0,0,.5);--shadow-color:rgba(0,0,0,.6);
-  --progress-track:#1e2b48;
-  --modal-bg:rgba(0,0,0,.72);
-  --wa-bg:#052e16;--wa-border:#166534;--wa-text:#bbf7d0;
-  --primary-glow:rgba(91,140,255,.5);
-}
-[data-theme="ocean"]{
-  --bg:#f0fdfa;--surface:#ffffff;--surface-2:#f0fdfa;
-  --line:#ccfbf1;--line-strong:#99f6e4;
-  --text:#042f2e;--text-2:#134e4a;--muted:#0d9488;
-  --primary:#0d9488;--primary-dark:#0f766e;--primary-soft:#ccfbf1;
-  --accent:#0891b2;
-  --ok:#16a34a;--ok-soft:#f0fdf4;--ok-border:#bbf7d0;
-  --warn:#d97706;--warn-soft:#fffbeb;--warn-border:#fde68a;
-  --bad:#dc2626;--bad-soft:#fef2f2;--bad-border:#fecaca;
-  --hero-grad-1:#ccfbf1;--hero-grad-2:#cffafe;
-  --header-bg:rgba(255,255,255,.88);--header-bg-strong:rgba(255,255,255,.94);
-  --shadow-tint:rgba(13,148,136,.06);--shadow-tint-lg:rgba(13,148,136,.12);--shadow-color:rgba(13,148,136,.15);
-  --progress-track:#ccfbf1;
-  --modal-bg:rgba(4,47,46,.5);
-  --wa-bg:#e7ffdb;--wa-border:#b5e6a0;--wa-text:#0b3d0b;
-  --primary-glow:rgba(13,148,136,.5);
-}
-[data-theme="forest"]{
-  --bg:#f0fdf4;--surface:#ffffff;--surface-2:#f7fee7;
-  --line:#dcfce7;--line-strong:#bbf7d0;
-  --text:#14532d;--text-2:#166534;--muted:#16a34a;
-  --primary:#16a34a;--primary-dark:#15803d;--primary-soft:#dcfce7;
-  --accent:#65a30d;
-  --ok:#16a34a;--ok-soft:#f0fdf4;--ok-border:#bbf7d0;
-  --warn:#d97706;--warn-soft:#fffbeb;--warn-border:#fde68a;
-  --bad:#dc2626;--bad-soft:#fef2f2;--bad-border:#fecaca;
-  --hero-grad-1:#dcfce7;--hero-grad-2:#ecfccb;
-  --header-bg:rgba(255,255,255,.88);--header-bg-strong:rgba(255,255,255,.94);
-  --shadow-tint:rgba(22,163,74,.06);--shadow-tint-lg:rgba(22,163,74,.12);--shadow-color:rgba(22,163,74,.15);
-  --progress-track:#dcfce7;
-  --modal-bg:rgba(20,83,45,.5);
-  --wa-bg:#e7ffdb;--wa-border:#b5e6a0;--wa-text:#0b3d0b;
-  --primary-glow:rgba(22,163,74,.5);
-}
-[data-theme="violet"]{
-  --bg:#faf5ff;--surface:#ffffff;--surface-2:#f5f3ff;
-  --line:#ede9fe;--line-strong:#ddd6fe;
-  --text:#2e1065;--text-2:#4c1d95;--muted:#7c3aed;
-  --primary:#7c3aed;--primary-dark:#6d28d9;--primary-soft:#ede9fe;
-  --accent:#db2777;
-  --ok:#16a34a;--ok-soft:#f0fdf4;--ok-border:#bbf7d0;
-  --warn:#d97706;--warn-soft:#fffbeb;--warn-border:#fde68a;
-  --bad:#dc2626;--bad-soft:#fef2f2;--bad-border:#fecaca;
-  --hero-grad-1:#ede9fe;--hero-grad-2:#fce7f3;
-  --header-bg:rgba(255,255,255,.88);--header-bg-strong:rgba(255,255,255,.94);
-  --shadow-tint:rgba(124,58,237,.06);--shadow-tint-lg:rgba(124,58,237,.12);--shadow-color:rgba(124,58,237,.18);
-  --progress-track:#ede9fe;
-  --modal-bg:rgba(46,16,101,.5);
-  --wa-bg:#e7ffdb;--wa-border:#b5e6a0;--wa-text:#0b3d0b;
-  --primary-glow:rgba(124,58,237,.5);
-}
-[data-theme="sunset"]{
-  --bg:#fff7ed;--surface:#ffffff;--surface-2:#fffbeb;
-  --line:#fed7aa;--line-strong:#fdba74;
-  --text:#7c2d12;--text-2:#9a3412;--muted:#ea580c;
-  --primary:#ea580c;--primary-dark:#c2410c;--primary-soft:#ffedd5;
-  --accent:#e11d48;
-  --ok:#16a34a;--ok-soft:#f0fdf4;--ok-border:#bbf7d0;
-  --warn:#d97706;--warn-soft:#fffbeb;--warn-border:#fde68a;
-  --bad:#dc2626;--bad-soft:#fef2f2;--bad-border:#fecaca;
-  --hero-grad-1:#ffedd5;--hero-grad-2:#fecdd3;
-  --header-bg:rgba(255,255,255,.88);--header-bg-strong:rgba(255,255,255,.94);
-  --shadow-tint:rgba(234,88,12,.06);--shadow-tint-lg:rgba(234,88,12,.12);--shadow-color:rgba(234,88,12,.18);
-  --progress-track:#ffedd5;
-  --modal-bg:rgba(124,45,18,.5);
-  --wa-bg:#e7ffdb;--wa-border:#b5e6a0;--wa-text:#0b3d0b;
-  --primary-glow:rgba(234,88,12,.5);
-}
+--waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(234,88,12,.5)}
 
-:root{
-  --radius:14px;
-  --shadow-sm:0 1px 2px var(--shadow-tint);
-  --shadow:0 4px 16px -4px var(--shadow-tint-lg);
-  --shadow-lg:0 18px 44px -18px var(--shadow-color);
-  --safe-top:env(safe-area-inset-top,0px);
-  --safe-bottom:env(safe-area-inset-bottom,0px);
-  --safe-left:env(safe-area-inset-left,0px);
-  --safe-right:env(safe-area-inset-right,0px);
-}
-
-html{height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html{height:100%;-webkit-text-size-adjust:100%}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;
-  -webkit-font-smoothing:antialiased;-webkit-overflow-scrolling:touch;
-  line-height:1.5;overflow-x:hidden;
-  transition:background .25s ease,color .25s ease;
-  padding-left:var(--safe-left);padding-right:var(--safe-right);
-}
+font-family:-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;
+-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;
+padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
 a{color:var(--primary);text-decoration:none}
 a:hover{text-decoration:underline}
-button,.btn,input,select,textarea,a{
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-}
+button,.btn,input,select,textarea{touch-action:manipulation;font-family:inherit}
 .view{display:none}
-.view.active{display:block;animation:fade .3s ease}
+.view.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.view.active{animation:fade .3s ease}
 
-/* ============ LANDING ============ */
-.landing-header{
-  position:-webkit-sticky;position:sticky;top:0;z-index:30;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 20px;padding-top:calc(12px + var(--safe-top));
-  background:var(--header-bg);
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);gap:10px;
-}
-.landing-header .brand{font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:8px;font-size:.95rem;min-width:0}
-.brand-mark{
-  min-width:30px;height:30px;padding:0 6px;border-radius:8px;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:#fff;font-weight:800;font-size:.68rem;letter-spacing:-.3px;flex-shrink:0;
-}
-.landing-header .hint-text{font-size:.75rem;color:var(--muted);white-space:nowrap}
-.hero{
-  min-height:calc(100vh - 60px);min-height:calc(100dvh - 60px);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:40px 18px 70px;text-align:center;
-  background:
-    radial-gradient(700px 340px at 50% -10%, var(--hero-grad-1) 0%, transparent 65%),
-    radial-gradient(500px 280px at 100% 100%, var(--hero-grad-2) 0%, transparent 60%);
-}
-.logo-badge{
-  width:68px;height:68px;border-radius:18px;display:grid;place-items:center;
-  font-size:19px;font-weight:800;letter-spacing:-1px;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:#fff;box-shadow:0 16px 34px -12px var(--primary-glow);
-  margin-bottom:20px;
-}
-.hero h1{
-  font-size:clamp(1.9rem,7vw,3.4rem);font-weight:800;letter-spacing:-1.2px;line-height:1.15;
-  color:var(--text);
-}
-.hero h1 span{
-  background:linear-gradient(100deg,var(--primary),var(--accent));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.tagline{color:var(--muted);margin-top:14px;font-size:clamp(.9rem,3.4vw,1.05rem);max-width:520px;line-height:1.65}
-.login-cards{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;margin-top:36px;width:100%;max-width:560px;
-}
-.login-card{
-  background:var(--surface);border:1px solid var(--line);border-radius:16px;
-  padding:26px 20px;cursor:pointer;color:var(--text);font-family:inherit;
-  text-align:center;transition:transform .2s,box-shadow .2s,border-color .2s;
-  box-shadow:var(--shadow);font-size:inherit;
-}
-.login-card:active{transform:scale(.98)}
-.lc-icon{
-  width:50px;height:50px;margin:0 auto 14px;border-radius:14px;display:grid;place-items:center;
-  font-size:22px;background:var(--primary-soft);color:var(--primary);
-}
-.login-card.cr .lc-icon{background:var(--primary-soft);color:var(--accent)}
-.login-card h3{font-size:1.05rem;font-weight:700;margin-bottom:5px}
-.login-card p{color:var(--muted);font-size:.83rem}
-.landing-foot{
-  margin-top:34px;color:var(--muted);font-size:.78rem;line-height:1.9;
-  background:var(--surface);border:1px solid var(--line);border-radius:14px;
-  padding:14px 22px;box-shadow:var(--shadow-sm);max-width:480px;
-}
-.landing-foot b{color:var(--text-2);font-weight:600}
+/* LANDING */
+.lh{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top));
+background:var(--head);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+border-bottom:1px solid var(--line);gap:10px}
+.lh .brand{font-weight:700;display:flex;align-items:center;gap:8px;font-size:.95rem}
+.bmark{min-width:30px;height:30px;padding:0 6px;border-radius:8px;display:grid;place-items:center;
+background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-weight:800;font-size:.68rem}
+.lh .hint{font-size:.75rem;color:var(--muted);white-space:nowrap}
+.hero{min-height:calc(100vh - 60px);min-height:calc(100dvh - 60px);
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+padding:40px 18px 70px;text-align:center;
+background:radial-gradient(700px 340px at 50% -10%,var(--hero1) 0,transparent 65%),
+radial-gradient(500px 280px at 100% 100%,var(--hero2) 0,transparent 60%)}
+.logo{width:68px;height:68px;border-radius:18px;display:grid;place-items:center;
+font-size:19px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));
+color:#fff;box-shadow:0 16px 34px -12px var(--glow);margin-bottom:20px}
+.hero h1{font-size:clamp(1.9rem,7vw,3.4rem);font-weight:800;letter-spacing:-1.2px;line-height:1.15}
+.hero h1 span{background:linear-gradient(100deg,var(--primary),var(--accent));
+-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{color:var(--muted);margin-top:14px;font-size:clamp(.9rem,3.4vw,1.05rem);max-width:520px;line-height:1.65}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:36px;width:100%;max-width:560px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;
+padding:26px 20px;cursor:pointer;color:var(--text);text-align:center;
+transition:.2s;box-shadow:0 4px 16px -4px var(--shL);font-size:inherit}
+.card:active{transform:scale(.98)}
+.card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 18px 40px -16px var(--glow)}
+.ci{width:50px;height:50px;margin:0 auto 14px;border-radius:14px;display:grid;place-items:center;
+font-size:22px;background:var(--primaryS);color:var(--primary)}
+.card.cr .ci{color:var(--accent)}
+.card h3{font-size:1.05rem;font-weight:700;margin-bottom:5px}
+.card p{color:var(--muted);font-size:.83rem}
+.lf{margin-top:34px;color:var(--muted);font-size:.78rem;line-height:1.9;
+background:var(--surface);border:1px solid var(--line);border-radius:14px;
+padding:14px 22px;box-shadow:0 1px 2px var(--sh);max-width:480px}
+.lf b{color:var(--text2)}
 
-/* ============ AUTH ============ */
-.auth-wrap{
-  min-height:100vh;min-height:100dvh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:30px 16px;padding-bottom:calc(30px + var(--safe-bottom));
-  background:radial-gradient(600px 300px at 50% 0%, var(--hero-grad-1) 0%, transparent 65%);
-}
-.back{
-  background:none;border:none;color:var(--muted);font-family:inherit;font-size:.88rem;
-  cursor:pointer;margin-bottom:14px;max-width:420px;width:100%;text-align:left;padding:8px 4px;
-}
-.back:active{color:var(--primary)}
-.auth-card{
-  width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);
-  border-radius:18px;padding:28px 22px;box-shadow:var(--shadow-lg);
-}
-.auth-card h2{font-size:1.35rem;font-weight:700;letter-spacing:-.5px;margin-bottom:6px}
-.auth-card .sub{color:var(--muted);font-size:.85rem;margin-bottom:20px}
-label{
-  display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.7px;
-  color:var(--muted);margin:14px 0 7px;font-weight:700;
-}
-.inp,input[type=text],input[type=password],input[type=email],input[type=number],select,textarea{
-  width:100%;background:var(--surface);border:1px solid var(--line-strong);color:var(--text);
-  padding:13px 14px;border-radius:10px;
-  font-size:16px;line-height:1.3;font-family:inherit;outline:none;
-  -webkit-appearance:none;appearance:none;
-  transition:border-color .18s,box-shadow .18s;
-}
-.inp:focus,input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+/* AUTH */
+.aw{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+align-items:center;justify-content:center;padding:30px 16px;padding-bottom:calc(30px + env(safe-area-inset-bottom));
+background:radial-gradient(600px 300px at 50% 0,var(--hero1) 0,transparent 65%)}
+.bk{background:none;border:none;color:var(--muted);font-size:.88rem;
+cursor:pointer;margin-bottom:14px;max-width:420px;width:100%;text-align:left;padding:8px 4px}
+.bk:active{color:var(--primary)}
+.ac{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);
+border-radius:18px;padding:28px 22px;box-shadow:0 18px 44px -18px var(--shX)}
+.ac h2{font-size:1.35rem;font-weight:700;letter-spacing:-.5px;margin-bottom:6px}
+.ac .sub{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.7px;
+color:var(--muted);margin:14px 0 7px;font-weight:700}
+.inp,input[type=text],input[type=password],input[type=email],select,textarea{
+width:100%;background:var(--surface);border:1px solid var(--line2);color:var(--text);
+padding:13px 14px;border-radius:10px;font-size:16px;line-height:1.3;outline:none;
+-webkit-appearance:none;appearance:none;transition:border-color .18s,box-shadow .18s}
+.inp:focus,input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primaryS)}
 .inp::placeholder,input::placeholder{color:var(--muted);opacity:.75}
-select.inp{
-  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 14px center;background-size:10px;
-  padding-right:36px;
-}
-.roll-input{
-  display:flex;align-items:stretch;background:var(--surface);
-  border:1px solid var(--line-strong);border-radius:10px;overflow:hidden;transition:.18s;
-}
-.roll-input:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
-.roll-input .prefix{
-  display:flex;align-items:center;padding:0 11px;background:var(--surface-2);color:var(--muted);
-  font-size:.78rem;letter-spacing:.4px;border-right:1px solid var(--line);white-space:nowrap;font-weight:600;
-}
-.roll-input input{
-  border:none;border-radius:0;background:transparent;letter-spacing:3px;font-weight:600;
-  font-size:16px;padding:13px 12px;flex:1;min-width:0;
-}
-.roll-input input:focus{box-shadow:none}
+select.inp{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+background-repeat:no-repeat;background-position:right 14px center;background-size:10px;padding-right:36px}
+.ri{display:flex;align-items:stretch;background:var(--surface);border:1px solid var(--line2);
+border-radius:10px;overflow:hidden;transition:.18s}
+.ri:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primaryS)}
+.ri .px{display:flex;align-items:center;padding:0 11px;background:var(--surface2);
+color:var(--muted);font-size:.78rem;letter-spacing:.4px;border-right:1px solid var(--line);
+white-space:nowrap;font-weight:600}
+.ri input{border:none;border-radius:0;background:transparent;letter-spacing:3px;font-weight:600;
+font-size:16px;padding:13px 12px;flex:1;min-width:0}
+.ri input:focus{box-shadow:none}
 .hint{font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.55}
-.hint b{color:var(--text-2)}
+.hint b{color:var(--text2)}
 .err{color:var(--bad);font-size:.82rem;margin-top:12px;min-height:18px;font-weight:500}
-.btn{
-  font-family:inherit;font-size:.9rem;font-weight:600;border-radius:10px;
-  padding:13px 18px;border:1px solid transparent;cursor:pointer;
-  transition:.18s;white-space:nowrap;
-  -webkit-appearance:none;appearance:none;
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;
-}
-.btn.primary{background:var(--primary);color:#fff;width:100%;margin-top:20px;box-shadow:0 4px 12px -4px var(--primary-glow)}
-.btn.primary:active{background:var(--primary-dark);transform:scale(.99)}
-.btn.ghost{background:var(--surface);border-color:var(--line-strong);color:var(--text-2)}
-.btn.ghost:active{border-color:var(--primary);color:var(--primary);background:var(--primary-soft)}
-.btn.danger{background:var(--surface);border-color:var(--bad-border);color:var(--bad)}
-.btn.danger:active{background:var(--bad-soft);border-color:var(--bad)}
+.btn{font-size:.9rem;font-weight:600;border-radius:10px;padding:13px 18px;
+border:1px solid transparent;cursor:pointer;transition:.18s;white-space:nowrap;
+-webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;
+justify-content:center;gap:6px;min-height:44px}
+.btn.primary{background:var(--primary);color:#fff;width:100%;margin-top:20px;
+box-shadow:0 4px 12px -4px var(--glow)}
+.btn.primary:active{background:var(--primaryD)}
+.btn.ghost{background:var(--surface);border-color:var(--line2);color:var(--text2)}
+.btn.ghost:active{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
+.btn.danger{background:var(--surface);border-color:var(--badB);color:var(--bad)}
+.btn.danger:active{background:var(--badS);border-color:var(--bad)}
 .btn.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
-.btn.ok:active{filter:brightness(.94)}
 .btn.sm{padding:9px 14px;font-size:.78rem;border-radius:8px;width:auto;margin:0;min-height:36px}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 
-/* File upload label (iOS-safe replacement for display:none) */
-.file-pick{
-  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  overflow:hidden;
-}
-.file-pick input[type=file]{
-  position:absolute;left:0;top:0;width:100%;height:100%;
-  opacity:0;cursor:pointer;font-size:100px;padding:0;border:none;
-}
+/* SHELL */
+.tb{position:sticky;top:0;z-index:40;display:flex;align-items:center;
+justify-content:space-between;padding:10px 16px;
+padding-top:calc(10px + env(safe-area-inset-top));
+background:var(--headS);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+border-bottom:1px solid var(--line);gap:10px}
+.tb .brand{font-weight:700;display:flex;align-items:center;gap:8px;font-size:.9rem}
+.tr{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.chip{background:var(--primaryS);border:1px solid var(--primaryS);color:var(--primaryD);
+padding:6px 11px;border-radius:999px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.co{max-width:1180px;margin:0 auto;padding:22px 16px 60px;
+padding-bottom:calc(60px + env(safe-area-inset-bottom))}
+.pt{font-size:1.35rem;font-weight:800;letter-spacing:-.5px;line-height:1.25}
+.ps{color:var(--muted);font-size:.84rem;margin-top:4px}
 
-/* ============ APP SHELL ============ */
-.topbar{
-  position:-webkit-sticky;position:sticky;top:0;z-index:40;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 16px;padding-top:calc(10px + var(--safe-top));
-  background:var(--header-bg-strong);
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);gap:10px;flex-wrap:nowrap;
-}
-.brand{font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:8px;font-size:.9rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.topbar-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.chip{
-  background:var(--primary-soft);border:1px solid var(--primary-soft);color:var(--primary-dark);
-  padding:6px 11px;border-radius:999px;font-size:.74rem;font-weight:700;letter-spacing:.3px;white-space:nowrap;
-}
-.container{max-width:1180px;margin:0 auto;padding:22px 16px 60px;padding-bottom:calc(60px + var(--safe-bottom))}
-.page-title{font-size:1.35rem;font-weight:800;letter-spacing:-.5px;color:var(--text);line-height:1.25}
-.page-sub{color:var(--muted);font-size:.84rem;margin-top:4px}
+/* THEME PICKER */
+.tp{position:relative}
+.tt{display:flex;align-items:center;gap:6px;background:var(--surface);
+border:1px solid var(--line2);color:var(--text2);font-size:.78rem;font-weight:600;
+padding:8px 11px;border-radius:9px;cursor:pointer;min-height:36px}
+.tt:active{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
+.tt .sw{width:14px;height:14px;border-radius:50%;
+background:linear-gradient(135deg,var(--primary),var(--accent));flex-shrink:0}
+.tt .tl{display:none}
+@media(min-width:520px){.tt .tl{display:inline}}
+.tpop{position:absolute;top:calc(100% + 8px);right:0;z-index:60;
+background:var(--surface);border:1px solid var(--line);border-radius:14px;
+box-shadow:0 18px 44px -18px var(--shX);padding:8px;min-width:190px;display:none}
+.tpop.open{display:block}
+.tpop-t{font-size:.68rem;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);
+font-weight:700;padding:8px 10px 6px}
+.topt{display:flex;align-items:center;gap:10px;width:100%;background:transparent;
+border:none;font-size:.86rem;color:var(--text2);padding:10px;border-radius:8px;
+cursor:pointer;text-align:left;min-height:42px}
+.topt:active{background:var(--surface2);color:var(--text)}
+.topt.active{background:var(--primaryS);color:var(--primary);font-weight:600}
+.topt .dot{width:18px;height:18px;border-radius:50%;flex-shrink:0}
+.topt .ck{margin-left:auto;opacity:0;color:var(--primary);font-weight:700}
+.topt.active .ck{opacity:1}
 
-/* ============ THEME PICKER ============ */
-.theme-picker{position:relative}
-.theme-trigger{
-  display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line-strong);
-  color:var(--text-2);font-family:inherit;font-size:.78rem;font-weight:600;
-  padding:8px 11px;border-radius:9px;cursor:pointer;transition:.18s;min-height:36px;
-}
-.theme-trigger:active{border-color:var(--primary);color:var(--primary);background:var(--primary-soft)}
-.theme-trigger .swatch{
-  width:14px;height:14px;border-radius:50%;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);flex-shrink:0;
-}
-.theme-trigger .theme-label{display:none}
-@media(min-width:520px){.theme-trigger .theme-label{display:inline}}
-.theme-popover{
-  position:absolute;top:calc(100% + 8px);right:0;z-index:60;
-  background:var(--surface);border:1px solid var(--line);border-radius:14px;
-  box-shadow:var(--shadow-lg);padding:8px;min-width:190px;display:none;
-}
-.theme-popover.open{display:block;animation:pop .18s ease}
-.theme-popover-title{
-  font-size:.68rem;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);
-  font-weight:700;padding:8px 10px 6px;
-}
-.theme-opt{
-  display:flex;align-items:center;gap:10px;width:100%;
-  background:transparent;border:none;font-family:inherit;font-size:.86rem;
-  color:var(--text-2);padding:10px;border-radius:8px;cursor:pointer;
-  text-align:left;transition:.15s;min-height:42px;
-}
-.theme-opt:active{background:var(--surface-2);color:var(--text)}
-.theme-opt.active{background:var(--primary-soft);color:var(--primary);font-weight:600}
-.theme-opt .dot{width:18px;height:18px;border-radius:50%;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
-.theme-opt .check{margin-left:auto;opacity:0;color:var(--primary);font-weight:700}
-.theme-opt.active .check{opacity:1}
+/* STATS */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
+.st{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+padding:16px;box-shadow:0 1px 2px var(--sh)}
+.stn{font-size:1.65rem;font-weight:800;letter-spacing:-1.2px;line-height:1}
+.stl{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;
+margin-top:8px;font-weight:700}
+.st.ok .stn{color:var(--ok)}
+.st.warn .stn{color:var(--warn)}
+.st.acc .stn{background:linear-gradient(100deg,var(--primary),var(--accent));
+-webkit-background-clip:text;background-clip:text;color:transparent}
+.pg{height:9px;background:var(--track);border-radius:999px;overflow:hidden;margin-bottom:22px}
+.pgf{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));
+border-radius:999px;transition:width .6s}
 
-/* ============ STATS ============ */
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-sm)}
-.stat-num{font-size:1.65rem;font-weight:800;letter-spacing:-1.2px;line-height:1;color:var(--text)}
-.stat-lbl{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;margin-top:8px;font-weight:700}
-.stat.ok .stat-num{color:var(--ok)}
-.stat.warn .stat-num{color:var(--warn)}
-.stat.accent .stat-num{
-  background:linear-gradient(100deg,var(--primary),var(--accent));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.progress{height:9px;background:var(--progress-track);border-radius:999px;overflow:hidden;margin-bottom:22px;box-shadow:inset 0 1px 2px var(--shadow-tint)}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
-
-/* ============ TABS (horizontal scroll on mobile) ============ */
-.tabs{
-  display:flex;gap:8px;margin:18px -16px 18px;padding:0 16px 4px;
-  overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x proximity;
-}
+/* TABS */
+.tabs{display:flex;gap:8px;margin:18px -16px;padding:0 16px 4px;
+overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{
-  background:var(--surface);border:1px solid var(--line);color:var(--muted);
-  font-family:inherit;padding:9px 15px;border-radius:999px;font-size:.8rem;font-weight:600;
-  cursor:pointer;transition:.18s;white-space:nowrap;flex-shrink:0;min-height:38px;scroll-snap-align:start;
-}
-.tab:active{transform:scale(.97)}
-.tab.active{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 4px 12px -4px var(--primary-glow)}
+.tab{background:var(--surface);border:1px solid var(--line);color:var(--muted);
+padding:9px 15px;border-radius:999px;font-size:.8rem;font-weight:600;
+cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:38px}
+.tab.active{background:var(--primary);border-color:var(--primary);color:#fff}
 
-/* ============ PANELS ============ */
-.panel{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:18px;margin-bottom:14px;box-shadow:var(--shadow-sm);
-}
-.panel h3{font-size:1rem;font-weight:700;letter-spacing:-.2px;margin-bottom:4px}
-.panel .panel-sub{color:var(--muted);font-size:.8rem;margin-bottom:14px;line-height:1.55}
+/* PANELS */
+.pn{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+padding:18px;margin-bottom:14px;box-shadow:0 1px 2px var(--sh)}
+.pn h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+.pn .psub{color:var(--muted);font-size:.8rem;margin-bottom:14px;line-height:1.55}
 
-/* ============ SUBJECT CARDS ============ */
-.subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:18px}
-.subj-card{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-sm);
-}
-.subj-card.done{border-color:var(--ok-border)}
-.sc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.sc-head h4{font-size:.98rem;font-weight:700;line-height:1.35;color:var(--text)}
-.topic{font-size:.82rem;color:var(--muted);line-height:1.55}
-.topic b{color:var(--text-2);font-weight:600}
-.badge{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:5px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0}
-.badge.ok{background:var(--ok-soft);color:var(--ok);border:1px solid var(--ok-border)}
-.badge.pending{background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn-border)}
-.file-info{
-  font-size:.75rem;color:var(--muted);background:var(--surface-2);
-  border:1px solid var(--line);border-radius:9px;padding:10px 12px;
-  word-break:break-word;line-height:1.7;
-}
-.file-info b{color:var(--text-2)}
-.sc-actions{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;padding-top:4px}
-.sc-actions .btn{flex:1;min-width:100px}
+/* SUBJECT CARDS */
+.sgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:18px}
+.sc{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px var(--sh)}
+.sc.done{border-color:var(--okB)}
+.sch{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.sch h4{font-size:.98rem;font-weight:700;line-height:1.35}
+.tpc{font-size:.82rem;color:var(--muted);line-height:1.55}
+.tpc b{color:var(--text2);font-weight:600}
+.bg{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+padding:5px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.bg.ok{background:var(--okS);color:var(--ok);border:1px solid var(--okB)}
+.bg.pd{background:var(--warnS);color:var(--warn);border:1px solid var(--warnB)}
+.fi{font-size:.75rem;color:var(--muted);background:var(--surface2);
+border:1px solid var(--line);border-radius:9px;padding:10px 12px;word-break:break-word;line-height:1.7}
+.fi b{color:var(--text2)}
+.sa{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;padding-top:4px}
+.sa .btn{flex:1;min-width:100px}
 
-/* ============ MINI STATS ============ */
-.mini-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.mini-stat{
-  background:var(--surface);border:1px solid var(--line);border-radius:12px;
-  padding:12px 16px;display:flex;flex-direction:column;gap:3px;min-width:100px;
-  box-shadow:var(--shadow-sm);flex:1 1 auto;
-}
-.mini-stat b{font-size:1.2rem;letter-spacing:-.6px}
-.mini-stat span{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
+/* MINI STATS */
+.ms{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.mst{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+padding:12px 16px;display:flex;flex-direction:column;gap:3px;min-width:100px;flex:1}
+.mst b{font-size:1.2rem;letter-spacing:-.6px}
+.mst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;
+letter-spacing:.8px;font-weight:700}
 
-/* ============ TABLE ============ */
-.table-wrap{
-  overflow-x:auto;-webkit-overflow-scrolling:touch;
-  border:1px solid var(--line);border-radius:var(--radius);
-  background:var(--surface);box-shadow:var(--shadow-sm);
-}
+/* TABLE */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);
+border-radius:14px;background:var(--surface)}
 table{width:100%;border-collapse:collapse;font-size:.83rem;min-width:720px}
-thead th{
-  text-align:left;padding:12px;background:var(--surface-2);color:var(--muted);
-  font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;font-weight:700;
-  border-bottom:1px solid var(--line);white-space:nowrap;
-}
-tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle;color:var(--text-2)}
+thead th{text-align:left;padding:12px;background:var(--surface2);color:var(--muted);
+font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;font-weight:700;
+border-bottom:1px solid var(--line);white-space:nowrap}
+tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle;color:var(--text2)}
 tbody tr:last-child td{border-bottom:none}
-.roll-badge{
-  display:inline-block;background:var(--primary-soft);border:1px solid var(--primary-soft);
-  color:var(--primary-dark);border-radius:8px;padding:5px 11px;
-  font-weight:700;letter-spacing:1.1px;font-size:.8rem;
-}
-.row-actions{display:flex;gap:6px;flex-wrap:wrap}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-.toolbar .inp,.toolbar select{max-width:100%;flex:1 1 200px;min-width:0}
+.rb{display:inline-block;background:var(--primaryS);border:1px solid var(--primaryS);
+color:var(--primaryD);border-radius:8px;padding:5px 11px;font-weight:700;
+letter-spacing:1.1px;font-size:.8rem}
+.ra{display:flex;gap:6px;flex-wrap:wrap}
+.tbr{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tbr .inp,.tbr select{max-width:100%;flex:1 1 200px;min-width:0}
 
-/* ============ LISTS ============ */
-.list-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.list-card{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--surface-2)}
-.list-card.ok{border-color:var(--ok-border)}
-.list-card.pending{border-color:var(--warn-border)}
-.list-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.list-head b{font-size:.88rem;font-weight:700}
-.list-head .count{
-  font-size:.72rem;font-weight:700;color:var(--muted);
-  background:var(--surface);border:1px solid var(--line);border-radius:999px;
-  padding:3px 9px;margin-left:6px;
-}
-.list-card.ok .count{color:var(--ok);border-color:var(--ok-border);background:var(--ok-soft)}
-.list-card.pending .count{color:var(--warn);border-color:var(--warn-border);background:var(--warn-soft)}
-.list-area{
-  width:100%;min-height:110px;max-height:200px;resize:vertical;
-  background:var(--surface);border:1px solid var(--line);border-radius:10px;
-  padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:16px;line-height:1.85;color:var(--text-2);
-  white-space:pre-wrap;word-break:break-word;overflow-y:auto;
-  -webkit-overflow-scrolling:touch;-webkit-appearance:none;appearance:none;
-}
-.list-area:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
-.wa-box{
-  background:var(--wa-bg);border:1px solid var(--wa-border);border-radius:12px;
-  padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:.82rem;line-height:1.85;color:var(--wa-text);white-space:pre-wrap;
-  word-break:break-word;max-height:240px;overflow-y:auto;margin-top:6px;
-  -webkit-overflow-scrolling:touch;
-}
-.copy-row{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
-@media(max-width:760px){.list-grid{grid-template-columns:1fr}}
+/* LISTS */
+.lg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lc{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--surface2)}
+.lc.ok{border-color:var(--okB)}
+.lc.pd{border-color:var(--warnB)}
+.lh2{display:flex;justify-content:space-between;align-items:center;gap:8px;
+margin-bottom:10px;flex-wrap:wrap}
+.lh2 b{font-size:.88rem;font-weight:700}
+.lh2 .cnt{font-size:.72rem;font-weight:700;color:var(--muted);
+background:var(--surface);border:1px solid var(--line);border-radius:999px;
+padding:3px 9px;margin-left:6px}
+.lc.ok .cnt{color:var(--ok);border-color:var(--okB);background:var(--okS)}
+.lc.pd .cnt{color:var(--warn);border-color:var(--warnB);background:var(--warnS)}
+.la{width:100%;min-height:110px;max-height:200px;resize:vertical;
+background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;
+font-family:ui-monospace,Menlo,monospace;font-size:16px;line-height:1.85;
+color:var(--text2);white-space:pre-wrap;word-break:break-word;overflow-y:auto}
+.la:focus{outline:none;border-color:var(--primary)}
+.wb{background:var(--waBg);border:1px solid var(--waBd);border-radius:12px;
+padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;
+line-height:1.85;color:var(--waTx);white-space:pre-wrap;word-break:break-word;
+max-height:240px;overflow-y:auto;margin-top:6px}
+.cr2{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
+@media(max-width:760px){.lg{grid-template-columns:1fr}}
 
-/* ============ ZIP EXPORT ============ */
-.zip-hero{
-  background:linear-gradient(135deg,var(--primary) 0%,var(--accent) 100%);
-  color:#fff;border-radius:var(--radius);padding:22px;margin-bottom:14px;
-  box-shadow:0 18px 40px -16px var(--primary-glow);
-}
-.zip-hero h2{font-size:1.2rem;font-weight:800;letter-spacing:-.4px;margin-bottom:8px}
-.zip-hero p{font-size:.85rem;opacity:.92;line-height:1.65;max-width:640px}
-.zip-tree{
-  background:var(--surface-2);border:1px solid var(--line);border-radius:12px;
-  padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:.76rem;line-height:1.8;color:var(--text-2);white-space:pre;
-  overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:8px;
-}
-.zip-tree b{color:var(--primary-dark);font-weight:600}
-.zip-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
-.zip-stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:3px}
-.zip-stat b{font-size:1.3rem;font-weight:800;letter-spacing:-.8px;color:var(--text)}
-.zip-stat span{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
-.zip-progress{margin-top:14px;height:8px;background:var(--progress-track);border-radius:999px;overflow:hidden;display:none}
-.zip-progress.show{display:block}
-.zip-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;transition:width .3s}
-.zip-status{margin-top:10px;font-size:.8rem;color:var(--muted);min-height:18px;line-height:1.5}
-.zip-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.zip-actions .btn{flex:1 1 200px;margin:0}
-.mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 16px}
-.mode-card{
-  background:var(--surface-2);border:2px solid var(--line);border-radius:12px;
-  padding:14px;cursor:pointer;transition:.18s;font-family:inherit;text-align:left;
-  color:var(--text-2);min-height:80px;font-size:inherit;
-}
-.mode-card:active{transform:scale(.99)}
-.mode-card.active{border-color:var(--primary);background:var(--primary-soft)}
-.mode-card .mode-title{font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.mode-card .mode-desc{font-size:.74rem;color:var(--muted);line-height:1.5}
-.mode-card .mode-tick{
-  width:16px;height:16px;border-radius:50%;border:2px solid var(--line-strong);
-  display:inline-grid;place-items:center;flex-shrink:0;
-}
-.mode-card.active .mode-tick{border-color:var(--primary);background:var(--primary)}
-.mode-card.active .mode-tick::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
-@media(max-width:600px){.mode-cards{grid-template-columns:1fr}}
+/* ZIP */
+.zh{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;
+border-radius:14px;padding:22px;margin-bottom:14px;box-shadow:0 18px 40px -16px var(--glow)}
+.zh h2{font-size:1.2rem;font-weight:800;margin-bottom:8px}
+.zh p{font-size:.85rem;opacity:.92;line-height:1.65}
+.zt{background:var(--surface2);border:1px solid var(--line);border-radius:12px;
+padding:14px 16px;font-family:ui-monospace,Menlo,monospace;font-size:.76rem;
+line-height:1.8;color:var(--text2);white-space:pre;overflow-x:auto;margin-top:8px}
+.zt b{color:var(--primaryD);font-weight:600}
+.zs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.zst{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+.zst b{font-size:1.3rem;font-weight:800;letter-spacing:-.8px}
+.zst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;
+letter-spacing:.8px;font-weight:700}
+.zpg{margin-top:14px;height:8px;background:var(--track);border-radius:999px;
+overflow:hidden;display:none}
+.zpg.show{display:block}
+.zpg span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));
+border-radius:999px;transition:width .3s}
+.zst2{margin-top:10px;font-size:.8rem;color:var(--muted);min-height:18px;line-height:1.5}
+.za{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.za .btn{flex:1 1 200px;margin:0}
+.mc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 16px}
+.mcard{background:var(--surface2);border:2px solid var(--line);border-radius:12px;
+padding:14px;cursor:pointer;text-align:left;color:var(--text2);min-height:80px;font-size:inherit}
+.mcard.active{border-color:var(--primary);background:var(--primaryS)}
+.mcard .mt{font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:4px;
+display:flex;align-items:center;gap:8px}
+.mcard .md{font-size:.74rem;color:var(--muted);line-height:1.5}
+.mcard .mk{width:16px;height:16px;border-radius:50%;border:2px solid var(--line2);
+display:inline-grid;place-items:center;flex-shrink:0}
+.mcard.active .mk{border-color:var(--primary);background:var(--primary)}
+.mcard.active .mk::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+@media(max-width:600px){.mc{grid-template-columns:1fr}}
 
-/* ============ SUBJECT EDITOR ============ */
-.subj-row{
-  display:grid;grid-template-columns:1.1fr 1.3fr auto;gap:10px;align-items:center;
-  padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);margin-bottom:10px;
+/* PER-SUBJECT DOWNLOAD CARDS */
+.subj-dl-list{display:flex;flex-direction:column;gap:10px}
+.subj-dl-row{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 14px;border:1px solid var(--line);border-radius:12px;
+  background:var(--surface2);flex-wrap:wrap;
 }
-.subj-row .lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:4px;font-weight:700}
-.add-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:16px}
+.subj-dl-info{flex:1;min-width:180px}
+.subj-dl-name{font-weight:600;color:var(--text);font-size:.9rem;margin-bottom:4px}
+.subj-dl-meta{display:flex;gap:12px;flex-wrap:wrap}
+.ok-tag{font-size:.72rem;color:var(--ok);font-weight:600}
+.pd-tag{font-size:.72rem;color:var(--warn);font-weight:600}
+.subj-dl-btns{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:520px){
+  .subj-dl-btns{width:100%}
+  .subj-dl-btns .btn{flex:1}
+}
+
+/* SUBJECT EDITOR */
+.sr{display:grid;grid-template-columns:1.1fr 1.3fr auto;gap:10px;align-items:center;
+padding:12px;border:1px solid var(--line);border-radius:12px;
+background:var(--surface2);margin-bottom:10px}
+.sr .lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;
+letter-spacing:.7px;display:block;margin-bottom:4px;font-weight:700}
+.ar{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:16px}
 .empty{text-align:center;color:var(--muted);padding:30px 14px;font-size:.86rem}
 
-/* ============ CR MANAGEMENT ============ */
-.cr-item{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:12px 14px;border:1px solid var(--line);border-radius:12px;
-  background:var(--surface-2);margin-bottom:8px;flex-wrap:wrap;
-}
-.cr-item .cr-info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.cr-item .cr-tag{
-  background:var(--primary-soft);color:var(--primary-dark);border:1px solid var(--primary-soft);
-  font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
-  padding:3px 9px;border-radius:999px;
-}
-.cr-item .cr-you{
-  background:var(--ok-soft);color:var(--ok);border:1px solid var(--ok-border);
-  font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
-  padding:3px 9px;border-radius:999px;
-}
-.cr-add-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:14px}
+/* CR */
+.cri{display:flex;align-items:center;justify-content:space-between;gap:10px;
+padding:12px 14px;border:1px solid var(--line);border-radius:12px;
+background:var(--surface2);margin-bottom:8px;flex-wrap:wrap}
+.cri .info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag2{background:var(--primaryS);color:var(--primaryD);border:1px solid var(--primaryS);
+font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
+padding:3px 9px;border-radius:999px}
+.you{background:var(--okS);color:var(--ok);border:1px solid var(--okB);
+font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
+padding:3px 9px;border-radius:999px}
+.cr2r{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:14px}
 
-/* ============ PER-SUBJECT BARS ============ */
-.bar-row{margin-bottom:16px}
-.bar-top{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:7px;gap:10px;color:var(--text-2);flex-wrap:wrap}
-.bar-top .n{color:var(--muted);font-size:.76rem;white-space:nowrap;font-weight:600}
-.bar{height:8px;background:var(--progress-track);border-radius:999px;overflow:hidden}
-.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;transition:width .5s}
+/* BARS */
+.br{margin-bottom:16px}
+.brt{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:7px;
+gap:10px;flex-wrap:wrap}
+.brt .n{color:var(--muted);font-size:.76rem;white-space:nowrap;font-weight:600}
+.bar{height:8px;background:var(--track);border-radius:999px;overflow:hidden}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));
+border-radius:999px;transition:width .5s}
 
-/* ============ MODAL ============ */
-.modal-backdrop{
-  position:fixed;inset:0;background:var(--modal-bg);
-  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-  display:none;align-items:center;justify-content:center;padding:16px;z-index:100;
-  padding-top:calc(16px + var(--safe-top));
-  padding-bottom:calc(16px + var(--safe-bottom));
-}
-.modal-backdrop.open{display:flex}
-.modal{
-  width:100%;max-width:460px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
-  background:var(--surface);border:1px solid var(--line);border-radius:18px;
-  padding:22px;box-shadow:0 30px 70px -20px var(--shadow-color);
-  animation:pop .2s ease;
-}
-@keyframes pop{from{opacity:0;transform:scale(.97) translateY(8px)}to{opacity:1;transform:none}}
-.modal h3{font-size:1.1rem;font-weight:700;letter-spacing:-.3px;margin-bottom:5px}
-.modal .sub{color:var(--muted);font-size:.8rem;margin-bottom:6px}
-.modal-actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
-.modal-actions .btn{flex:1 1 120px;margin:0}
+/* MODAL */
+.mbd{position:fixed;inset:0;background:var(--modal);
+-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:none;
+align-items:center;justify-content:center;padding:16px;z-index:100;
+padding-top:calc(16px + env(safe-area-inset-top));
+padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+.mbd.open{display:flex}
+.mdl{width:100%;max-width:460px;max-height:calc(100vh - 32px);
+max-height:calc(100dvh - 32px);overflow-y:auto;-webkit-overflow-scrolling:touch;
+background:var(--surface);border:1px solid var(--line);border-radius:18px;
+padding:22px;box-shadow:0 30px 70px -20px var(--shX)}
+.mdl h3{font-size:1.1rem;font-weight:700;margin-bottom:5px}
+.mdl .sub{color:var(--muted);font-size:.8rem;margin-bottom:6px}
+.ma{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.ma .btn{flex:1 1 120px;margin:0}
+.fs{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;
+background:var(--surface2);border:1.5px dashed var(--line2);color:var(--muted);
+padding:14px;border-radius:10px;font-size:.85rem;cursor:pointer;min-height:52px;text-align:center}
+.fs:active{border-color:var(--primary);background:var(--primaryS)}
+.fs input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;
+opacity:0;cursor:pointer;font-size:100px;padding:0;border:none;margin:0}
+.fpick{position:relative;overflow:hidden;display:inline-flex;align-items:center;
+justify-content:center;gap:6px}
+.fpick input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;
+opacity:0;cursor:pointer;font-size:100px;padding:0;border:none}
 
-/* File input styling (works on iOS because of position pattern) */
-.file-slot{
-  position:relative;display:flex;align-items:center;justify-content:center;gap:8px;
-  background:var(--surface-2);border:1.5px dashed var(--line-strong);
-  color:var(--muted);padding:14px;border-radius:10px;font-size:.85rem;
-  cursor:pointer;transition:.18s;min-height:52px;text-align:center;
-}
-.file-slot:active{border-color:var(--primary);background:var(--primary-soft)}
-.file-slot input[type=file]{
-  position:absolute;left:0;top:0;width:100%;height:100%;
-  opacity:0;cursor:pointer;font-size:100px;padding:0;border:none;margin:0;
-}
-.file-slot .file-icon{font-size:1.1rem}
+.fn{text-align:center;color:var(--muted);font-size:.74rem;
+padding:22px 16px calc(30px + env(safe-area-inset-bottom));
+line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(--surface)}
 
-.footer-note{
-  text-align:center;color:var(--muted);font-size:.74rem;
-  padding:22px 16px calc(30px + var(--safe-bottom));
-  line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(--surface);
-}
-
-/* ============ MOBILE BREAKPOINTS ============ */
 @media(max-width:640px){
-  .subj-row,.add-row{grid-template-columns:1fr}
-  .subj-row .btn{width:100%}
-  .add-row .btn{width:100%}
-  .cr-add-row{grid-template-columns:1fr}
-  .cr-add-row .btn{width:100%}
-  .topbar{padding:10px 12px;padding-top:calc(10px + var(--safe-top))}
-  .brand{font-size:.86rem}
-  .brand-mark{min-width:28px;height:28px;font-size:.62rem}
-  .chip{font-size:.7rem;padding:5px 10px}
-  .theme-trigger{padding:7px 9px}
-  .page-title{font-size:1.2rem}
-  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .stat{padding:14px}
-  .stat-num{font-size:1.4rem}
-  .panel{padding:16px}
-  .zip-tree{font-size:.68rem;padding:12px}
-  .modal{padding:18px}
-  .modal-actions{flex-direction:column-reverse}
-  .modal-actions .btn{width:100%}
-  .copy-row{justify-content:stretch}
-  .copy-row .btn{width:100%}
-  .zip-actions .btn{flex:1 1 100%}
+.sr,.ar,.cr2r{grid-template-columns:1fr}
+.sr .btn,.ar .btn,.cr2r .btn{width:100%}
+.tb{padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top))}
+.bmark{min-width:28px;height:28px;font-size:.62rem}
+.sg{grid-template-columns:repeat(2,1fr);gap:10px}
+.st{padding:14px}.stn{font-size:1.4rem}
+.pn{padding:16px}.mdl{padding:18px}
+.ma{flex-direction:column-reverse}.ma .btn{width:100%}
+.cr2{justify-content:stretch}.cr2 .btn{width:100%}
+.za .btn{flex:1 1 100%}
 }
 @media(max-width:400px){
-  .hero h1{font-size:1.7rem}
-  .login-cards{grid-template-columns:1fr}
-  .landing-foot{font-size:.72rem;padding:12px 16px}
-  .brand span:not(.brand-mark){display:none}
-  .stat-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-height:500px) and (orientation:landscape){
-  .hero{padding:20px 18px 40px}
-  .logo-badge{width:52px;height:52px;font-size:15px;margin-bottom:12px}
-  .hero h1{font-size:1.6rem}
-  .tagline{margin-top:8px;font-size:.85rem}
-  .login-cards{margin-top:20px;gap:10px}
-  .login-card{padding:18px 14px}
-  .lc-icon{width:40px;height:40px;font-size:18px;margin-bottom:10px}
-  .landing-foot{margin-top:16px;padding:10px 16px}
+.hero h1{font-size:1.7rem}
+.cards{grid-template-columns:1fr}
+.brand span:not(.bmark){display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- ================= LANDING ================= -->
-<section class="view active" id="view-landing">
-  <header class="landing-header">
-    <div class="brand"><span class="brand-mark">DSF</span> <span>DS-F</span></div>
-    <div class="hint-text">451 – 546 · 96 students</div>
+<!-- LANDING -->
+<section class="view active" id="v-landing">
+  <header class="lh">
+    <div class="brand"><span class="bmark">DSF</span><span>DS-F</span></div>
+    <div class="hint">451 – 546 · 96 students</div>
   </header>
-
   <div class="hero">
-    <div class="logo-badge">DS-F</div>
+    <div class="logo">DS-F</div>
     <h1>Welcome to <span>DS-F</span></h1>
-    <p class="tagline">One place for the whole class to submit PPTs, track pending work and stay organised.</p>
-
-    <div class="login-cards">
-      <button type="button" class="login-card" onclick="show('view-student-login')">
-        <div class="lc-icon">🎓</div>
-        <h3>Student Login</h3>
-        <p>Roll numbers 451 – 546</p>
+    <p class="tag">One place for the whole class to submit PPTs, track pending work and stay organised.</p>
+    <div class="cards">
+      <button type="button" class="card" onclick="show('v-slogin')">
+        <div class="ci">🎓</div><h3>Student Login</h3><p>Roll numbers 451 – 546</p>
       </button>
-      <button type="button" class="login-card cr" onclick="show('view-cr-login')">
-        <div class="lc-icon">🛡️</div>
-        <h3>CR Login</h3>
-        <p>Class Representative access</p>
+      <button type="button" class="card cr" onclick="show('v-clogin')">
+        <div class="ci">🛡️</div><h3>CR Login</h3><p>Class Representative access</p>
       </button>
     </div>
-
-    <div class="landing-foot" id="landing-foot">
-      Total students: <b>96</b> &nbsp;•&nbsp; Roll numbers <b>451</b> to <b>546</b><br>
+    <div class="lf" id="lf">
+      Total students: <b>96</b> • Roll numbers <b>451</b> to <b>546</b><br>
       Only the last 3 digits of the roll number are used everywhere.
-      <span id="landing-cr-email"></span>
+      <span id="lfEmail"></span>
     </div>
   </div>
 </section>
 
-<!-- ================= STUDENT LOGIN ================= -->
-<section class="view" id="view-student-login">
-  <div class="auth-wrap">
-    <button type="button" class="back" onclick="show('view-landing')">← Back to home</button>
-    <div class="auth-card">
+<!-- STUDENT LOGIN -->
+<section class="view" id="v-slogin">
+  <div class="aw">
+    <button type="button" class="bk" onclick="show('v-landing')">← Back to home</button>
+    <div class="ac">
       <h2>Student Login</h2>
       <p class="sub">Enter the last 3 digits of your roll number.</p>
-
-      <label for="s-roll">Roll Number</label>
-      <div class="roll-input">
-        <span class="prefix">25MVCSDR0</span>
-        <input id="s-roll" type="text" inputmode="numeric" pattern="[0-9]*"
-               maxlength="3" placeholder="451" autocomplete="off"
-               autocapitalize="off" autocorrect="off" spellcheck="false">
+      <label for="sRoll">Roll Number</label>
+      <div class="ri"><span class="px">25MVCSDR0</span>
+        <input id="sRoll" type="text" inputmode="numeric" maxlength="3" placeholder="451" autocomplete="off">
       </div>
       <div class="hint">Range: 451 – 546</div>
-
-      <label for="s-pass">Password</label>
-      <input id="s-pass" type="password" placeholder="Your roll number"
-             autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <label for="sPass">Password</label>
+      <input id="sPass" type="password" placeholder="Your roll number" autocomplete="off">
       <div class="hint">Your password is your own roll number — e.g. <b>451</b></div>
-
-      <div class="err" id="s-err"></div>
+      <div class="err" id="sErr"></div>
       <button type="button" class="btn primary" onclick="studentLogin()">Login →</button>
     </div>
   </div>
 </section>
 
-<!-- ================= CR LOGIN ================= -->
-<section class="view" id="view-cr-login">
-  <div class="auth-wrap">
-    <button type="button" class="back" onclick="show('view-landing')">← Back to home</button>
-    <div class="auth-card">
+<!-- CR LOGIN -->
+<section class="view" id="v-clogin">
+  <div class="aw">
+    <button type="button" class="bk" onclick="show('v-landing')">← Back to home</button>
+    <div class="ac">
       <h2>CR Login</h2>
       <p class="sub">Class Representative access only.</p>
-
-      <label for="c-roll">CR Roll Number</label>
-      <div class="roll-input">
-        <span class="prefix">25MVCSDR0</span>
-        <input id="c-roll" type="text" inputmode="numeric" pattern="[0-9]*"
-               maxlength="3" placeholder="451" autocomplete="off"
-               autocapitalize="off" autocorrect="off" spellcheck="false">
+      <label for="cRoll">CR Roll Number</label>
+      <div class="ri"><span class="px">25MVCSDR0</span>
+        <input id="cRoll" type="text" inputmode="numeric" maxlength="3" placeholder="451" autocomplete="off">
       </div>
-
-      <label for="c-pass">Password</label>
-      <input id="c-pass" type="password" placeholder="Enter password"
-             autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
-
-      <div class="err" id="c-err"></div>
+      <label for="cPass">Password</label>
+      <input id="cPass" type="password" placeholder="Enter password" autocomplete="off">
+      <div class="err" id="cErr"></div>
       <button type="button" class="btn primary" onclick="crLogin()">Login →</button>
     </div>
   </div>
 </section>
 
-<!-- ================= STUDENT DASHBOARD ================= -->
-<section class="view" id="view-student">
-  <header class="topbar">
-    <div class="brand"><span class="brand-mark">DSF</span> <span>DS-F</span></div>
-    <div class="topbar-right">
-      <span class="chip" id="s-chip">—</span>
-      <div class="theme-picker">
-        <button type="button" class="theme-trigger" onclick="toggleThemePopover(event,'theme-pop-student')" aria-label="Change theme">
-          <span class="swatch"></span>
-          <span class="theme-label">Classic</span>
+<!-- STUDENT DASHBOARD -->
+<section class="view" id="v-student">
+  <header class="tb">
+    <div class="brand"><span class="bmark">DSF</span><span>DS-F</span></div>
+    <div class="tr">
+      <span class="chip" id="sChip">—</span>
+      <div class="tp">
+        <button type="button" class="tt" onclick="toggleTheme(event,'tpopS')" aria-label="Theme">
+          <span class="sw"></span><span class="tl">Classic</span>
         </button>
-        <div class="theme-popover" id="theme-pop-student">
-          <div class="theme-popover-title">Theme</div>
-        </div>
+        <div class="tpop" id="tpopS"><div class="tpop-t">Theme</div></div>
       </div>
       <button type="button" class="btn ghost sm" onclick="logout()">Logout</button>
     </div>
   </header>
-  <div class="container">
-    <div class="page-title" id="s-classname">—</div>
-    <div class="page-sub" id="s-rollline">—</div>
-    <div class="mini-stats" id="s-stats"></div>
-    <div class="subj-grid" id="s-subjects"></div>
+  <div class="co">
+    <div class="pt" id="sClass">—</div>
+    <div class="ps" id="sLine">—</div>
+    <div class="ms" id="sStats"></div>
+    <div class="sgr" id="sSubjects"></div>
   </div>
 </section>
 
-<!-- ================= CR DASHBOARD ================= -->
-<section class="view" id="view-cr">
-  <header class="topbar">
-    <div class="brand"><span class="brand-mark">DSF</span> <span>DS-F · CR</span></div>
-    <div class="topbar-right">
-      <span class="chip" id="cr-chip">CR 451</span>
-      <div class="theme-picker">
-        <button type="button" class="theme-trigger" onclick="toggleThemePopover(event,'theme-pop-cr')" aria-label="Change theme">
-          <span class="swatch"></span>
-          <span class="theme-label">Classic</span>
+<!-- CR DASHBOARD -->
+<section class="view" id="v-cr">
+  <header class="tb">
+    <div class="brand"><span class="bmark">DSF</span><span>DS-F · CR</span></div>
+    <div class="tr">
+      <span class="chip" id="cChip">CR 451</span>
+      <div class="tp">
+        <button type="button" class="tt" onclick="toggleTheme(event,'tpopC')" aria-label="Theme">
+          <span class="sw"></span><span class="tl">Classic</span>
         </button>
-        <div class="theme-popover" id="theme-pop-cr">
-          <div class="theme-popover-title">Theme</div>
-        </div>
+        <div class="tpop" id="tpopC"><div class="tpop-t">Theme</div></div>
       </div>
       <button type="button" class="btn ghost sm" onclick="logout()">Logout</button>
     </div>
   </header>
-  <div class="container">
-    <div class="page-title" id="cr-classname">—</div>
-    <div class="page-sub">Class Representative control panel</div>
-
-    <div class="tabs" id="cr-tabs">
-      <button type="button" class="tab active" data-tab="overview"    onclick="setTab('overview')">📊 Dashboard</button>
-      <button type="button" class="tab"        data-tab="lists"       onclick="setTab('lists')">📋 Lists</button>
-      <button type="button" class="tab"        data-tab="submissions" onclick="setTab('submissions')">📁 Submissions</button>
-      <button type="button" class="tab"        data-tab="subjects"    onclick="setTab('subjects')">📚 Subjects</button>
-      <button type="button" class="tab"        data-tab="downloads"   onclick="setTab('downloads')">📦 Export ZIP</button>
-      <button type="button" class="tab"        data-tab="settings"    onclick="setTab('settings')">⚙️ Settings</button>
+  <div class="co">
+    <div class="pt" id="cClass">—</div>
+    <div class="ps">Class Representative control panel</div>
+    <div class="tabs">
+      <button type="button" class="tab active" data-tab="ov" onclick="setTab('ov')">📊 Dashboard</button>
+      <button type="button" class="tab" data-tab="ls" onclick="setTab('ls')">📋 Lists</button>
+      <button type="button" class="tab" data-tab="sb" onclick="setTab('sb')">📁 Submissions</button>
+      <button type="button" class="tab" data-tab="su" onclick="setTab('su')">📚 Subjects</button>
+      <button type="button" class="tab" data-tab="dl" onclick="setTab('dl')">📦 Export ZIP</button>
+      <button type="button" class="tab" data-tab="st" onclick="setTab('st')">⚙️ Settings</button>
     </div>
-
-    <div id="cr-body"></div>
+    <div id="crBody"></div>
   </div>
 </section>
 
-<!-- ================= MODAL ================= -->
-<div class="modal-backdrop" id="modal">
-  <div class="modal" id="modal-box"></div>
-</div>
+<!-- MODAL -->
+<div class="mbd" id="modal"><div class="mdl" id="modalBox"></div></div>
 
-<div class="footer-note" id="footer-note">
-  DS-F · roll numbers 451–546 · 96 students<br>
-  Data is saved in this browser (localStorage + IndexedDB).
-</div>
+<div class="fn">DS-F · roll numbers 451–546 · 96 students<br>Data is saved in this browser.</div>
 
 <script>
 /* ============================================================
-   SAFE STORAGE (iOS Private Browsing can throw)
-   ============================================================ */
-const store = {
-  ls: {
-    get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
-    set(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } },
-    remove(k){ try{ localStorage.removeItem(k); }catch(e){} }
-  },
-  ss: {
-    get(k){ try{ return sessionStorage.getItem(k); }catch(e){ return null; } },
-    set(k,v){ try{ sessionStorage.setItem(k,v); return true; }catch(e){ return false; } },
-    remove(k){ try{ sessionStorage.removeItem(k); }catch(e){} }
-  }
-};
-
-/* ============================================================
    CONSTANTS
    ============================================================ */
-const PREFIX     = '25MVCSDR';
-const ROLL_START = 451;
-const ROLL_END   = 546;
-const KEY        = 'dsf_state_v2';
-const SESS_KEY   = 'dsf_session';
-const THEME_KEY  = 'dsf_theme';
+var PREFIX = '25MVCSDR';
+var ROLL_START = 451, ROLL_END = 546;
+var KEY = 'dsf_state_v2', SESS_KEY = 'dsf_session', THEME_KEY = 'dsf_theme';
+var CR_PASSWORD = 'SRIDHAR@451';
 
-const ROLLS = [];
-for (let i = ROLL_START; i <= ROLL_END; i++) ROLLS.push(String(i));
-const TOTAL = ROLLS.length;
+var ROLLS = [];
+for (var i = ROLL_START; i <= ROLL_END; i++) ROLLS.push(String(i));
+var TOTAL = ROLLS.length;
 
-const THEMES = [
+var THEMES = [
   { id:'classic',  label:'Classic',  color:'#2563eb' },
   { id:'midnight', label:'Midnight', color:'#5b8cff' },
   { id:'ocean',    label:'Ocean',    color:'#0d9488' },
@@ -913,63 +600,80 @@ const THEMES = [
   { id:'sunset',   label:'Sunset',   color:'#ea580c' }
 ];
 
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-const fullRoll = r => PREFIX + String(r).padStart(4, '0');
-const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
-  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
-const uid = () => Math.random().toString(36).slice(2, 9);
+function fullRoll(r){ return PREFIX + String(r).replace(/^(\d{1,4})$/, function(m){ return m.padStart(4,'0'); }); }
+function esc(s){
+  if (s == null) s = '';
+  return String(s).replace(/[&<>"']/g, function(c){
+    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+  });
+}
+function uid(){ return Math.random().toString(36).slice(2,9); }
+
+/* Safe storage (iOS private mode throws) */
+var LS = {
+  get: function(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set: function(k,v){ try { localStorage.setItem(k,v); return true; } catch(e){ return false; } },
+  rm:  function(k){ try { localStorage.removeItem(k); } catch(e){} }
+};
+var SS = {
+  get: function(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } },
+  set: function(k,v){ try { sessionStorage.setItem(k,v); return true; } catch(e){ return false; } },
+  rm:  function(k){ try { sessionStorage.removeItem(k); } catch(e){} }
+};
 
 /* ============================================================
-   INDEXEDDB — file blobs
+   INDEXEDDB
    ============================================================ */
-const DB_NAME = 'dsf_files_db';
-const STORE   = 'files';
-let dbPromise = null;
-
+var DB_NAME = 'dsf_files_db', STORE = 'files';
+var dbPromise = null;
 function openDB(){
   if (dbPromise) return dbPromise;
-  dbPromise = new Promise((resolve, reject) => {
-    if (!window.indexedDB) { reject(new Error('IndexedDB not supported')); return; }
-    const req = indexedDB.open(DB_NAME, 1);
-    req.onupgradeneeded = e => {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: 'key' });
+  dbPromise = new Promise(function(resolve,reject){
+    if (!window.indexedDB){ reject(new Error('no idb')); return; }
+    var req;
+    try { req = indexedDB.open(DB_NAME,1); } catch(e){ reject(e); return; }
+    req.onupgradeneeded = function(e){
+      var db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE,{keyPath:'key'});
     };
-    req.onsuccess = () => resolve(req.result);
-    req.onerror  = () => reject(req.error);
-  }).catch(err => { dbPromise = null; throw err; });
+    req.onsuccess = function(){ resolve(req.result); };
+    req.onerror = function(){ reject(req.error); };
+  }).catch(function(err){ dbPromise = null; throw err; });
   return dbPromise;
 }
-
 function saveFileBlob(key, blob, meta){
-  return openDB().then(db => new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, 'readwrite');
-    const rec = { key: key, blob: blob };
-    if (meta) for (const k in meta) rec[k] = meta[k];
-    tx.objectStore(STORE).put(rec);
-    tx.oncomplete = () => resolve(true);
-    tx.onerror    = () => reject(tx.error);
-    tx.onabort    = () => reject(tx.error);
-  })).catch(err => { console.warn('saveFileBlob failed', err); return false; });
+  return openDB().then(function(db){
+    return new Promise(function(resolve,reject){
+      var tx = db.transaction(STORE,'readwrite');
+      var rec = { key:key, blob:blob };
+      if (meta) for (var k in meta) rec[k] = meta[k];
+      tx.objectStore(STORE).put(rec);
+      tx.oncomplete = function(){ resolve(true); };
+      tx.onerror = function(){ reject(tx.error); };
+    });
+  }).catch(function(e){ console.warn('saveFileBlob failed',e); return false; });
 }
-
 function deleteFileBlob(key){
-  return openDB().then(db => new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, 'readwrite');
-    tx.objectStore(STORE).delete(key);
-    tx.oncomplete = () => resolve(true);
-    tx.onerror    = () => reject(tx.error);
-  })).catch(() => false);
+  return openDB().then(function(db){
+    return new Promise(function(resolve,reject){
+      var tx = db.transaction(STORE,'readwrite');
+      tx.objectStore(STORE).delete(key);
+      tx.oncomplete = function(){ resolve(true); };
+      tx.onerror = function(){ reject(tx.error); };
+    });
+  }).catch(function(){ return false; });
 }
-
 function getAllFileBlobs(){
-  return openDB().then(db => new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, 'readonly');
-    const req = tx.objectStore(STORE).getAll();
-    req.onsuccess = () => resolve(req.result || []);
-    req.onerror   = () => reject(req.error);
-  })).catch(() => []);
+  return openDB().then(function(db){
+    return new Promise(function(resolve,reject){
+      var tx = db.transaction(STORE,'readonly');
+      var req = tx.objectStore(STORE).getAll();
+      req.onsuccess = function(){ resolve(req.result || []); };
+      req.onerror = function(){ reject(req.error); };
+    });
+  }).catch(function(){ return []; });
 }
 
 /* ============================================================
@@ -981,87 +685,80 @@ function defaultState(){
     crRolls: ['451'],
     crEmail: '',
     subjects: [
-      { id: uid(), name: 'Research Methodology',        topic: 'Literature Review & Citation' },
-      { id: uid(), name: 'Advanced Data Structures',    topic: 'Graph Traversal Algorithms' },
-      { id: uid(), name: 'Operating Systems',           topic: 'CPU Scheduling Algorithms' },
-      { id: uid(), name: 'Database Management Systems', topic: 'Normalization & Indexing' }
+      { id: uid(), name:'Research Methodology',        topic:'Literature Review & Citation' },
+      { id: uid(), name:'Advanced Data Structures',    topic:'Graph Traversal Algorithms' },
+      { id: uid(), name:'Operating Systems',           topic:'CPU Scheduling Algorithms' },
+      { id: uid(), name:'Database Management Systems', topic:'Normalization & Indexing' }
     ],
     submissions: {}
   };
 }
 
-let state;
+var state;
 try {
-  const raw = store.ls.get(KEY);
+  var raw = LS.get(KEY);
   state = raw ? JSON.parse(raw) : null;
-  if (!state || !Array.isArray(state.subjects)) state = defaultState();
-} catch (e) { state = defaultState(); }
-
-if (!Array.isArray(state.crRolls) || !state.crRolls.length) state.crRolls = ['451'];
+  if (!state || !state.subjects || !state.subjects.length) state = defaultState();
+} catch(e){ state = defaultState(); }
+if (!state.crRolls || !state.crRolls.length) state.crRolls = ['451'];
 if (typeof state.crEmail !== 'string') state.crEmail = '';
 if (!state.submissions) state.submissions = {};
 
-function save(){ store.ls.set(KEY, JSON.stringify(state)); }
+function save(){ LS.set(KEY, JSON.stringify(state)); }
 
-let session = null;
-try {
-  const raw = store.ss.get(SESS_KEY);
-  session = raw ? JSON.parse(raw) : null;
-} catch (e) { session = null; }
-
+var session = null;
+try { var sraw = SS.get(SESS_KEY); session = sraw ? JSON.parse(sraw) : null; } catch(e){ session = null; }
 function setSession(s){
   session = s;
-  if (s) store.ss.set(SESS_KEY, JSON.stringify(s));
-  else   store.ss.remove(SESS_KEY);
+  if (s) SS.set(SESS_KEY, JSON.stringify(s));
+  else SS.rm(SESS_KEY);
 }
 
 /* ============================================================
    THEME
    ============================================================ */
 function setTheme(name){
-  if (!THEMES.some(t => t.id === name)) name = 'classic';
+  if (!THEMES.some(function(t){ return t.id === name; })) name = 'classic';
   document.documentElement.setAttribute('data-theme', name);
-  store.ls.set(THEME_KEY, name);
-  const t = THEMES.find(x => x.id === name);
-  document.querySelectorAll('.theme-label').forEach(el => { el.textContent = t.label; });
-  document.querySelectorAll('.theme-opt').forEach(el => {
-    el.classList.toggle('active', el.dataset.themeName === name);
-  });
+  LS.set(THEME_KEY, name);
+  var t = THEMES.filter(function(x){ return x.id === name; })[0];
+  var labels = document.querySelectorAll('.theme-label, .tl');
+  for (var i = 0; i < labels.length; i++) labels[i].textContent = t.label;
+  var opts = document.querySelectorAll('.topt');
+  for (var j = 0; j < opts.length; j++) opts[j].classList.toggle('active', opts[j].getAttribute('data-name') === name);
 }
-
-function toggleThemePopover(e, id){
-  if (e) { e.preventDefault(); e.stopPropagation(); }
-  const pop = document.getElementById(id);
-  const wasOpen = pop.classList.contains('open');
-  document.querySelectorAll('.theme-popover.open').forEach(p => p.classList.remove('open'));
-  if (!wasOpen) {
-    buildThemePopover(pop);
-    pop.classList.add('open');
-  }
+function toggleTheme(e, id){
+  if (e){ e.preventDefault(); e.stopPropagation(); }
+  var pop = document.getElementById(id);
+  if (!pop) return;
+  var wasOpen = pop.classList.contains('open');
+  var all = document.querySelectorAll('.tpop.open');
+  for (var i = 0; i < all.length; i++) all[i].classList.remove('open');
+  if (!wasOpen){ buildThemePopover(pop); pop.classList.add('open'); }
 }
-
 function buildThemePopover(pop){
-  if (pop.dataset.built === '1') return;
-  pop.dataset.built = '1';
-  const current = store.ls.get(THEME_KEY) || 'classic';
-  THEMES.forEach(t => {
-    const btn = document.createElement('button');
+  if (pop.getAttribute('data-built') === '1') return;
+  pop.setAttribute('data-built','1');
+  var current = LS.get(THEME_KEY) || 'classic';
+  THEMES.forEach(function(t){
+    var btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'theme-opt' + (t.id === current ? ' active' : '');
-    btn.dataset.themeName = t.id;
-    btn.onclick = (e) => {
-      e.preventDefault(); e.stopPropagation();
+    btn.className = 'topt' + (t.id === current ? ' active' : '');
+    btn.setAttribute('data-name', t.id);
+    btn.onclick = function(ev){
+      ev.preventDefault(); ev.stopPropagation();
       setTheme(t.id);
-      document.querySelectorAll('.theme-popover.open').forEach(p => p.classList.remove('open'));
+      var all = document.querySelectorAll('.tpop.open');
+      for (var i = 0; i < all.length; i++) all[i].classList.remove('open');
     };
-    btn.innerHTML = '<span class="dot" style="background:' + t.color + '"></span><span>' + t.label + '</span><span class="check">✓</span>';
+    btn.innerHTML = '<span class="dot" style="background:'+t.color+'"></span><span>'+t.label+'</span><span class="ck">✓</span>';
     pop.appendChild(btn);
   });
 }
-
-document.addEventListener('click', e => {
-  if (!e.target.closest('.theme-picker')) {
-    document.querySelectorAll('.theme-popover.open').forEach(p => p.classList.remove('open'));
+document.addEventListener('click', function(e){
+  if (!e.target.closest || !e.target.closest('.tp')){
+    var all = document.querySelectorAll('.tpop.open');
+    for (var i = 0; i < all.length; i++) all[i].classList.remove('open');
   }
 });
 
@@ -1069,1080 +766,892 @@ document.addEventListener('click', e => {
    ROUTING
    ============================================================ */
 function show(id){
-  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === id));
-  try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) { window.scrollTo(0, 0); }
-  if (id === 'view-landing') updateLandingFoot();
+  var views = document.querySelectorAll('.view');
+  for (var i = 0; i < views.length; i++) views[i].classList.toggle('active', views[i].id === id);
+  try { window.scrollTo(0,0); } catch(e){}
+  if (id === 'v-landing') updateLanding();
   if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
 }
-
 function logout(){
   setSession(null);
-  show('view-landing');
-  ['s-roll','s-pass','c-roll','c-pass'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '';
+  show('v-landing');
+  ['sRoll','sPass','cRoll','cPass'].forEach(function(id){
+    var el = document.getElementById(id); if (el) el.value = '';
   });
-  const e1 = document.getElementById('s-err'); if (e1) e1.textContent = '';
-  const e2 = document.getElementById('c-err'); if (e2) e2.textContent = '';
+  var e1 = document.getElementById('sErr'); if (e1) e1.textContent = '';
+  var e2 = document.getElementById('cErr'); if (e2) e2.textContent = '';
 }
 
 /* ============================================================
    LOGIN
    ============================================================ */
 function extractRoll(raw){
-  const digits = String(raw).replace(/\D/g, '');
-  if (!digits) return '';
-  return digits.length > 3 ? digits.slice(-3) : digits;
+  var d = String(raw).replace(/\D/g,'');
+  if (!d) return '';
+  return d.length > 3 ? d.slice(-3) : d;
 }
-
 function studentLogin(){
-  const err = document.getElementById('s-err');
+  var err = document.getElementById('sErr');
   err.textContent = '';
-
-  const roll = extractRoll(document.getElementById('s-roll').value);
-  const pass = document.getElementById('s-pass').value.trim();
-
-  if (!roll) { err.textContent = 'Please enter your roll number.'; return; }
-  const num = parseInt(roll, 10);
-  if (isNaN(num) || num < ROLL_START || num > ROLL_END) {
-    err.textContent = 'Roll number must be between 451 and 546.';
-    return;
+  var roll = extractRoll(document.getElementById('sRoll').value);
+  var pass = document.getElementById('sPass').value.trim();
+  if (!roll){ err.textContent = 'Please enter your roll number.'; return; }
+  var num = parseInt(roll,10);
+  if (isNaN(num) || num < ROLL_START || num > ROLL_END){
+    err.textContent = 'Roll number must be between 451 and 546.'; return;
   }
-  const okPass = pass === roll ||
-                 pass.toUpperCase() === fullRoll(roll) ||
-                 extractRoll(pass) === roll;
-  if (!okPass) { err.textContent = 'Wrong password. Your password is your roll number.'; return; }
-
-  setSession({ role: 'student', roll: roll });
+  var ok = pass === roll || pass.toUpperCase() === fullRoll(roll) || extractRoll(pass) === roll;
+  if (!ok){ err.textContent = 'Wrong password. Your password is your roll number.'; return; }
+  setSession({ role:'student', roll: roll });
   renderStudent();
-  show('view-student');
+  show('v-student');
 }
-
 function crLogin(){
-  const err = document.getElementById('c-err');
+  var err = document.getElementById('cErr');
   err.textContent = '';
-
-  const roll = extractRoll(document.getElementById('c-roll').value);
-  const pass = document.getElementById('c-pass').value.trim();
-
-  if (!state.crRolls.includes(roll)) { err.textContent = 'This roll number is not a CR.'; return; }
-  if (pass !== roll) { err.textContent = 'Incorrect password.'; return; }
-
-  setSession({ role: 'cr', roll: roll });
-  crTab = 'overview';
+  var roll = extractRoll(document.getElementById('cRoll').value);
+  var pass = document.getElementById('cPass').value.trim();
+  if (state.crRolls.indexOf(roll) === -1){ err.textContent = 'This roll number is not a CR.'; return; }
+  if (pass !== CR_PASSWORD){ err.textContent = 'Incorrect password.'; return; }
+  setSession({ role:'cr', roll: roll });
+  crTab = 'ov';
   renderCR();
-  show('view-cr');
+  show('v-cr');
 }
 
 /* ============================================================
    HELPERS
    ============================================================ */
 function computeStats(){
-  let submitted = 0;
-  ROLLS.forEach(r => {
+  var submitted = 0;
+  ROLLS.forEach(function(r){
     if (Object.keys(state.submissions[r] || {}).length > 0) submitted++;
   });
-  return { submitted: submitted, pending: TOTAL - submitted, percent: Math.round((submitted / TOTAL) * 100) };
+  return { submitted: submitted, pending: TOTAL - submitted, percent: Math.round(submitted/TOTAL*100) };
 }
-
-function subjectCount(subjectId){
-  let n = 0;
-  ROLLS.forEach(r => { if ((state.submissions[r] || {})[subjectId]) n++; });
+function subjectCount(sid){
+  var n = 0;
+  ROLLS.forEach(function(r){ if ((state.submissions[r]||{})[sid]) n++; });
   return n;
 }
-
 function fmtDate(iso){
   if (!iso) return '';
   try {
-    const d = new Date(iso);
-    return d.toLocaleDateString(undefined, { day:'2-digit', month:'short' }) + ' ' +
-           d.toLocaleTimeString(undefined, { hour:'2-digit', minute:'2-digit' });
-  } catch (e) { return ''; }
+    var d = new Date(iso);
+    return d.toLocaleDateString(undefined,{day:'2-digit',month:'short'}) + ' ' +
+           d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
+  } catch(e){ return ''; }
 }
-
 function fmtSize(b){
   if (!b) return '';
   if (b < 1024) return b + ' B';
-  if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
-  return (b / 1048576).toFixed(2) + ' MB';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
 }
-
 function compactRolls(rolls){
   if (!rolls.length) return '—';
-  const nums = rolls.map(Number).sort((a, b) => a - b);
-  const out = [];
-  let s = nums[0], p = nums[0];
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] === p + 1) { p = nums[i]; continue; }
-    out.push(s === p ? String(s) : s + '–' + p);
+  var nums = rolls.map(Number).sort(function(a,b){ return a-b; });
+  var out = [], s = nums[0], p = nums[0];
+  for (var i = 1; i < nums.length; i++){
+    if (nums[i] === p+1){ p = nums[i]; continue; }
+    out.push(s === p ? String(s) : s+'–'+p);
     s = p = nums[i];
   }
-  out.push(s === p ? String(s) : s + '–' + p);
+  out.push(s === p ? String(s) : s+'–'+p);
   return out.join(', ');
 }
-
-function safeName(str, fallback){
-  const s = String(str || '').replace(/[\\/:*?"<>|]+/g, '_').replace(/\s+/g, '_').trim();
-  return s || fallback || 'file';
+function safeName(str, fb){
+  var s = String(str || '').replace(/[\\/:*?"<>|]+/g,'_').replace(/\s+/g,'_').trim();
+  return s || fb || 'file';
 }
-
-function fileKey(roll, subjectId){ return roll + '__' + subjectId; }
-
-function updateLandingFoot(){
-  const el = document.getElementById('landing-cr-email');
+function fileKey(r, sid){ return r + '__' + sid; }
+function updateLanding(){
+  var el = document.getElementById('lfEmail');
   if (!el) return;
-  if (state.crEmail) {
-    el.innerHTML = '<br>✉️ Contact CR: <a href="mailto:' + esc(state.crEmail) + '">' + esc(state.crEmail) + '</a>';
-  } else {
-    el.innerHTML = '';
-  }
+  el.innerHTML = state.crEmail
+    ? '<br>✉️ Contact CR: <a href="mailto:'+esc(state.crEmail)+'">'+esc(state.crEmail)+'</a>'
+    : '';
 }
 
 /* ============================================================
    STUDENT DASHBOARD
    ============================================================ */
 function renderStudent(){
-  const roll = session.roll;
-  const subs = state.submissions[roll] || {};
+  var roll = session.roll;
+  var subs = state.submissions[roll] || {};
 
-  document.getElementById('s-chip').textContent = 'Roll ' + roll;
-  document.getElementById('s-classname').textContent = state.className;
-  document.getElementById('s-rollline').textContent = 'Logged in as roll ' + roll;
+  document.getElementById('sChip').textContent = 'Roll ' + roll;
+  document.getElementById('sClass').textContent = state.className;
+  document.getElementById('sLine').textContent = 'Logged in as roll ' + roll;
 
-  const doneCount = state.subjects.filter(s => subs[s.id]).length;
+  var doneCount = state.subjects.filter(function(s){ return subs[s.id]; }).length;
+  document.getElementById('sStats').innerHTML =
+    '<div class="mst"><b style="color:var(--ok)">'+doneCount+'</b><span>Submitted</span></div>' +
+    '<div class="mst"><b style="color:var(--warn)">'+(state.subjects.length-doneCount)+'</b><span>Pending</span></div>' +
+    '<div class="mst"><b>'+state.subjects.length+'</b><span>Subjects</span></div>';
 
-  document.getElementById('s-stats').innerHTML =
-    '<div class="mini-stat"><b style="color:var(--ok)">' + doneCount + '</b><span>Submitted</span></div>' +
-    '<div class="mini-stat"><b style="color:var(--warn)">' + (state.subjects.length - doneCount) + '</b><span>Pending</span></div>' +
-    '<div class="mini-stat"><b>' + state.subjects.length + '</b><span>Subjects</span></div>';
-
-  const wrap = document.getElementById('s-subjects');
-  if (!state.subjects.length) {
-    wrap.innerHTML = '<div class="empty">No subjects have been added yet. Your CR will add them soon.</div>';
+  var wrap = document.getElementById('sSubjects');
+  if (!state.subjects.length){
+    wrap.innerHTML = '<div class="empty">No subjects yet. Your CR will add them soon.</div>';
     return;
   }
-
-  wrap.innerHTML = state.subjects.map(s => {
-    const sub = subs[s.id];
-    const done = !!sub;
-    return '' +
-      '<div class="subj-card ' + (done ? 'done' : '') + '">' +
-        '<div class="sc-head">' +
-          '<h4>' + esc(s.name) + '</h4>' +
-          '<span class="badge ' + (done ? 'ok' : 'pending') + '">' + (done ? 'Submitted' : 'Pending') + '</span>' +
-        '</div>' +
-        '<p class="topic"><b>Topic:</b> ' + (esc(sub ? (sub.topic || s.topic) : s.topic) || '—') + '</p>' +
-        (done ? '<div class="file-info">' +
-            '📎 ' + esc(sub.fileName || 'No file attached') + (sub.fileSize ? ' · ' + fmtSize(sub.fileSize) : '') + '<br>' +
-            '🕒 ' + fmtDate(sub.at) +
-            (sub.link ? '<br>🔗 <a href="' + esc(sub.link) + '" target="_blank" rel="noopener">Open link</a>' : '') +
-            (sub.note ? '<br>📝 ' + esc(sub.note) : '') +
-          '</div>' : '') +
-        '<div class="sc-actions">' +
-          '<button type="button" class="btn sm ' + (done ? 'ghost' : 'primary') + '" onclick="openSubmitModal(\'' + roll + '\',\'' + s.id + '\')">' +
-            (done ? 'Replace / Edit' : 'Submit PPT') +
-          '</button>' +
-          (done ? '<button type="button" class="btn sm danger" onclick="removeSubmission(\'' + roll + '\',\'' + s.id + '\')">Remove</button>' : '') +
-        '</div>' +
-      '</div>';
+  wrap.innerHTML = state.subjects.map(function(s){
+    var sub = subs[s.id], done = !!sub;
+    return '<div class="sc '+(done?'done':'')+'">' +
+      '<div class="sch"><h4>'+esc(s.name)+'</h4>' +
+      '<span class="bg '+(done?'ok':'pd')+'">'+(done?'Submitted':'Pending')+'</span></div>' +
+      '<p class="tpc"><b>Topic:</b> '+esc(sub?(sub.topic||s.topic):s.topic)+'</p>' +
+      (done ? '<div class="fi">📎 '+esc(sub.fileName||'No file')+(sub.fileSize?' · '+fmtSize(sub.fileSize):'')+'<br>🕒 '+fmtDate(sub.at)+
+        (sub.link?'<br>🔗 <a href="'+esc(sub.link)+'" target="_blank" rel="noopener">Open link</a>':'')+
+        (sub.note?'<br>📝 '+esc(sub.note):'')+'</div>' : '') +
+      '<div class="sa">' +
+      '<button type="button" class="btn sm '+(done?'ghost':'primary')+'" onclick="openSubmit(\''+roll+'\',\''+s.id+'\')">'+(done?'Replace / Edit':'Submit PPT')+'</button>' +
+      (done ? '<button type="button" class="btn sm danger" onclick="removeSubmission(\''+roll+'\',\''+s.id+'\')">Remove</button>' : '') +
+      '</div></div>';
   }).join('');
 }
 
 /* ============================================================
    CR DASHBOARD
    ============================================================ */
-let crTab = 'overview';
-let crSubjectFilter = null;
-let crSearch = '';
-let crListFilter = 'all';
-let crDownloadScope = 'all';
-let crDownloadMode = 'submitted';
+var crTab = 'ov';
+var crSubFilter = null, crSearch = '', crListFilter = 'all';
+var crDlScope = 'all', crDlMode = 'submitted';
 
 function setTab(t){ crTab = t; renderCR(); }
 
 function renderCR(){
-  document.getElementById('cr-classname').textContent = state.className;
-  if (session && session.roll) document.getElementById('cr-chip').textContent = 'CR ' + session.roll;
+  document.getElementById('cClass').textContent = state.className;
+  if (session && session.roll) document.getElementById('cChip').textContent = 'CR ' + session.roll;
 
-  if (!state.subjects.length && (crTab === 'submissions' || crTab === 'lists' || crTab === 'downloads'))
-    crTab = 'overview';
-  if (crTab === 'submissions' && !crSubjectFilter) crSubjectFilter = state.subjects[0] ? state.subjects[0].id : null;
-  if (crTab === 'downloads' && crDownloadScope !== 'all' && !state.subjects.some(s => s.id === crDownloadScope))
-    crDownloadScope = 'all';
+  if (!state.subjects.length && (crTab === 'sb' || crTab === 'ls' || crTab === 'dl')) crTab = 'ov';
+  if (crTab === 'sb' && !crSubFilter) crSubFilter = state.subjects[0] ? state.subjects[0].id : null;
+  if (crTab === 'dl' && crDlScope !== 'all' && !state.subjects.some(function(s){ return s.id === crDlScope; })) crDlScope = 'all';
 
-  document.querySelectorAll('.tab').forEach(el =>
-    el.classList.toggle('active', el.dataset.tab === crTab));
+  var tabs = document.querySelectorAll('.tab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('active', tabs[i].getAttribute('data-tab') === crTab);
 
-  const body = document.getElementById('cr-body');
-  if (crTab === 'overview')         body.innerHTML = crOverviewHTML();
-  else if (crTab === 'lists')       body.innerHTML = crListsHTML();
-  else if (crTab === 'submissions') body.innerHTML = crSubmissionsHTML();
-  else if (crTab === 'subjects')    body.innerHTML = crSubjectsHTML();
-  else if (crTab === 'downloads')   body.innerHTML = crDownloadsHTML();
-  else if (crTab === 'settings')    body.innerHTML = crSettingsHTML();
+  var body = document.getElementById('crBody');
+  if (crTab === 'ov') body.innerHTML = crOverviewHTML();
+  else if (crTab === 'ls') body.innerHTML = crListsHTML();
+  else if (crTab === 'sb') body.innerHTML = crSubmissionsHTML();
+  else if (crTab === 'su') body.innerHTML = crSubjectsHTML();
+  else if (crTab === 'dl') body.innerHTML = crDownloadsHTML();
+  else if (crTab === 'st') body.innerHTML = crSettingsHTML();
 
-  if (crTab === 'downloads') updateZipStats();
+  if (crTab === 'dl') updateZipStats();
 }
 
-/* ---------- OVERVIEW ---------- */
 function crOverviewHTML(){
-  const s = computeStats();
-
-  const perSubject = state.subjects.map(sub => {
-    const n = subjectCount(sub.id);
-    const pct = Math.round((n / TOTAL) * 100);
-    return '' +
-      '<div class="bar-row">' +
-        '<div class="bar-top">' +
-          '<span>' + esc(sub.name) + '</span>' +
-          '<span class="n">' + n + ' / ' + TOTAL + ' submitted</span>' +
-        '</div>' +
-        '<div class="bar"><span style="width:' + pct + '%"></span></div>' +
-      '</div>';
+  var st = computeStats();
+  var perSubject = state.subjects.map(function(sub){
+    var n = subjectCount(sub.id);
+    var pct = Math.round(n/TOTAL*100);
+    return '<div class="br"><div class="brt"><span>'+esc(sub.name)+'</span>' +
+      '<span class="n">'+n+' / '+TOTAL+' submitted</span></div>' +
+      '<div class="bar"><span style="width:'+pct+'%"></span></div></div>';
   }).join('');
 
-  const recent = [];
-  ROLLS.forEach(r => {
-    const subs = state.submissions[r] || {};
-    Object.keys(subs).forEach(sid => {
-      const subj = state.subjects.find(x => x.id === sid);
-      if (subj) recent.push(Object.assign({ roll: r, subject: subj.name }, subs[sid]));
+  var recent = [];
+  ROLLS.forEach(function(r){
+    var subs = state.submissions[r] || {};
+    Object.keys(subs).forEach(function(sid){
+      var subj = state.subjects.filter(function(x){ return x.id === sid; })[0];
+      if (subj){
+        var item = { roll: r, subject: subj.name };
+        for (var k in subs[sid]) item[k] = subs[sid][k];
+        recent.push(item);
+      }
     });
   });
-  recent.sort((a, b) => new Date(b.at) - new Date(a.at));
-  const recentList = recent.slice(0, 8).map(x =>
-    '<div class="bar-row" style="margin-bottom:12px">' +
-      '<div class="bar-top">' +
-        '<span><span class="roll-badge" style="padding:3px 9px;font-size:.72rem">' + x.roll + '</span>' +
-        '&nbsp; ' + esc(x.subject) + ' — <span style="color:var(--muted)">' + esc(x.topic || '—') + '</span></span>' +
-        '<span class="n">' + fmtDate(x.at) + '</span>' +
-      '</div>' +
-    '</div>'
-  ).join('') || '<div class="empty">No submissions yet.</div>';
+  recent.sort(function(a,b){ return new Date(b.at) - new Date(a.at); });
+  var recList = recent.slice(0,8).map(function(x){
+    return '<div class="br" style="margin-bottom:12px"><div class="brt">' +
+      '<span><span class="rb" style="padding:3px 9px;font-size:.72rem">'+x.roll+'</span> ' +
+      esc(x.subject)+' — <span style="color:var(--muted)">'+esc(x.topic||'—')+'</span></span>' +
+      '<span class="n">'+fmtDate(x.at)+'</span></div></div>';
+  }).join('') || '<div class="empty">No submissions yet.</div>';
 
-  return '' +
-    '<div class="stat-grid">' +
-      '<div class="stat"><div class="stat-num">' + TOTAL + '</div><div class="stat-lbl">Total Students</div></div>' +
-      '<div class="stat ok"><div class="stat-num">' + s.submitted + '</div><div class="stat-lbl">Submitted</div></div>' +
-      '<div class="stat warn"><div class="stat-num">' + s.pending + '</div><div class="stat-lbl">Pending</div></div>' +
-      '<div class="stat accent"><div class="stat-num">' + s.percent + '%</div><div class="stat-lbl">Completion</div></div>' +
+  return '<div class="sg">' +
+    '<div class="st"><div class="stn">'+TOTAL+'</div><div class="stl">Total Students</div></div>' +
+    '<div class="st ok"><div class="stn">'+st.submitted+'</div><div class="stl">Submitted</div></div>' +
+    '<div class="st warn"><div class="stn">'+st.pending+'</div><div class="stl">Pending</div></div>' +
+    '<div class="st acc"><div class="stn">'+st.percent+'%</div><div class="stl">Completion</div></div>' +
     '</div>' +
-    '<div class="progress"><div class="progress-fill" style="width:' + s.percent + '%"></div></div>' +
-    '<div class="panel">' +
-      '<h3>Progress by subject</h3>' +
-      '<p class="panel-sub">How many students have submitted each subject\'s PPT</p>' +
-      (perSubject || '<div class="empty">No subjects added yet.</div>') +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>Recent submissions</h3>' +
-      '<p class="panel-sub">Latest activity across the class</p>' +
-      recentList +
-    '</div>';
+    '<div class="pg"><div class="pgf" style="width:'+st.percent+'%"></div></div>' +
+    '<div class="pn"><h3>Progress by subject</h3>' +
+    '<p class="psub">How many students have submitted each subject\'s PPT</p>' +
+    (perSubject || '<div class="empty">No subjects added yet.</div>') + '</div>' +
+    '<div class="pn"><h3>Recent submissions</h3>' +
+    '<p class="psub">Latest activity across the class</p>' + recList + '</div>';
 }
 
-/* ---------- LISTS ---------- */
-function getListsFor(scopeId){
-  const submitted = [], pending = [];
-  if (scopeId === 'all') {
-    ROLLS.forEach(r => {
-      if (Object.keys(state.submissions[r] || {}).length > 0) submitted.push(r);
-      else pending.push(r);
+function getListsFor(scope){
+  var sub = [], pend = [];
+  if (scope === 'all'){
+    ROLLS.forEach(function(r){
+      if (Object.keys(state.submissions[r]||{}).length > 0) sub.push(r); else pend.push(r);
     });
   } else {
-    ROLLS.forEach(r => {
-      if ((state.submissions[r] || {})[scopeId]) submitted.push(r);
-      else pending.push(r);
+    ROLLS.forEach(function(r){
+      if ((state.submissions[r]||{})[scope]) sub.push(r); else pend.push(r);
     });
   }
-  return { submitted: submitted, pending: pending };
+  return { submitted: sub, pending: pend };
 }
 
 function crListsHTML(){
-  const scopeOptions =
-    '<option value="all"' + (crListFilter === 'all' ? ' selected' : '') + '>All subjects (overall)</option>' +
-    state.subjects.map(s =>
-      '<option value="' + s.id + '"' + (s.id === crListFilter ? ' selected' : '') + '>' + esc(s.name) + '</option>'
-    ).join('');
+  var scopeOpts = '<option value="all"'+(crListFilter==='all'?' selected':'')+'>All subjects (overall)</option>' +
+    state.subjects.map(function(s){
+      return '<option value="'+s.id+'"'+(s.id===crListFilter?' selected':'')+'>'+esc(s.name)+'</option>';
+    }).join('');
+  var L = getListsFor(crListFilter);
+  var subCsv = L.submitted.join(', ');
+  var penCsv = L.pending.join(', ');
+  var subRange = compactRolls(L.submitted);
+  var penRange = compactRolls(L.pending);
+  var scopeLabel = crListFilter === 'all' ? 'Overall PPT submission'
+    : ((state.subjects.filter(function(s){ return s.id === crListFilter; })[0] || {}).name || 'Subject');
+  var waMsg = '*DS-F — '+scopeLabel+'*\n\nTotal students: '+TOTAL+
+    '\n✅ Submitted: '+L.submitted.length+'\n⏳ Pending: '+L.pending.length+
+    '\n\n*Pending roll numbers ('+L.pending.length+'):*\n'+penRange+
+    '\n\n*Submitted roll numbers ('+L.submitted.length+'):*\n'+subRange;
 
-  const lists = getListsFor(crListFilter);
-  const submitted = lists.submitted, pending = lists.pending;
-  const subCsv   = submitted.join(', ');
-  const penCsv   = pending.join(', ');
-  const subRange = compactRolls(submitted);
-  const penRange = compactRolls(pending);
-
-  const scopeLabel = crListFilter === 'all'
-    ? 'Overall PPT submission'
-    : ((state.subjects.find(s => s.id === crListFilter) || {}).name || 'Subject');
-
-  const waMsg =
-'*DS-F — ' + scopeLabel + '*\n\n' +
-'Total students: ' + TOTAL + '\n' +
-'✅ Submitted: ' + submitted.length + '\n' +
-'⏳ Pending: ' + pending.length + '\n\n' +
-'*Pending roll numbers (' + pending.length + '):*\n' + penRange + '\n\n' +
-'*Submitted roll numbers (' + submitted.length + '):*\n' + subRange;
-
-  return '' +
-    '<div class="panel">' +
-      '<h3>Submission lists</h3>' +
-      '<p class="panel-sub">Choose what to show — copy the list and send on WhatsApp. Only the last 3 digits are used.</p>' +
-      '<div class="toolbar">' +
-        '<select class="inp" onchange="crListFilter=this.value; renderCR()">' + scopeOptions + '</select>' +
-        '<button type="button" class="btn ghost sm" onclick="copyListText(\'list-submitted\', this)">Copy submitted</button>' +
-        '<button type="button" class="btn ghost sm" onclick="copyListText(\'list-pending\', this)">Copy pending</button>' +
-        '<button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyListText(\'wa-msg\', this)">Copy WhatsApp message</button>' +
-      '</div>' +
-      '<div class="list-grid">' +
-        '<div class="list-card ok">' +
-          '<div class="list-head">' +
-            '<b>✅ Submitted <span class="count">' + submitted.length + '</span></b>' +
-            '<button type="button" class="btn sm ghost" onclick="copyListText(\'list-submitted\', this)">Copy</button>' +
-          '</div>' +
-          '<textarea readonly class="list-area" id="list-submitted">' + (subCsv || '— none —') + '</textarea>' +
-        '</div>' +
-        '<div class="list-card pending">' +
-          '<div class="list-head">' +
-            '<b>⏳ Pending <span class="count">' + pending.length + '</span></b>' +
-            '<button type="button" class="btn sm ghost" onclick="copyListText(\'list-pending\', this)">Copy</button>' +
-          '</div>' +
-          '<textarea readonly class="list-area" id="list-pending">' + (penCsv || '— none —') + '</textarea>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>WhatsApp message preview</h3>' +
-      '<p class="panel-sub">Roll numbers are grouped into ranges so it stays short and readable.</p>' +
-      '<div class="wa-box" id="wa-msg">' + esc(waMsg) + '</div>' +
-      '<div class="copy-row">' +
-        '<button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyListText(\'wa-msg\', this)">Copy message</button>' +
-      '</div>' +
-    '</div>';
+  return '<div class="pn"><h3>Submission lists</h3>' +
+    '<p class="psub">Choose what to show — copy and send on WhatsApp. Only the last 3 digits are used.</p>' +
+    '<div class="tbr"><select class="inp" onchange="crListFilter=this.value; renderCR()">'+scopeOpts+'</select>' +
+    '<button type="button" class="btn ghost sm" onclick="copyText(\'listSub\', this)">Copy submitted</button>' +
+    '<button type="button" class="btn ghost sm" onclick="copyText(\'listPen\', this)">Copy pending</button>' +
+    '<button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyText(\'waBox\', this)">Copy WhatsApp message</button></div>' +
+    '<div class="lg">' +
+    '<div class="lc ok"><div class="lh2"><b>✅ Submitted <span class="cnt">'+L.submitted.length+'</span></b>' +
+    '<button type="button" class="btn sm ghost" onclick="copyText(\'listSub\', this)">Copy</button></div>' +
+    '<textarea readonly class="la" id="listSub">'+(subCsv||'— none —')+'</textarea></div>' +
+    '<div class="lc pd"><div class="lh2"><b>⏳ Pending <span class="cnt">'+L.pending.length+'</span></b>' +
+    '<button type="button" class="btn sm ghost" onclick="copyText(\'listPen\', this)">Copy</button></div>' +
+    '<textarea readonly class="la" id="listPen">'+(penCsv||'— none —')+'</textarea></div></div></div>' +
+    '<div class="pn"><h3>WhatsApp message preview</h3>' +
+    '<p class="psub">Roll numbers are grouped into ranges so it stays short and readable.</p>' +
+    '<div class="wb" id="waBox">'+esc(waMsg)+'</div>' +
+    '<div class="cr2"><button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyText(\'waBox\', this)">Copy message</button></div></div>';
 }
 
-function copyListText(id, btn){
-  const el = document.getElementById(id);
+function copyText(id, btn){
+  var el = document.getElementById(id);
   if (!el) return;
-  const text = (el.value !== undefined) ? el.value : el.textContent;
-  const done = () => {
-    const old = btn.textContent;
+  var text = (el.value !== undefined) ? el.value : el.textContent;
+  var done = function(){
+    var old = btn.textContent;
     btn.textContent = '✓ Copied';
-    setTimeout(() => { btn.textContent = old; }, 1400);
+    setTimeout(function(){ btn.textContent = old; }, 1400);
   };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
-  } else {
-    fallbackCopy(text, done);
-  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text,done); });
+  } else fallbackCopy(text, done);
 }
-
 function fallbackCopy(text, done){
   try {
-    const ta = document.createElement('textarea');
+    var ta = document.createElement('textarea');
     ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.top = '0'; ta.style.left = '0';
-    ta.style.width = '1px'; ta.style.height = '1px';
-    ta.style.opacity = '0';
+    ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '0';
+    ta.style.width = '1px'; ta.style.height = '1px'; ta.style.opacity = '0';
     ta.style.fontSize = '16px';
     ta.setAttribute('readonly','');
     document.body.appendChild(ta);
-
-    if (isIOS) {
-      // iOS needs contentEditable + range selection
-      ta.contentEditable = 'true';
-      ta.readOnly = false;
-      const range = document.createRange();
-      range.selectNodeContents(ta);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
+    if (isIOS){
+      ta.contentEditable = 'true'; ta.readOnly = false;
+      var range = document.createRange(); range.selectNodeContents(ta);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
       ta.setSelectionRange(0, 999999);
-    } else {
-      ta.select();
-    }
+    } else ta.select();
     ta.focus();
-    const ok = document.execCommand('copy');
+    var ok = document.execCommand('copy');
     document.body.removeChild(ta);
     if (ok) done();
     else alert('Copy failed. Please select and copy the text manually.');
-  } catch (e) {
-    alert('Copy failed. Please select and copy the text manually.');
-  }
+  } catch(e){ alert('Copy failed. Please select and copy the text manually.'); }
 }
 
-/* ---------- SUBMISSIONS ---------- */
 function crSubmissionsHTML(){
-  const options = state.subjects.map(s =>
-    '<option value="' + s.id + '"' + (s.id === crSubjectFilter ? ' selected' : '') + '>' + esc(s.name) + '</option>').join('');
-
-  return '' +
-    '<div class="toolbar">' +
-      '<select class="inp" onchange="crSubjectFilter=this.value; renderCR()">' + options + '</select>' +
-      '<input class="inp" id="cr-search" placeholder="Search roll (e.g. 451)" value="' + esc(crSearch) + '" ' +
-             'inputmode="numeric" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
-             'oninput="crSearch=this.value; renderSubmBody()">' +
-      '<button type="button" class="btn ghost sm" onclick="openSubmitModal(\'' + ROLL_START + '\',\'' + crSubjectFilter + '\')">+ Quick add</button>' +
-    '</div>' +
-    '<div class="table-wrap">' +
-      '<table>' +
-        '<thead><tr><th>Roll</th><th>Status</th><th>Topic</th><th>File</th><th>Link</th><th>Actions</th></tr></thead>' +
-        '<tbody id="subm-body">' + submRowsHTML() + '</tbody>' +
-      '</table>' +
-    '</div>';
+  var opts = state.subjects.map(function(s){
+    return '<option value="'+s.id+'"'+(s.id===crSubFilter?' selected':'')+'>'+esc(s.name)+'</option>';
+  }).join('');
+  return '<div class="tbr"><select class="inp" onchange="crSubFilter=this.value; renderCR()">'+opts+'</select>' +
+    '<input class="inp" id="crSearch" placeholder="Search roll (e.g. 451)" value="'+esc(crSearch)+'" ' +
+    'inputmode="numeric" oninput="crSearch=this.value; updateSubmBody()">' +
+    '<button type="button" class="btn ghost sm" onclick="openSubmit(\''+ROLL_START+'\',\''+crSubFilter+'\')">+ Quick add</button></div>' +
+    '<div class="tw"><table><thead><tr><th>Roll</th><th>Status</th><th>Topic</th><th>File</th><th>Link</th><th>Actions</th></tr></thead>' +
+    '<tbody id="submBody">'+submRowsHTML()+'</tbody></table></div>';
 }
-
 function submRowsHTML(){
   if (!state.subjects.length) return '<tr><td colspan="6" class="empty">No subjects yet.</td></tr>';
-  const sid = crSubjectFilter || state.subjects[0].id;
-  const q = crSearch.trim().toLowerCase();
-
-  const list = ROLLS.filter(r => !q || r.indexOf(q) !== -1 || fullRoll(r).toLowerCase().indexOf(q) !== -1);
+  var sid = crSubFilter || state.subjects[0].id;
+  var q = crSearch.trim().toLowerCase();
+  var list = ROLLS.filter(function(r){ return !q || r.indexOf(q) !== -1 || fullRoll(r).toLowerCase().indexOf(q) !== -1; });
   if (!list.length) return '<tr><td colspan="6" class="empty">No matching roll numbers.</td></tr>';
-
-  return list.map(r => {
-    const sub = (state.submissions[r] || {})[sid];
-    return '' +
-      '<tr>' +
-        '<td><span class="roll-badge">' + r + '</span></td>' +
-        '<td>' + (sub ? '<span class="badge ok">Submitted</span>' : '<span class="badge pending">Pending</span>') + '</td>' +
-        '<td>' + (sub ? esc(sub.topic || '—') : '—') + '</td>' +
-        '<td style="color:var(--muted);font-size:.78rem;word-break:break-word">' + (sub && sub.fileName ? esc(sub.fileName) : '—') + '</td>' +
-        '<td>' + (sub && sub.link ? '<a href="' + esc(sub.link) + '" target="_blank" rel="noopener">Open</a>' : '—') + '</td>' +
-        '<td>' +
-          '<div class="row-actions">' +
-            '<button type="button" class="btn sm ' + (sub ? 'ghost' : 'primary') + '" ' +
-                    'onclick="openSubmitModal(\'' + r + '\',\'' + sid + '\')">' + (sub ? 'Replace' : 'Add') + '</button>' +
-            (sub ? '<button type="button" class="btn sm danger" onclick="removeSubmission(\'' + r + '\',\'' + sid + '\')">Remove</button>' : '') +
-          '</div>' +
-        '</td>' +
-      '</tr>';
+  return list.map(function(r){
+    var sub = (state.submissions[r] || {})[sid];
+    return '<tr><td><span class="rb">'+r+'</span></td>' +
+      '<td>'+(sub?'<span class="bg ok">Submitted</span>':'<span class="bg pd">Pending</span>')+'</td>' +
+      '<td>'+(sub?esc(sub.topic||'—'):'—')+'</td>' +
+      '<td style="color:var(--muted);font-size:.78rem;word-break:break-word">'+(sub&&sub.fileName?esc(sub.fileName):'—')+'</td>' +
+      '<td>'+(sub&&sub.link?'<a href="'+esc(sub.link)+'" target="_blank" rel="noopener">Open</a>':'—')+'</td>' +
+      '<td><div class="ra"><button type="button" class="btn sm '+(sub?'ghost':'primary')+'" onclick="openSubmit(\''+r+'\',\''+sid+'\')">'+(sub?'Replace':'Add')+'</button>' +
+      (sub?'<button type="button" class="btn sm danger" onclick="removeSubmission(\''+r+'\',\''+sid+'\')">Remove</button>':'') +
+      '</div></td></tr>';
   }).join('');
 }
-
-function renderSubmBody(){
-  const el = document.getElementById('subm-body');
+function updateSubmBody(){
+  var el = document.getElementById('submBody');
   if (el) el.innerHTML = submRowsHTML();
 }
 
-/* ---------- SUBJECTS ---------- */
 function crSubjectsHTML(){
-  const rows = state.subjects.map(s =>
-    '<div class="subj-row">' +
-      '<div>' +
-        '<span class="lbl">Subject name</span>' +
-        '<input class="inp" value="' + esc(s.name) + '" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
-               'onchange="updateSubject(\'' + s.id + '\',\'name\',this.value)">' +
-      '</div>' +
-      '<div>' +
-        '<span class="lbl">Topic name</span>' +
-        '<input class="inp" value="' + esc(s.topic) + '" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
-               'onchange="updateSubject(\'' + s.id + '\',\'topic\',this.value)">' +
-      '</div>' +
-      '<button type="button" class="btn danger sm" style="margin-top:18px" onclick="deleteSubject(\'' + s.id + '\')">Delete</button>' +
-    '</div>'
-  ).join('');
-
-  return '' +
-    '<div class="panel">' +
-      '<h3>Subjects & Topics</h3>' +
-      '<p class="panel-sub">Edit names directly — changes save automatically. Deleting a subject also removes its submissions.</p>' +
-      (rows || '<div class="empty">No subjects yet. Add one below.</div>') +
-      '<div class="add-row">' +
-        '<input class="inp" id="new-subj" placeholder="New subject name" autocapitalize="off" autocorrect="off" spellcheck="false">' +
-        '<input class="inp" id="new-topic" placeholder="Topic name" autocapitalize="off" autocorrect="off" spellcheck="false">' +
-        '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addSubject()">+ Add Subject</button>' +
-      '</div>' +
-    '</div>';
+  var rows = state.subjects.map(function(s){
+    return '<div class="sr"><div><span class="lbl">Subject name</span>' +
+      '<input class="inp" value="'+esc(s.name)+'" onchange="updateSubject(\''+s.id+'\',\'name\',this.value)"></div>' +
+      '<div><span class="lbl">Topic name</span>' +
+      '<input class="inp" value="'+esc(s.topic)+'" onchange="updateSubject(\''+s.id+'\',\'topic\',this.value)"></div>' +
+      '<button type="button" class="btn danger sm" style="margin-top:18px" onclick="deleteSubject(\''+s.id+'\')">Delete</button></div>';
+  }).join('');
+  return '<div class="pn"><h3>Subjects & Topics</h3>' +
+    '<p class="psub">Edit names directly — changes save automatically. Deleting a subject also removes its submissions.</p>' +
+    (rows || '<div class="empty">No subjects yet. Add one below.</div>') +
+    '<div class="ar"><input class="inp" id="newSubj" placeholder="New subject name">' +
+    '<input class="inp" id="newTopic" placeholder="Topic name">' +
+    '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addSubject()">+ Add Subject</button></div></div>';
 }
-
 function updateSubject(id, field, value){
-  const s = state.subjects.find(x => x.id === id);
+  var s = state.subjects.filter(function(x){ return x.id === id; })[0];
   if (!s) return;
-  s[field] = value;
-  save();
+  s[field] = value; save();
 }
-
 function addSubject(){
-  const nameEl = document.getElementById('new-subj');
-  const topicEl = document.getElementById('new-topic');
-  const name = nameEl.value.trim();
-  const topic = topicEl.value.trim();
-  if (!name) { alert('Please enter a subject name.'); return; }
+  var name = document.getElementById('newSubj').value.trim();
+  var topic = document.getElementById('newTopic').value.trim();
+  if (!name){ alert('Please enter a subject name.'); return; }
   state.subjects.push({ id: uid(), name: name, topic: topic || '—' });
-  save();
-  renderCR();
+  save(); renderCR();
 }
-
 function deleteSubject(id){
-  const s = state.subjects.find(x => x.id === id);
+  var s = state.subjects.filter(function(x){ return x.id === id; })[0];
   if (!s) return;
-  if (!confirm('Delete "' + s.name + '" and all its submissions?')) return;
-
-  ROLLS.forEach(r => {
-    if (state.submissions[r] && state.submissions[r][id]) deleteFileBlob(fileKey(r, id));
+  if (!confirm('Delete "'+s.name+'" and all its submissions?')) return;
+  ROLLS.forEach(function(r){
+    if (state.submissions[r] && state.submissions[r][id]) deleteFileBlob(fileKey(r,id));
   });
-  state.subjects = state.subjects.filter(x => x.id !== id);
-  ROLLS.forEach(r => { if (state.submissions[r]) delete state.submissions[r][id]; });
-  if (crSubjectFilter === id) crSubjectFilter = state.subjects[0] ? state.subjects[0].id : null;
+  state.subjects = state.subjects.filter(function(x){ return x.id !== id; });
+  ROLLS.forEach(function(r){ if (state.submissions[r]) delete state.submissions[r][id]; });
+  if (crSubFilter === id) crSubFilter = state.subjects[0] ? state.subjects[0].id : null;
   if (crListFilter === id) crListFilter = 'all';
-  if (crDownloadScope === id) crDownloadScope = 'all';
-  save();
-  renderCR();
+  if (crDlScope === id) crDlScope = 'all';
+  save(); renderCR();
 }
 
-/* ---------- EXPORT ZIP ---------- */
+/* ============================================================
+   EXPORT ZIP
+   ============================================================ */
 function crDownloadsHTML(){
-  const scopeOptions =
-    '<option value="all"' + (crDownloadScope === 'all' ? ' selected' : '') + '>All subjects (everything)</option>' +
-    state.subjects.map(s =>
-      '<option value="' + s.id + '"' + (s.id === crDownloadScope ? ' selected' : '') + '>' + esc(s.name) + '</option>'
-    ).join('');
+  var scopeOpts = '<option value="all"'+(crDlScope==='all'?' selected':'')+'>All subjects (everything)</option>' +
+    state.subjects.map(function(s){
+      return '<option value="'+s.id+'"'+(s.id===crDlScope?' selected':'')+'>'+esc(s.name)+'</option>';
+    }).join('');
 
-  return '' +
-    '<div class="zip-hero">' +
-      '<h2>📦 Export submissions as ZIP</h2>' +
-      '<p>Download uploaded PPTs in one ZIP file. Files are arranged inside folders by roll number.</p>' +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>1. Choose students to include</h3>' +
-      '<p class="panel-sub">Pick a download mode.</p>' +
-      '<div class="mode-cards">' +
-        '<button type="button" class="mode-card ' + (crDownloadMode === 'submitted' ? 'active' : '') + '" ' +
-                'onclick="crDownloadMode=\'submitted\'; renderCR()">' +
-          '<div class="mode-title"><span class="mode-tick"></span> Only submitted</div>' +
-          '<div class="mode-desc">Includes only students who have submitted at least one file. Smaller and cleaner ZIP.</div>' +
-        '</button>' +
-        '<button type="button" class="mode-card ' + (crDownloadMode === 'all' ? 'active' : '') + '" ' +
-                'onclick="crDownloadMode=\'all\'; renderCR()">' +
-          '<div class="mode-title"><span class="mode-tick"></span> All students</div>' +
-          '<div class="mode-desc">Creates a folder for every roll number (including empty ones for pending students).</div>' +
-        '</button>' +
+  var perSubjectHTML = state.subjects.map(function(s){
+    var submitted = subjectCount(s.id);
+    var pending = TOTAL - submitted;
+    return '<div class="subj-dl-row">' +
+      '<div class="subj-dl-info">' +
+        '<div class="subj-dl-name">'+esc(s.name)+'</div>' +
+        '<div class="subj-dl-meta">' +
+          '<span class="ok-tag">✅ '+submitted+' submitted</span>' +
+          '<span class="pd-tag">⏳ '+pending+' pending</span>' +
+        '</div>' +
       '</div>' +
-      '<h3 style="margin-top:18px">2. Subject scope</h3>' +
-      '<p class="panel-sub">Optionally limit to a single subject.</p>' +
-      '<div class="toolbar">' +
-        '<select class="inp" id="zip-scope" onchange="crDownloadScope=this.value; updateZipStats()">' + scopeOptions + '</select>' +
-        '<button type="button" class="btn ghost sm" onclick="updateZipStats()">↻ Refresh</button>' +
+      '<div class="subj-dl-btns">' +
+        '<button type="button" class="btn ghost sm" data-dl-btn="'+s.id+'_submitted" onclick="downloadSubjectZip(\''+s.id+'\',\'submitted\')">⬇ Submitted</button>' +
+        '<button type="button" class="btn ghost sm" data-dl-btn="'+s.id+'_pending" onclick="downloadSubjectZip(\''+s.id+'\',\'pending\')">⬇ Pending</button>' +
       '</div>' +
-      '<div class="zip-stats" id="zip-stats"></div>' +
-      '<div class="zip-actions">' +
-        '<button type="button" class="btn ok" id="zip-btn" onclick="downloadZip()">⬇ Download ZIP</button>' +
-      '</div>' +
-      '<div class="zip-progress" id="zip-progress"><span id="zip-progress-bar"></span></div>' +
-      '<div class="zip-status" id="zip-status"></div>' +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>ZIP folder structure</h3>' +
-      '<p class="panel-sub">Each student gets their own folder named by their roll number (last 3 digits only).</p>' +
-      '<div class="zip-tree">' +
-'<b>DS-F_Submissions/</b>\n' +
-'├── <b>Roll_451/</b>\n' +
-'│   ├── Research_Methodology.pptx\n' +
-'│   └── Operating_Systems.pdf\n' +
-'├── <b>Roll_452/</b>\n' +
-'│   └── ...\n' +
-'├── ...\n' +
-'├── _SUMMARY.txt\n' +
-'├── _SUBMITTED_ROLLS.txt\n' +
-'└── _PENDING_ROLLS.txt' +
-      '</div>' +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>Notes</h3>' +
-      '<p class="panel-sub" style="margin-bottom:8px">' +
-        '• Files are stored only inside this browser (IndexedDB).<br>' +
-        '• On iPhone/iPad, the ZIP opens in a new tab — tap "Save to Files" to keep it.<br>' +
-        '• "Only submitted" mode skips students who haven\'t submitted anything for the selected scope.' +
-      '</p>' +
     '</div>';
+  }).join('') || '<div class="empty">No subjects yet.</div>';
+
+  return '<div class="zh"><h2>📦 Export submissions as ZIP</h2>' +
+    '<p>Download uploaded PPTs in one ZIP file. Files are arranged inside folders by roll number.</p></div>' +
+    '<div class="pn"><h3>1. Choose students to include</h3>' +
+    '<p class="psub">Pick a download mode for the "everything" ZIP below.</p>' +
+    '<div class="mc">' +
+    '<button type="button" class="mcard '+(crDlMode==='submitted'?'active':'')+'" onclick="crDlMode=\'submitted\'; renderCR()">' +
+    '<div class="mt"><span class="mk"></span> Only submitted</div>' +
+    '<div class="md">Includes only students who have submitted at least one file.</div></button>' +
+    '<button type="button" class="mcard '+(crDlMode==='all'?'active':'')+'" onclick="crDlMode=\'all\'; renderCR()">' +
+    '<div class="mt"><span class="mk"></span> All students</div>' +
+    '<div class="md">Creates a folder for every roll number (including empty ones).</div></button></div>' +
+    '<h3 style="margin-top:18px">2. Subject scope</h3>' +
+    '<p class="psub">Optionally limit to a single subject.</p>' +
+    '<div class="tbr"><select class="inp" id="zipScope" onchange="crDlScope=this.value; updateZipStats()">'+scopeOpts+'</select>' +
+    '<button type="button" class="btn ghost sm" onclick="updateZipStats()">↻ Refresh</button></div>' +
+    '<div class="zs" id="zipStats"></div>' +
+    '<div class="za"><button type="button" class="btn ok" id="zipBtn" onclick="downloadZip()">⬇ Download ZIP</button></div>' +
+    '<div class="zpg" id="zipProg"><span id="zipBar"></span></div>' +
+    '<div class="zst2" id="zipStatus"></div></div>' +
+    '<div class="pn"><h3>Per-subject downloads</h3>' +
+    '<p class="psub">Get a separate ZIP for each subject — submitted files or the pending students list.</p>' +
+    '<div class="subj-dl-list">'+perSubjectHTML+'</div></div>' +
+    '<div class="pn"><h3>ZIP folder structure</h3>' +
+    '<p class="psub">Each student gets their own folder named by their roll number (last 3 digits only).</p>' +
+    '<div class="zt"><b>DS-F_Submissions/</b>\n' +
+    '├── <b>Roll_451/</b>\n│   ├── Research_Methodology.pptx\n│   └── Operating_Systems.pdf\n' +
+    '├── <b>Roll_452/</b>\n│   └── ...\n├── ...\n' +
+    '├── _SUMMARY.txt\n├── _SUBMITTED_ROLLS.txt\n└── _PENDING_ROLLS.txt</div></div>' +
+    '<div class="pn"><h3>Notes</h3><p class="psub" style="margin-bottom:8px">' +
+    '• Files are stored only inside this browser (IndexedDB).<br>' +
+    '• On iPhone/iPad, the ZIP opens in a new tab — tap "Save to Files".<br>' +
+    '• "Only submitted" mode skips students who haven\'t submitted anything for the selected scope.<br>' +
+    '• Per-subject buttons download one subject at a time (submitted files or pending list).</p></div>';
 }
 
 function updateZipStats(){
-  const statsEl = document.getElementById('zip-stats');
+  var statsEl = document.getElementById('zipStats');
   if (!statsEl) return;
-
-  const scope = crDownloadScope;
-
-  getAllFileBlobs().then(stored => {
-    const storedMap = {};
-    stored.forEach(f => { storedMap[f.key] = f; });
-
-    let withFile = 0, withoutFile = 0, totalBytes = 0, submittedCount = 0;
-
-    ROLLS.forEach(r => {
-      const subs = state.submissions[r] || {};
-      let hasAny = false;
-      Object.keys(subs).forEach(sid => {
+  var scope = crDlScope;
+  getAllFileBlobs().then(function(stored){
+    var map = {};
+    stored.forEach(function(f){ map[f.key] = f; });
+    var withFile = 0, withoutFile = 0, totalBytes = 0, submittedCount = 0;
+    ROLLS.forEach(function(r){
+      var subs = state.submissions[r] || {};
+      var hasAny = false;
+      Object.keys(subs).forEach(function(sid){
         if (scope !== 'all' && sid !== scope) return;
         hasAny = true;
-        const rec = storedMap[fileKey(r, sid)];
-        if (rec && rec.blob) {
-          withFile++;
-          totalBytes += (rec.blob.size || 0);
-        } else {
-          withoutFile++;
-        }
+        var rec = map[fileKey(r,sid)];
+        if (rec && rec.blob){ withFile++; totalBytes += (rec.blob.size || 0); }
+        else withoutFile++;
       });
       if (hasAny) submittedCount++;
     });
-
-    const totalSize = fmtSize(totalBytes) || '0 B';
+    var totalSize = fmtSize(totalBytes) || '0 B';
     statsEl.innerHTML =
-      '<div class="zip-stat"><b>' + withFile + '</b><span>Files ready</span></div>' +
-      '<div class="zip-stat"><b>' + withoutFile + '</b><span>Link-only</span></div>' +
-      '<div class="zip-stat"><b>' + totalSize + '</b><span>Total size</span></div>' +
-      '<div class="zip-stat"><b style="color:var(--ok)">' + submittedCount + '</b><span>With content</span></div>';
+      '<div class="zst"><b>'+withFile+'</b><span>Files ready</span></div>' +
+      '<div class="zst"><b>'+withoutFile+'</b><span>Link-only</span></div>' +
+      '<div class="zst"><b>'+totalSize+'</b><span>Total size</span></div>' +
+      '<div class="zst"><b style="color:var(--ok)">'+submittedCount+'</b><span>With content</span></div>';
   });
 }
 
 function triggerDownload(blob, filename){
-  const url = URL.createObjectURL(blob);
-
-  // iOS: use share sheet when possible, else open in new tab
-  if (isIOS) {
+  var url = URL.createObjectURL(blob);
+  if (isIOS){
     try {
-      const file = new File([blob], filename, { type: 'application/zip' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({ files: [file], title: filename })
-          .then(() => URL.revokeObjectURL(url))
-          .catch(() => {
-            window.open(url, '_blank');
-            setTimeout(() => URL.revokeObjectURL(url), 60000);
-          });
+      var file = new File([blob], filename, { type: 'application/zip' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })){
+        navigator.share({ files: [file], title: filename }).then(function(){
+          URL.revokeObjectURL(url);
+        }).catch(function(){
+          window.open(url, '_blank');
+          setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
+        });
         return;
       }
-    } catch (e) { /* fall through */ }
-
-    const w = window.open(url, '_blank');
-    if (!w) {
-      const a = document.createElement('a');
+    } catch(e){}
+    var w = window.open(url, '_blank');
+    if (!w){
+      var a = document.createElement('a');
       a.href = url; a.download = filename;
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
     }
-    setTimeout(() => URL.revokeObjectURL(url), 60000);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
     return;
   }
-
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.rel = 'noopener';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  var a2 = document.createElement('a');
+  a2.href = url; a2.download = filename; a2.rel = 'noopener';
+  document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
 }
 
 function downloadZip(){
-  const btn = document.getElementById('zip-btn');
-  const progress = document.getElementById('zip-progress');
-  const bar = document.getElementById('zip-progress-bar');
-  const status = document.getElementById('zip-status');
-
-  if (typeof JSZip === 'undefined') {
-    alert('ZIP library failed to load. Please check your internet connection and reload the page.');
+  var btn = document.getElementById('zipBtn');
+  var prog = document.getElementById('zipProg');
+  var bar = document.getElementById('zipBar');
+  var status = document.getElementById('zipStatus');
+  if (typeof JSZip === 'undefined'){
+    alert('ZIP library failed to load. Check your internet connection and reload the page.');
     return;
   }
-
-  btn.disabled = true;
-  btn.textContent = '⏳ Preparing...';
-  progress.classList.add('show');
-  bar.style.width = '5%';
+  btn.disabled = true; btn.textContent = '⏳ Preparing...';
+  prog.classList.add('show'); bar.style.width = '5%';
   status.textContent = 'Collecting files...';
 
-  const scope = crDownloadScope;
-  const mode = crDownloadMode;
+  var scope = crDlScope, mode = crDlMode;
 
-  getAllFileBlobs().then(stored => {
-    const storedMap = {};
-    stored.forEach(f => { storedMap[f.key] = f; });
+  getAllFileBlobs().then(function(stored){
+    var map = {};
+    stored.forEach(function(f){ map[f.key] = f; });
+    var zip = new JSZip();
+    var root = zip.folder('DS-F_Submissions');
+    var added = 0, infoOnly = 0, total = 0;
 
-    const zip = new JSZip();
-    const root = zip.folder('DS-F_Submissions');
-
-    let added = 0, infoOnly = 0, total = 0;
-
-    ROLLS.forEach(r => {
-      const subs = state.submissions[r] || {};
-      const rel = Object.keys(subs).filter(sid => scope === 'all' || sid === scope);
+    ROLLS.forEach(function(r){
+      var subs = state.submissions[r] || {};
+      var rel = Object.keys(subs).filter(function(sid){ return scope === 'all' || sid === scope; });
       if (mode === 'submitted' && rel.length === 0) return;
-      rel.forEach(() => total++);
+      total += rel.length;
     });
 
-    let processed = 0;
-    ROLLS.forEach(roll => {
-      const subs = state.submissions[roll] || {};
-      const rel = Object.keys(subs).filter(sid => scope === 'all' || sid === scope);
+    var processed = 0;
+    ROLLS.forEach(function(roll){
+      var subs = state.submissions[roll] || {};
+      var rel = Object.keys(subs).filter(function(sid){ return scope === 'all' || sid === scope; });
       if (mode === 'submitted' && rel.length === 0) return;
-
-      const rollFolder = root.folder('Roll_' + roll);
-
-      rel.forEach(sid => {
-        const subj = state.subjects.find(s => s.id === sid);
+      var rf = root.folder('Roll_' + roll);
+      rel.forEach(function(sid){
+        var subj = state.subjects.filter(function(s){ return s.id === sid; })[0];
         if (!subj) return;
-        const sub = subs[sid];
-        const subjName = safeName(subj.name, 'Subject');
-        const rec = storedMap[fileKey(roll, sid)];
-
-        if (rec && rec.blob) {
-          const origName = rec.fileName || sub.fileName || 'file';
-          const ext = origName.indexOf('.') !== -1 ? origName.split('.').pop() : 'bin';
-          rollFolder.file(roll + '_' + subjName + '.' + ext, rec.blob);
+        var sub = subs[sid];
+        var subjName = safeName(subj.name, 'Subject');
+        var rec = map[fileKey(roll, sid)];
+        if (rec && rec.blob){
+          var orig = rec.fileName || sub.fileName || 'file';
+          var ext = orig.indexOf('.') !== -1 ? orig.split('.').pop() : 'bin';
+          rf.file(roll + '_' + subjName + '.' + ext, rec.blob);
           added++;
         } else {
-          const info =
-'Roll: ' + roll + '\n' +
-'Subject: ' + subj.name + '\n' +
-'Topic: ' + (sub.topic || '—') + '\n' +
-'Link: ' + (sub.link || '—') + '\n' +
-'Note: ' + (sub.note || '—') + '\n' +
-'Submitted: ' + fmtDate(sub.at) + '\n' +
-'(No file uploaded — only a link/note was provided)';
-          rollFolder.file(roll + '_' + subjName + '_INFO.txt', info);
+          var info = 'Roll: '+roll+'\nSubject: '+subj.name+'\nTopic: '+(sub.topic||'—')+
+            '\nLink: '+(sub.link||'—')+'\nNote: '+(sub.note||'—')+
+            '\nSubmitted: '+fmtDate(sub.at)+'\n(No file — link/note only)';
+          rf.file(roll + '_' + subjName + '_INFO.txt', info);
           infoOnly++;
         }
         processed++;
-        const pct = total ? Math.max(5, Math.round((processed / total) * 85)) : 85;
+        var pct = total ? Math.max(5, Math.round(processed/total*85)) : 85;
         bar.style.width = pct + '%';
       });
     });
 
-    const stats = computeStats();
-    const lists = getListsFor(scope === 'all' ? 'all' : scope);
-    const submitted = lists.submitted, pending = lists.pending;
-
-    const summary =
-'DS-F — Submission Export\n' +
-'=====================================\n' +
-'Class: ' + state.className + '\n' +
-'Exported: ' + new Date().toLocaleString() + '\n' +
-'Download mode: ' + (mode === 'submitted' ? 'Only submitted students' : 'All students') + '\n' +
-'Subject scope: ' + (scope === 'all' ? 'All subjects' : ((state.subjects.find(s => s.id === scope) || {}).name || '—')) + '\n' +
-'CR Contact: ' + (state.crEmail || '(not set)') + '\n\n' +
-'Total students: ' + TOTAL + '\n' +
-'Submitted: ' + stats.submitted + '\n' +
-'Pending: ' + stats.pending + '\n' +
-'Completion: ' + stats.percent + '%\n\n' +
-'Files in this ZIP: ' + added + '\n' +
-'Link-only entries: ' + infoOnly + '\n\n' +
-'Per-subject counts:\n' +
-(state.subjects.map(s => '  - ' + s.name + ': ' + subjectCount(s.id) + '/' + TOTAL).join('\n') || '  (none)') + '\n';
-
+    var st = computeStats();
+    var L = getListsFor(scope === 'all' ? 'all' : scope);
+    var summary = 'DS-F — Submission Export\n=====================================\n' +
+      'Class: '+state.className+'\nExported: '+new Date().toLocaleString()+
+      '\nDownload mode: '+(mode==='submitted'?'Only submitted students':'All students')+
+      '\nSubject scope: '+(scope==='all'?'All subjects':((state.subjects.filter(function(s){return s.id===scope;})[0]||{}).name||'—'))+
+      '\nCR Contact: '+(state.crEmail||'(not set)')+'\n\n' +
+      'Total students: '+TOTAL+'\nSubmitted: '+st.submitted+'\nPending: '+st.pending+
+      '\nCompletion: '+st.percent+'%\n\nFiles in this ZIP: '+added+
+      '\nLink-only entries: '+infoOnly+'\n\nPer-subject counts:\n' +
+      state.subjects.map(function(s){ return '  - '+s.name+': '+subjectCount(s.id)+'/'+TOTAL; }).join('\n');
     root.file('_SUMMARY.txt', summary);
-    root.file('_SUBMITTED_ROLLS.txt', submitted.length
-      ? 'Submitted (' + submitted.length + '):\n' + submitted.join(', ') + '\n\nRanges: ' + compactRolls(submitted)
+    root.file('_SUBMITTED_ROLLS.txt', L.submitted.length
+      ? 'Submitted ('+L.submitted.length+'):\n'+L.submitted.join(', ')+'\n\nRanges: '+compactRolls(L.submitted)
       : 'No submissions.');
-    root.file('_PENDING_ROLLS.txt', pending.length
-      ? 'Pending (' + pending.length + '):\n' + pending.join(', ') + '\n\nRanges: ' + compactRolls(pending)
+    root.file('_PENDING_ROLLS.txt', L.pending.length
+      ? 'Pending ('+L.pending.length+'):\n'+L.pending.join(', ')+'\n\nRanges: '+compactRolls(L.pending)
       : 'No pending students. Everyone submitted! 🎉');
 
-    status.textContent = 'Building ZIP...';
-    bar.style.width = '92%';
-
-    return zip.generateAsync(
-      { type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } },
-      meta => { bar.style.width = (92 + Math.round(meta.percent * 0.08)) + '%'; }
-    ).then(blob => {
-      bar.style.width = '100%';
-      status.textContent = isIOS ? 'Opening ZIP...' : 'Download starting...';
-
-      const stamp = new Date().toISOString().slice(0, 10);
-      const scopeTag = scope === 'all' ? 'All_Subjects' : safeName((state.subjects.find(s => s.id === scope) || {}).name || 'Subject', 'Subject');
-      const modeTag = mode === 'submitted' ? 'Submitted' : 'All';
-      const filename = 'DS-F_' + modeTag + '_' + scopeTag + '_' + stamp + '.zip';
-
-      triggerDownload(blob, filename);
-
-      status.textContent = '✅ Done! ' + added + ' file(s) + ' + infoOnly + ' info file(s) packed.';
-      btn.textContent = '⬇ Download ZIP';
-      btn.disabled = false;
-
-      setTimeout(() => {
-        progress.classList.remove('show');
-        bar.style.width = '0';
-        status.textContent = '';
-      }, 5000);
-    });
-  }).catch(err => {
+    status.textContent = 'Building ZIP...'; bar.style.width = '92%';
+    return zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} },
+      function(meta){ bar.style.width = (92 + Math.round(meta.percent*0.08)) + '%'; })
+      .then(function(blob){
+        bar.style.width = '100%';
+        status.textContent = isIOS ? 'Opening ZIP...' : 'Download starting...';
+        var stamp = new Date().toISOString().slice(0,10);
+        var scopeTag = scope === 'all' ? 'All_Subjects'
+          : safeName((state.subjects.filter(function(s){return s.id===scope;})[0]||{}).name||'Subject','Subject');
+        var modeTag = mode === 'submitted' ? 'Submitted' : 'All';
+        var filename = 'DS-F_'+modeTag+'_'+scopeTag+'_'+stamp+'.zip';
+        triggerDownload(blob, filename);
+        status.textContent = '✅ Done! '+added+' file(s) + '+infoOnly+' info file(s) packed.';
+        btn.textContent = '⬇ Download ZIP'; btn.disabled = false;
+        setTimeout(function(){ prog.classList.remove('show'); bar.style.width = '0'; status.textContent = ''; }, 5000);
+      });
+  }).catch(function(err){
     console.error(err);
-    alert('Something went wrong while building the ZIP. ' + (err.message || ''));
+    alert('ZIP failed: ' + (err.message || 'Unknown error'));
     status.textContent = '❌ Export failed.';
-    btn.textContent = '⬇ Download ZIP';
-    btn.disabled = false;
-    progress.classList.remove('show');
+    btn.textContent = '⬇ Download ZIP'; btn.disabled = false;
+    prog.classList.remove('show');
   });
 }
 
-/* ---------- SETTINGS ---------- */
-function crSettingsHTML(){
-  const crItems = state.crRolls.map(roll => {
-    const isYou = session && session.roll === roll;
-    return '' +
-      '<div class="cr-item">' +
-        '<div class="cr-info">' +
-          '<span class="roll-badge">' + roll + '</span>' +
-          (isYou ? '<span class="cr-you">You</span>' : '<span class="cr-tag">CR</span>') +
-        '</div>' +
-        (state.crRolls.length > 1
-          ? '<button type="button" class="btn danger sm" onclick="removeCR(\'' + roll + '\')">Remove</button>'
-          : '<span style="font-size:.72rem;color:var(--muted)">Last CR</span>') +
-      '</div>';
-  }).join('');
+/* ============================================================
+   PER-SUBJECT ZIP
+   ============================================================ */
+function downloadSubjectZip(subjectId, mode){
+  var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
+  if (!subj) return;
 
-  return '' +
-    '<div class="panel">' +
-      '<h3>Class name</h3>' +
-      '<p class="panel-sub">This name is shown on both the student and CR dashboards.</p>' +
-      '<input class="inp" id="class-name-input" value="' + esc(state.className) + '" placeholder="e.g. MCS — Semester 1" ' +
-             'autocapitalize="off" autocorrect="off" spellcheck="false">' +
-      '<button type="button" class="btn primary" onclick="saveClassName()">Save class name</button>' +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>CR email</h3>' +
-      '<p class="panel-sub">Students see this on the landing page if they need to contact you.</p>' +
-      '<input class="inp" id="cr-email-input" type="email" value="' + esc(state.crEmail) + '" placeholder="cr@example.com" ' +
-             'autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="email">' +
-      '<button type="button" class="btn primary" onclick="saveCREmail()">Save email</button>' +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>Class Representatives</h3>' +
-      '<p class="panel-sub">Add or remove CRs. New CRs can log in immediately with their roll number as password.</p>' +
-      crItems +
-      '<div class="cr-add-row">' +
-        '<div class="roll-input">' +
-          '<span class="prefix">25MVCSDR0</span>' +
-          '<input id="new-cr-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" placeholder="452" ' +
-                 'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">' +
-        '</div>' +
-        '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addCR()">+ Appoint</button>' +
-      '</div>' +
-      '<div class="hint" style="margin-top:10px">Range: 451 – 546. New CR will use their own roll number as password.</div>' +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>Data</h3>' +
-      '<p class="panel-sub">Backup or restore submissions metadata, subjects, CRs and settings. (Uploaded files stay in this browser only.)</p>' +
-      '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
-        '<button type="button" class="btn ghost" onclick="exportData()">⬇ Export JSON</button>' +
-        '<label class="file-pick btn ghost" style="margin:0">' +
-          '⬆ Import backup' +
-          '<input type="file" accept="application/json,.json" onchange="importData(this)">' +
-        '</label>' +
-        '<button type="button" class="btn danger" onclick="resetData()">Reset everything</button>' +
-      '</div>' +
-    '</div>' +
-    '<div class="panel">' +
-      '<h3>Class info</h3>' +
-      '<p class="panel-sub">' +
-        'Total students: <b>' + TOTAL + '</b><br>' +
-        'Roll range: <b>451 – 546</b><br>' +
-        'Subjects: <b>' + state.subjects.length + '</b><br>' +
-        'CRs: <b>' + state.crRolls.length + '</b>' +
-      '</p>' +
-    '</div>';
+  if (typeof JSZip === 'undefined'){
+    alert('ZIP library failed to load. Check your internet connection and reload the page.');
+    return;
+  }
+
+  var btn = document.querySelector('[data-dl-btn="'+subjectId+'_'+mode+'"]');
+  if (btn){ btn.disabled = true; btn.textContent = '⏳ Working...'; }
+
+  var safeSubj = safeName(subj.name, 'Subject');
+  var isSubmitted = mode === 'submitted';
+
+  getAllFileBlobs().then(function(stored){
+    var map = {};
+    stored.forEach(function(f){ map[f.key] = f; });
+
+    var zip = new JSZip();
+    var folderName = 'DS-F_' + safeSubj + '_' + (isSubmitted ? 'Submitted' : 'Pending');
+    var root = zip.folder(folderName);
+    var fileCount = 0;
+    var submittedRolls = [], pendingRolls = [];
+
+    if (isSubmitted){
+      ROLLS.forEach(function(r){
+        var sub = (state.submissions[r] || {})[subjectId];
+        if (!sub) return;
+        submittedRolls.push(r);
+        var rec = map[fileKey(r, subjectId)];
+        if (rec && rec.blob){
+          var orig = rec.fileName || sub.fileName || 'file';
+          var ext = orig.indexOf('.') !== -1 ? orig.split('.').pop() : 'bin';
+          root.file(r + '_' + safeSubj + '.' + ext, rec.blob);
+          fileCount++;
+        } else {
+          var info = 'Roll: ' + r + '\nSubject: ' + subj.name +
+                     '\nTopic: ' + (sub.topic || '—') +
+                     '\nLink: ' + (sub.link || '—') +
+                     '\nNote: ' + (sub.note || '—') +
+                     '\nSubmitted: ' + fmtDate(sub.at) +
+                     '\n(No file — link/note only)';
+          root.file(r + '_' + safeSubj + '_INFO.txt', info);
+          fileCount++;
+        }
+      });
+    } else {
+      ROLLS.forEach(function(r){
+        if (!(state.submissions[r] || {})[subjectId]) pendingRolls.push(r);
+      });
+      var pendingText =
+        'DS-F — Pending students for: ' + subj.name + '\n' +
+        '============================================\n' +
+        'Total students: ' + TOTAL + '\n' +
+        'Pending: ' + pendingRolls.length + '\n' +
+        'Submitted: ' + (TOTAL - pendingRolls.length) + '\n\n' +
+        'Pending roll numbers (last 3 digits):\n' +
+        (pendingRolls.join(', ') || '— none —') + '\n\n' +
+        'Grouped ranges:\n' + compactRolls(pendingRolls) + '\n';
+      root.file('_PENDING_' + safeSubj + '.txt', pendingText);
+      fileCount = 1;
+    }
+
+    var stats = isSubmitted ? submittedRolls : pendingRolls;
+    var summary =
+      'DS-F — ' + (isSubmitted ? 'Submitted files' : 'Pending students') + '\n' +
+      '=====================================\n' +
+      'Subject: ' + subj.name + '\n' +
+      'Exported: ' + new Date().toLocaleString() + '\n' +
+      'Mode: ' + (isSubmitted ? 'Submitted files only' : 'Pending list only') + '\n' +
+      'CR Contact: ' + (state.crEmail || '(not set)') + '\n\n' +
+      'Count: ' + stats.length + ' students\n' +
+      'Files in this ZIP: ' + fileCount + '\n\n' +
+      'Roll numbers:\n' + (stats.join(', ') || '— none —') + '\n\n' +
+      'Grouped ranges:\n' + compactRolls(stats) + '\n';
+    root.file('_SUMMARY.txt', summary);
+
+    return zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} });
+  }).then(function(blob){
+    var stamp = new Date().toISOString().slice(0, 10);
+    var filename = 'DS-F_' + safeSubj + '_' + (isSubmitted ? 'Submitted' : 'Pending') + '_' + stamp + '.zip';
+    triggerDownload(blob, filename);
+    if (btn){
+      btn.disabled = false;
+      btn.textContent = isSubmitted ? '⬇ Submitted' : '⬇ Pending';
+    }
+  }).catch(function(err){
+    console.error(err);
+    alert('Download failed: ' + (err.message || 'Unknown error'));
+    if (btn){
+      btn.disabled = false;
+      btn.textContent = isSubmitted ? '⬇ Submitted' : '⬇ Pending';
+    }
+  });
+}
+
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+function crSettingsHTML(){
+  var crItems = state.crRolls.map(function(roll){
+    var isYou = session && session.roll === roll;
+    return '<div class="cri"><div class="info"><span class="rb">'+roll+'</span>' +
+      (isYou ? '<span class="you">You</span>' : '<span class="tag2">CR</span>') + '</div>' +
+      (state.crRolls.length > 1
+        ? '<button type="button" class="btn danger sm" onclick="removeCR(\''+roll+'\')">Remove</button>'
+        : '<span style="font-size:.72rem;color:var(--muted)">Last CR</span>') + '</div>';
+  }).join('');
+  return '<div class="pn"><h3>Class name</h3>' +
+    '<p class="psub">This name is shown on both dashboards.</p>' +
+    '<input class="inp" id="className" value="'+esc(state.className)+'" placeholder="e.g. MCS — Semester 1">' +
+    '<button type="button" class="btn primary" onclick="saveClassName()">Save class name</button></div>' +
+    '<div class="pn"><h3>CR email</h3>' +
+    '<p class="psub">Students see this on the landing page.</p>' +
+    '<input class="inp" id="crEmail" type="email" value="'+esc(state.crEmail)+'" placeholder="cr@example.com">' +
+    '<button type="button" class="btn primary" onclick="saveEmail()">Save email</button></div>' +
+    '<div class="pn"><h3>Class Representatives</h3>' +
+    '<p class="psub">Add or remove CRs. All CRs log in with the shared password <b>'+esc(CR_PASSWORD)+'</b>.</p>' +
+    crItems + '<div class="cr2r"><div class="ri"><span class="px">25MVCSDR0</span>' +
+    '<input id="newCR" type="text" inputmode="numeric" maxlength="3" placeholder="452" autocomplete="off"></div>' +
+    '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addCR()">+ Appoint</button></div>' +
+    '<div class="hint" style="margin-top:10px">Range: 451 – 546. All CRs share the password <b>'+esc(CR_PASSWORD)+'</b>.</div></div>' +
+    '<div class="pn"><h3>Data</h3>' +
+    '<p class="psub">Backup or restore metadata. Uploaded files stay in this browser.</p>' +
+    '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
+    '<button type="button" class="btn ghost" onclick="exportData()">⬇ Export JSON</button>' +
+    '<label class="fpick btn ghost" style="margin:0">⬆ Import backup' +
+    '<input type="file" accept="application/json,.json" onchange="importData(this)"></label>' +
+    '<button type="button" class="btn danger" onclick="resetData()">Reset everything</button></div></div>' +
+    '<div class="pn"><h3>Class info</h3><p class="psub">' +
+    'Total students: <b>'+TOTAL+'</b><br>Roll range: <b>451 – 546</b><br>' +
+    'Subjects: <b>'+state.subjects.length+'</b><br>CRs: <b>'+state.crRolls.length+'</b></p></div>';
 }
 
 function saveClassName(){
-  const v = document.getElementById('class-name-input').value.trim();
-  if (!v) { alert('Class name cannot be empty.'); return; }
-  state.className = v;
-  save();
-  document.getElementById('cr-classname').textContent = v;
+  var v = document.getElementById('className').value.trim();
+  if (!v){ alert('Class name cannot be empty.'); return; }
+  state.className = v; save();
+  document.getElementById('cClass').textContent = v;
   alert('Class name saved.');
 }
-
-function saveCREmail(){
-  const v = document.getElementById('cr-email-input').value.trim();
-  if (v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-  state.crEmail = v;
-  save();
-  updateLandingFoot();
+function saveEmail(){
+  var v = document.getElementById('crEmail').value.trim();
+  if (v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ alert('Please enter a valid email.'); return; }
+  state.crEmail = v; save(); updateLanding();
   alert('CR email saved.');
 }
-
 function addCR(){
-  const input = document.getElementById('new-cr-input');
-  const roll = extractRoll(input.value);
-  if (!roll) { alert('Please enter a roll number.'); return; }
-  const num = parseInt(roll, 10);
-  if (isNaN(num) || num < ROLL_START || num > ROLL_END) {
-    alert('Roll number must be between 451 and 546.');
-    return;
-  }
-  if (state.crRolls.indexOf(roll) !== -1) { alert('This roll number is already a CR.'); return; }
+  var input = document.getElementById('newCR');
+  var roll = extractRoll(input.value);
+  if (!roll){ alert('Please enter a roll number.'); return; }
+  var num = parseInt(roll,10);
+  if (isNaN(num) || num < ROLL_START || num > ROLL_END){ alert('Roll must be 451-546.'); return; }
+  if (state.crRolls.indexOf(roll) !== -1){ alert('Already a CR.'); return; }
   state.crRolls.push(roll);
-  state.crRolls.sort((a, b) => parseInt(a) - parseInt(b));
-  save();
-  input.value = '';
-  renderCR();
-  alert('Roll ' + roll + ' is now a CR. They can log in with password ' + roll + '.');
+  state.crRolls.sort(function(a,b){ return parseInt(a)-parseInt(b); });
+  save(); input.value = ''; renderCR();
+  alert('Roll '+roll+' is now a CR. Password: '+CR_PASSWORD);
 }
-
 function removeCR(roll){
-  if (state.crRolls.length <= 1) { alert('At least one CR must remain.'); return; }
-  if (!confirm('Remove roll ' + roll + ' as CR?')) return;
-  state.crRolls = state.crRolls.filter(r => r !== roll);
-  save();
-  renderCR();
+  if (state.crRolls.length <= 1){ alert('At least one CR must remain.'); return; }
+  if (!confirm('Remove roll '+roll+' as CR?')) return;
+  state.crRolls = state.crRolls.filter(function(r){ return r !== roll; });
+  save(); renderCR();
 }
-
 function exportData(){
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  var blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
   triggerDownload(blob, 'ds-f-backup.json');
 }
-
 function importData(input){
-  const f = input.files[0];
-  if (!f) return;
-  const reader = new FileReader();
-  reader.onload = e => {
+  var f = input.files[0]; if (!f) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
     try {
-      const parsed = JSON.parse(e.target.result);
+      var parsed = JSON.parse(e.target.result);
       if (!parsed.subjects) throw new Error('bad');
       state = parsed;
-      if (!Array.isArray(state.crRolls) || !state.crRolls.length) state.crRolls = ['451'];
+      if (!state.crRolls || !state.crRolls.length) state.crRolls = ['451'];
       if (typeof state.crEmail !== 'string') state.crEmail = '';
-      save();
-      renderCR();
-      updateLandingFoot();
-      alert('Backup imported successfully.');
-    } catch (err) {
-      alert('Invalid backup file.');
-    }
+      save(); renderCR(); updateLanding();
+      alert('Backup imported.');
+    } catch(err){ alert('Invalid backup file.'); }
   };
-  reader.onerror = () => alert('Failed to read file.');
+  reader.onerror = function(){ alert('Failed to read file.'); };
   reader.readAsText(f);
   input.value = '';
 }
-
 function resetData(){
-  if (!confirm('This will erase ALL submissions (including uploaded files) and settings. Continue?')) return;
-  openDB().then(db => new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, 'readwrite');
-    tx.objectStore(STORE).clear();
-    tx.oncomplete = resolve;
-    tx.onerror = reject;
-  })).catch(() => {}).then(() => {
+  if (!confirm('Erase ALL submissions and settings?')) return;
+  openDB().then(function(db){
+    return new Promise(function(res,rej){
+      var tx = db.transaction(STORE,'readwrite');
+      tx.objectStore(STORE).clear();
+      tx.oncomplete = res; tx.onerror = rej;
+    });
+  }).catch(function(){}).then(function(){
     state = defaultState();
-    crSubjectFilter = null;
-    crListFilter = 'all';
-    crDownloadScope = 'all';
-    crDownloadMode = 'submitted';
-    save();
-    renderCR();
-    updateLandingFoot();
-    alert('All data has been reset.');
+    crSubFilter = null; crListFilter = 'all'; crDlScope = 'all'; crDlMode = 'submitted';
+    save(); renderCR(); updateLanding();
+    alert('All data reset.');
   });
 }
 
 /* ============================================================
    MODAL
    ============================================================ */
-const backdrop = document.getElementById('modal');
-const modalBox = document.getElementById('modal-box');
-backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+var modal = document.getElementById('modal');
+var modalBox = document.getElementById('modalBox');
+modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
 
-function openModal(){ backdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeModal(){ backdrop.classList.remove('open'); document.body.style.overflow = ''; modalBox.innerHTML = ''; }
+function openModal(){ modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal(){ modal.classList.remove('open'); document.body.style.overflow = ''; modalBox.innerHTML = ''; }
 
-function openSubmitModal(roll, subjectId){
-  const subj = state.subjects.find(s => s.id === subjectId);
-  if (!subj) { alert('Subject not found.'); return; }
-  const cur = (state.submissions[roll] || {})[subjectId] || {};
-
-  modalBox.innerHTML = '' +
-    '<h3>' + (cur.fileName || cur.link || cur.topic ? 'Edit submission' : 'Submit PPT') + '</h3>' +
-    '<p class="sub">Roll <b>' + roll + '</b> · ' + esc(subj.name) + '</p>' +
-    '<label for="m-topic">Topic</label>' +
-    '<input id="m-topic" class="inp" value="' + esc(cur.topic != null ? cur.topic : subj.topic) + '" placeholder="Topic name" ' +
-           'autocapitalize="off" autocorrect="off" spellcheck="false">' +
-    '<label for="m-file">File (PPT / PPTX / PDF)</label>' +
-    '<label class="file-slot file-pick" for="m-file">' +
-      '<span class="file-icon">📎</span>' +
-      '<span id="m-file-name">' + (cur.fileName ? 'Replace: ' + esc(cur.fileName) : 'Tap to choose a file') + '</span>' +
-      '<input id="m-file" type="file" ' +
-             'accept=".ppt,.pptx,.pdf,.odp,.key,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf" ' +
-             'onchange="onFileChosen(this)">' +
+function openSubmit(roll, subjectId){
+  var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
+  if (!subj){ alert('Subject not found.'); return; }
+  var cur = (state.submissions[roll] || {})[subjectId] || {};
+  modalBox.innerHTML = '<h3>'+(cur.fileName||cur.link||cur.topic?'Edit submission':'Submit PPT')+'</h3>' +
+    '<p class="sub">Roll <b>'+roll+'</b> · '+esc(subj.name)+'</p>' +
+    '<label for="mTopic">Topic</label>' +
+    '<input id="mTopic" class="inp" value="'+esc(cur.topic != null ? cur.topic : subj.topic)+'" placeholder="Topic name">' +
+    '<label for="mFile">File (PPT / PPTX / PDF)</label>' +
+    '<label class="fs" for="mFile"><span>📎</span>' +
+    '<span id="mFileName">'+(cur.fileName ? 'Replace: '+esc(cur.fileName) : 'Tap to choose a file')+'</span>' +
+    '<input id="mFile" type="file" accept=".ppt,.pptx,.pdf,.odp,.key,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf" onchange="onFileChosen(this)">' +
     '</label>' +
-    (cur.fileName ? '<div class="hint">Current file: <b>' + esc(cur.fileName) + '</b> — choose a new file to replace it.</div>' : '') +
-    '<label for="m-link">Link (optional)</label>' +
-    '<input id="m-link" class="inp" value="' + esc(cur.link || '') + '" placeholder="https://drive.google.com/..." ' +
-           'inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false">' +
-    '<label for="m-note">Note (optional)</label>' +
-    '<input id="m-note" class="inp" value="' + esc(cur.note || '') + '" placeholder="Any remark for the CR" ' +
-           'autocapitalize="off" autocorrect="off" spellcheck="false">' +
-    '<div class="modal-actions">' +
-      '<button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>' +
-      '<button type="button" class="btn primary" onclick="saveModal(\'' + roll + '\',\'' + subjectId + '\')">Save</button>' +
-    '</div>';
-
+    (cur.fileName ? '<div class="hint">Current: <b>'+esc(cur.fileName)+'</b></div>' : '') +
+    '<label for="mLink">Link (optional)</label>' +
+    '<input id="mLink" class="inp" value="'+esc(cur.link||'')+'" placeholder="https://..." inputmode="url">' +
+    '<label for="mNote">Note (optional)</label>' +
+    '<input id="mNote" class="inp" value="'+esc(cur.note||'')+'" placeholder="Any remark">' +
+    '<div class="ma"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>' +
+    '<button type="button" class="btn primary" onclick="saveModal(\''+roll+'\',\''+subjectId+'\')">Save</button></div>';
   openModal();
 }
-
 function onFileChosen(input){
-  const nameEl = document.getElementById('m-file-name');
-  if (!nameEl) return;
-  if (input.files && input.files[0]) {
-    nameEl.textContent = '📎 ' + input.files[0].name;
-  } else {
-    nameEl.textContent = 'Tap to choose a file';
-  }
+  var el = document.getElementById('mFileName'); if (!el) return;
+  el.textContent = input.files && input.files[0] ? '📎 ' + input.files[0].name : 'Tap to choose a file';
 }
-
 function saveModal(roll, subjectId){
-  const topic  = document.getElementById('m-topic').value.trim();
-  const link   = document.getElementById('m-link').value.trim();
-  const note   = document.getElementById('m-note').value.trim();
-  const fileEl = document.getElementById('m-file');
-  const file   = fileEl.files && fileEl.files[0];
-
-  const prev = (state.submissions[roll] || {})[subjectId] || {};
-  const subj = state.subjects.find(s => s.id === subjectId) || {};
-
-  const entry = {
-    topic:    topic || subj.topic || '',
+  var topic = document.getElementById('mTopic').value.trim();
+  var link = document.getElementById('mLink').value.trim();
+  var note = document.getElementById('mNote').value.trim();
+  var fileEl = document.getElementById('mFile');
+  var file = fileEl.files && fileEl.files[0];
+  var prev = (state.submissions[roll] || {})[subjectId] || {};
+  var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0] || {};
+  var entry = {
+    topic: topic || subj.topic || '',
     fileName: file ? file.name : (prev.fileName || ''),
     fileSize: file ? file.size : (prev.fileSize || 0),
     link: link, note: note,
     at: new Date().toISOString()
   };
-
   if (!state.submissions[roll]) state.submissions[roll] = {};
   state.submissions[roll][subjectId] = entry;
   save();
-
-  const done = () => { closeModal(); refresh(); };
-
-  if (file) {
+  var done = function(){ closeModal(); refresh(); };
+  if (file){
     saveFileBlob(fileKey(roll, subjectId), file, {
-      fileName: file.name,
-      fileSize: file.size,
+      fileName: file.name, fileSize: file.size,
       mimeType: file.type || 'application/octet-stream',
-      savedAt: entry.at,
-      roll: roll, subjectId: subjectId
+      savedAt: entry.at, roll: roll, subjectId: subjectId
     }).then(done).catch(done);
-  } else {
-    done();
-  }
+  } else done();
 }
-
 function removeSubmission(roll, subjectId){
-  const subj = state.subjects.find(s => s.id === subjectId);
-  if (!confirm('Remove the submission of roll ' + roll + ' for "' + (subj ? subj.name : '') + '"?')) return;
-  if (state.submissions[roll]) {
+  var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
+  if (!confirm('Remove submission for roll '+roll+'?')) return;
+  if (state.submissions[roll]){
     delete state.submissions[roll][subjectId];
     if (!Object.keys(state.submissions[roll]).length) delete state.submissions[roll];
   }
-  deleteFileBlob(fileKey(roll, subjectId)).then(() => {
-    save();
-    refresh();
-  });
+  deleteFileBlob(fileKey(roll, subjectId)).then(function(){ save(); refresh(); });
 }
-
 function refresh(){
   if (session && session.role === 'cr') renderCR();
   else if (session && session.role === 'student') renderStudent();
@@ -2152,49 +1661,70 @@ function refresh(){
    INIT
    ============================================================ */
 (function init(){
-  const savedTheme = store.ls.get(THEME_KEY) || 'classic';
-  setTheme(savedTheme);
+  try {
+    var savedTheme = LS.get(THEME_KEY) || 'classic';
+    setTheme(savedTheme);
+    updateLanding();
 
-  updateLandingFoot();
-
-  if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1) {
-    renderCR();
-    show('view-cr');
-  } else if (session && session.role === 'student' && ROLLS.indexOf(session.roll) !== -1) {
-    renderStudent();
-    show('view-student');
-  } else {
-    session = null;
-    store.ss.remove(SESS_KEY);
-  }
-
-  // Enter key handlers
-  const bindEnter = (fromId, toId, action) => {
-    const from = document.getElementById(fromId);
-    if (!from) return;
-    from.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.keyCode === 13) {
-        e.preventDefault();
-        const to = toId ? document.getElementById(toId) : null;
-        if (to) to.focus();
-        else if (typeof action === 'function') action();
-      }
-    });
-  };
-  bindEnter('s-roll', 's-pass', null);
-  bindEnter('s-pass', null, studentLogin);
-  bindEnter('c-roll', 'c-pass', null);
-  bindEnter('c-pass', null, crLogin);
-
-  // Prevent double-tap zoom on buttons (iOS)
-  let lastTap = 0;
-  document.addEventListener('touchend', e => {
-    const now = Date.now();
-    if (now - lastTap < 300 && e.target.closest('button, .btn, .login-card, .tab, .theme-opt, .mode-card')) {
-      e.preventDefault();
+    if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1){
+      renderCR(); show('v-cr');
+    } else if (session && session.role === 'student' && ROLLS.indexOf(session.roll) !== -1){
+      renderStudent(); show('v-student');
+    } else {
+      session = null; SS.rm(SESS_KEY);
     }
-    lastTap = now;
-  }, { passive: false });
+
+    function bindEnter(fromId, toId, action){
+      var from = document.getElementById(fromId); if (!from) return;
+      from.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.keyCode === 13){
+          e.preventDefault();
+          var to = toId ? document.getElementById(toId) : null;
+          if (to) to.focus();
+          else if (typeof action === 'function') action();
+        }
+      });
+    }
+    bindEnter('sRoll', 'sPass', null);
+    bindEnter('sPass', null, studentLogin);
+    bindEnter('cRoll', 'cPass', null);
+    bindEnter('cPass', null, crLogin);
+
+    /* Expose handlers to inline onclick */
+    window.show = show;
+    window.logout = logout;
+    window.studentLogin = studentLogin;
+    window.crLogin = crLogin;
+    window.setTab = setTab;
+    window.toggleTheme = toggleTheme;
+    window.copyText = copyText;
+    window.updateSubmBody = updateSubmBody;
+    window.updateSubject = updateSubject;
+    window.addSubject = addSubject;
+    window.deleteSubject = deleteSubject;
+    window.updateZipStats = updateZipStats;
+    window.downloadZip = downloadZip;
+    window.downloadSubjectZip = downloadSubjectZip;
+    window.saveClassName = saveClassName;
+    window.saveEmail = saveEmail;
+    window.addCR = addCR;
+    window.removeCR = removeCR;
+    window.exportData = exportData;
+    window.importData = importData;
+    window.resetData = resetData;
+    window.openSubmit = openSubmit;
+    window.onFileChosen = onFileChosen;
+    window.saveModal = saveModal;
+    window.removeSubmission = removeSubmission;
+    window.closeModal = closeModal;
+
+  } catch(err){
+    console.error('Init failed:', err);
+    var el = document.createElement('div');
+    el.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#dc2626;color:#fff;padding:12px;font-size:14px;z-index:9999';
+    el.textContent = 'Script error: ' + err.message;
+    document.body.appendChild(el);
+  }
 })();
 </script>
 </body>
