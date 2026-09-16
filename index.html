@@ -36,8 +36,7 @@
 --bg:#e3f6f2;--surface:#f9fdfc;--surface2:#e7f6f3;--line:#cbeae4;--line2:#a5dbd1;
 --text:#042f2e;--text2:#134e4a;--muted:#0d9488;
 --primary:#0d9488;--primaryD:#0f766e;--primaryS:#c3ede4;--accent:#0891b2;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;
---warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
+--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
 --bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
 --hero1:#b7f0e4;--hero2:#c0e9f4;
 --head:rgba(249,253,252,.9);--headS:rgba(249,253,252,.95);
@@ -48,8 +47,7 @@
 --bg:#e4f5e9;--surface:#f9fdfa;--surface2:#e9f5e2;--line:#c9ead3;--line2:#a3d8b4;
 --text:#14532d;--text2:#166534;--muted:#16a34a;
 --primary:#16a34a;--primaryD:#15803d;--primaryS:#c7ecd3;--accent:#65a30d;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;
---warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
+--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
 --bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
 --hero1:#c5f1d2;--hero2:#ddeeb3;
 --head:rgba(249,253,250,.9);--headS:rgba(249,253,250,.95);
@@ -60,8 +58,7 @@
 --bg:#f2eafc;--surface:#fcf9fe;--surface2:#ece4fa;--line:#dcd0f2;--line2:#c3b1e8;
 --text:#2e1065;--text2:#4c1d95;--muted:#7c3aed;
 --primary:#7c3aed;--primaryD:#6d28d9;--primaryS:#e3d5f8;--accent:#db2777;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;
---warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
+--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
 --bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
 --hero1:#dcd1f7;--hero2:#f7cfe3;
 --head:rgba(252,249,254,.9);--headS:rgba(252,249,254,.95);
@@ -72,8 +69,7 @@
 --bg:#fbead9;--surface:#fefaf4;--surface2:#f5ead5;--line:#f2d3ab;--line2:#e8ba7e;
 --text:#7c2d12;--text2:#9a3412;--muted:#ea580c;
 --primary:#ea580c;--primaryD:#c2410c;--primaryS:#fbdec0;--accent:#e11d48;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;
---warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
+--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
 --bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
 --hero1:#fbdcbc;--hero2:#fcbcc4;
 --head:rgba(254,250,244,.9);--headS:rgba(254,250,244,.95);
@@ -95,7 +91,6 @@ button,.btn,input,select,textarea{touch-action:manipulation;font-family:inherit}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .view.active{animation:fade .3s ease}
 
-/* LANDING */
 .lh{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
 padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top));
 background:var(--head);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
@@ -132,7 +127,6 @@ background:var(--surface);border:1px solid var(--line);border-radius:14px;
 padding:14px 22px;box-shadow:0 1px 2px var(--sh);max-width:480px}
 .lf b{color:var(--text2)}
 
-/* AUTH */
 .aw{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
 align-items:center;justify-content:center;padding:30px 16px;padding-bottom:calc(30px + env(safe-area-inset-bottom));
 background:radial-gradient(600px 300px at 50% 0,var(--hero1) 0,transparent 65%)}
@@ -163,17 +157,14 @@ white-space:nowrap;font-weight:600}
 font-size:16px;padding:13px 12px;flex:1;min-width:0}
 .ri input:focus{box-shadow:none}
 
-/* PASSWORD WRAP WITH SHOW/HIDE TOGGLE */
 .pw-wrap{position:relative;display:block}
 .pw-wrap input{padding-right:48px}
 .pw-toggle{
   position:absolute;right:6px;top:50%;transform:translateY(-50%);
   background:transparent;border:none;cursor:pointer;
-  width:38px;height:38px;padding:0;
-  color:var(--muted);
+  width:38px;height:38px;padding:0;color:var(--muted);
   display:flex;align-items:center;justify-content:center;
-  border-radius:9px;transition:.15s;
-  -webkit-tap-highlight-color:transparent;
+  border-radius:9px;transition:.15s;-webkit-tap-highlight-color:transparent;
 }
 .pw-toggle:hover,.pw-toggle:focus{color:var(--primary);background:var(--primaryS);outline:none}
 .pw-toggle .ic-eye-off{display:none}
@@ -187,8 +178,7 @@ font-size:16px;padding:13px 12px;flex:1;min-width:0}
 border:1px solid transparent;cursor:pointer;transition:.18s;white-space:nowrap;
 -webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;
 justify-content:center;gap:6px;min-height:44px}
-.btn.primary{background:var(--primary);color:#fff;width:100%;margin-top:20px;
-box-shadow:0 4px 12px -4px var(--glow)}
+.btn.primary{background:var(--primary);color:#fff;width:100%;margin-top:20px;box-shadow:0 4px 12px -4px var(--glow)}
 .btn.primary:active{background:var(--primaryD)}
 .btn.ghost{background:var(--surface);border-color:var(--line2);color:var(--text2)}
 .btn.ghost:active{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
@@ -198,7 +188,6 @@ box-shadow:0 4px 12px -4px var(--glow)}
 .btn.sm{padding:9px 14px;font-size:.78rem;border-radius:8px;width:auto;margin:0;min-height:36px}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 
-/* SHELL */
 .tb{position:sticky;top:0;z-index:40;display:flex;align-items:center;
 justify-content:space-between;padding:10px 16px;
 padding-top:calc(10px + env(safe-area-inset-top));
@@ -208,12 +197,19 @@ border-bottom:1px solid var(--line);gap:10px}
 .tr{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .chip{background:var(--primaryS);border:1px solid var(--primaryS);color:var(--primaryD);
 padding:6px 11px;border-radius:999px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.bell{position:relative;background:var(--surface);border:1px solid var(--line2);
+color:var(--text2);width:38px;height:36px;border-radius:9px;cursor:pointer;
+display:flex;align-items:center;justify-content:center;transition:.15s}
+.bell:hover{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
+.bell-count{position:absolute;top:-5px;right:-5px;background:var(--bad);color:#fff;
+font-size:.6rem;font-weight:700;min-width:17px;height:17px;padding:0 4px;
+border-radius:999px;display:flex;align-items:center;justify-content:center;
+border:2px solid var(--headS)}
 .co{max-width:1180px;margin:0 auto;padding:22px 16px 60px;
 padding-bottom:calc(60px + env(safe-area-inset-bottom))}
 .pt{font-size:1.35rem;font-weight:800;letter-spacing:-.5px;line-height:1.25}
 .ps{color:var(--muted);font-size:.84rem;margin-top:4px}
 
-/* THEME PICKER */
 .tp{position:relative}
 .tt{display:flex;align-items:center;gap:6px;background:var(--surface);
 border:1px solid var(--line2);color:var(--text2);font-size:.78rem;font-weight:600;
@@ -238,7 +234,6 @@ cursor:pointer;text-align:left;min-height:42px}
 .topt .ck{margin-left:auto;opacity:0;color:var(--primary);font-weight:700}
 .topt.active .ck{opacity:1}
 
-/* STATS */
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
 .st{background:var(--surface);border:1px solid var(--line);border-radius:14px;
 padding:16px;box-shadow:0 1px 2px var(--sh)}
@@ -253,7 +248,6 @@ margin-top:8px;font-weight:700}
 .pgf{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));
 border-radius:999px;transition:width .6s}
 
-/* TABS */
 .tabs{display:flex;gap:8px;margin:18px -16px;padding:0 16px 4px;
 overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
@@ -262,13 +256,48 @@ padding:9px 15px;border-radius:999px;font-size:.8rem;font-weight:600;
 cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:38px}
 .tab.active{background:var(--primary);border-color:var(--primary);color:#fff}
 
-/* PANELS */
 .pn{background:var(--surface);border:1px solid var(--line);border-radius:14px;
 padding:18px;margin-bottom:14px;box-shadow:0 1px 2px var(--sh)}
 .pn h3{font-size:1rem;font-weight:700;margin-bottom:4px}
 .pn .psub{color:var(--muted);font-size:.8rem;margin-bottom:14px;line-height:1.55}
 
-/* SUBJECT CARDS */
+/* ANNOUNCEMENTS */
+.ann-form{margin-bottom:16px}
+.ann-form .row{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:600px){.ann-form .row{grid-template-columns:1fr}}
+.ann-form textarea{min-height:100px;resize:vertical;font-family:inherit}
+.ann-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.ann-list{display:flex;flex-direction:column;gap:12px}
+.ann-card{
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+  background:var(--surface2);position:relative;
+}
+.ann-card.pinned{border-color:var(--primary);background:var(--primaryS)}
+.ann-card.normal{border-left:4px solid var(--primary)}
+.ann-card.important{border-left:4px solid var(--warn);background:var(--warnS)}
+.ann-card.urgent{border-left:4px solid var(--bad);background:var(--badS)}
+.ann-head{display:flex;justify-content:space-between;align-items:flex-start;
+gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.ann-title{font-size:.95rem;font-weight:700;color:var(--text);display:flex;
+align-items:center;gap:8px;flex-wrap:wrap}
+.ann-time{font-size:.72rem;color:var(--muted);white-space:nowrap}
+.ann-body{font-size:.85rem;color:var(--text2);line-height:1.65;
+white-space:pre-wrap;word-break:break-word}
+.ann-tag{
+  font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  padding:3px 8px;border-radius:999px;
+}
+.ann-tag.pin{background:var(--primary);color:#fff}
+.ann-tag.new{background:var(--bad);color:#fff}
+.ann-tag.important{background:var(--warnS);color:var(--warn);border:1px solid var(--warnB)}
+.ann-tag.urgent{background:var(--badS);color:var(--bad);border:1px solid var(--badB)}
+.ann-tag.normal{background:var(--primaryS);color:var(--primary);border:1px solid var(--primaryS)}
+.ann-foot{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;
+padding-top:10px;border-top:1px dashed var(--line)}
+.ann-empty{text-align:center;color:var(--muted);padding:30px 14px;
+font-size:.86rem;background:var(--surface2);border-radius:12px;
+border:1px dashed var(--line)}
+
 .sgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:18px}
 .sc{background:var(--surface);border:1px solid var(--line);border-radius:14px;
 padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px var(--sh)}
@@ -287,7 +316,6 @@ border:1px solid var(--line);border-radius:9px;padding:10px 12px;word-break:brea
 .sa{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;padding-top:4px}
 .sa .btn{flex:1;min-width:100px}
 
-/* MINI STATS */
 .ms{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .mst{background:var(--surface);border:1px solid var(--line);border-radius:12px;
 padding:12px 16px;display:flex;flex-direction:column;gap:3px;min-width:100px;flex:1}
@@ -295,7 +323,6 @@ padding:12px 16px;display:flex;flex-direction:column;gap:3px;min-width:100px;fle
 .mst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;
 letter-spacing:.8px;font-weight:700}
 
-/* TABLE */
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);
 border-radius:14px;background:var(--surface)}
 table{width:100%;border-collapse:collapse;font-size:.83rem;min-width:720px}
@@ -311,7 +338,6 @@ letter-spacing:1.1px;font-size:.8rem}
 .tbr{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
 .tbr .inp,.tbr select{max-width:100%;flex:1 1 200px;min-width:0}
 
-/* LISTS */
 .lg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .lc{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--surface2)}
 .lc.ok{border-color:var(--okB)}
@@ -336,7 +362,6 @@ max-height:240px;overflow-y:auto;margin-top:6px}
 .cr2{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
 @media(max-width:760px){.lg{grid-template-columns:1fr}}
 
-/* ZIP */
 .zh{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;
 border-radius:14px;padding:22px;margin-bottom:14px;box-shadow:0 18px 40px -16px var(--glow)}
 .zh h2{font-size:1.2rem;font-weight:800;margin-bottom:8px}
@@ -372,7 +397,6 @@ display:inline-grid;place-items:center;flex-shrink:0}
 .mcard.active .mk::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
 @media(max-width:600px){.mc{grid-template-columns:1fr}}
 
-/* PER-SUBJECT DOWNLOAD CARDS */
 .subj-dl-list{display:flex;flex-direction:column;gap:10px}
 .subj-dl-row{
   display:flex;justify-content:space-between;align-items:center;gap:12px;
@@ -390,7 +414,6 @@ display:inline-grid;place-items:center;flex-shrink:0}
   .subj-dl-btns .btn{flex:1}
 }
 
-/* SUBJECT EDITOR */
 .sr{display:grid;grid-template-columns:1.1fr 1.3fr auto;gap:10px;align-items:center;
 padding:12px;border:1px solid var(--line);border-radius:12px;
 background:var(--surface2);margin-bottom:10px}
@@ -399,7 +422,6 @@ letter-spacing:.7px;display:block;margin-bottom:4px;font-weight:700}
 .ar{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:16px}
 .empty{text-align:center;color:var(--muted);padding:30px 14px;font-size:.86rem}
 
-/* CR */
 .cri{display:flex;align-items:center;justify-content:space-between;gap:10px;
 padding:12px 14px;border:1px solid var(--line);border-radius:12px;
 background:var(--surface2);margin-bottom:8px;flex-wrap:wrap}
@@ -412,7 +434,6 @@ font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
 padding:3px 9px;border-radius:999px}
 .cr2r{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:14px}
 
-/* BARS */
 .br{margin-bottom:16px}
 .brt{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:7px;
 gap:10px;flex-wrap:wrap}
@@ -421,7 +442,6 @@ gap:10px;flex-wrap:wrap}
 .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));
 border-radius:999px;transition:width .5s}
 
-/* MODAL */
 .mbd{position:fixed;inset:0;background:var(--modal);
 -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:none;
 align-items:center;justify-content:center;padding:16px;z-index:100;
@@ -557,6 +577,10 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
     <div class="brand"><span class="bmark">DSF</span><span>DS-F</span></div>
     <div class="tr">
       <span class="chip" id="sChip">—</span>
+      <button type="button" class="bell" id="bellBtn" onclick="scrollToNotices()" aria-label="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="bell-count" id="bellCount" style="display:none">0</span>
+      </button>
       <div class="tp">
         <button type="button" class="tt" onclick="toggleTheme(event,'tpopS')" aria-label="Theme">
           <span class="sw"></span><span class="tl">Classic</span>
@@ -570,6 +594,7 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
     <div class="pt" id="sClass">—</div>
     <div class="ps" id="sLine">—</div>
     <div class="ms" id="sStats"></div>
+    <div id="sAnnounceWrap" style="margin-top:18px"></div>
     <div class="sgr" id="sSubjects"></div>
   </div>
 </section>
@@ -597,6 +622,7 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
       <button type="button" class="tab" data-tab="ls" onclick="setTab('ls')">📋 Lists</button>
       <button type="button" class="tab" data-tab="sb" onclick="setTab('sb')">📁 Submissions</button>
       <button type="button" class="tab" data-tab="su" onclick="setTab('su')">📚 Subjects</button>
+      <button type="button" class="tab" data-tab="an" onclick="setTab('an')">📢 Announce</button>
       <button type="button" class="tab" data-tab="dl" onclick="setTab('dl')">📦 Export ZIP</button>
       <button type="button" class="tab" data-tab="st" onclick="setTab('st')">⚙️ Settings</button>
     </div>
@@ -611,12 +637,25 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
 
 <script>
 /* ============================================================
+   ⚙️ CONFIG — EDIT THESE
+   ============================================================ */
+// CR password (shared by every CR, current and future)
+var CR_PASSWORD = 'CR_DSF_2025';
+
+// Fallback list of CR roll numbers. These ALWAYS work on every device
+// (PC, mobile, any browser), even if the browser has never seen the app.
+//
+// ⚠️ IMPORTANT: When you appoint a new CR via Settings on the PC, also add
+// their roll number to this list so they can log in from their phone too.
+// Example: ['451', '452', '453']
+var FALLBACK_CR_ROLLS = ['451'];
+
+/* ============================================================
    CONSTANTS
    ============================================================ */
 var PREFIX = '25MVCSDR';
 var ROLL_START = 451, ROLL_END = 546;
 var KEY = 'dsf_state_v2', SESS_KEY = 'dsf_session', THEME_KEY = 'dsf_theme';
-var CR_PASSWORD = 'CR_DSF_2025';
 
 var ROLLS = [];
 for (var i = ROLL_START; i <= ROLL_END; i++) ROLLS.push(String(i));
@@ -720,7 +759,8 @@ function defaultState(){
       { id: uid(), name:'Operating Systems',           topic:'CPU Scheduling Algorithms' },
       { id: uid(), name:'Database Management Systems', topic:'Normalization & Indexing' }
     ],
-    submissions: {}
+    submissions: {},
+    announcements: []
   };
 }
 
@@ -733,6 +773,7 @@ try {
 if (!state.crRolls || !state.crRolls.length) state.crRolls = ['451'];
 if (typeof state.crEmail !== 'string') state.crEmail = '';
 if (!state.submissions) state.submissions = {};
+if (!Array.isArray(state.announcements)) state.announcements = [];
 
 function save(){ LS.set(KEY, JSON.stringify(state)); }
 
@@ -745,7 +786,33 @@ function setSession(s){
 }
 
 /* ============================================================
-   PASSWORD SHOW/HIDE
+   CR ROLL RESOLUTION — combines localStorage, fallback, and URL
+   ============================================================ */
+function getEffectiveCRRolls(){
+  var list = state.crRolls.slice();
+  // Add fallback rolls
+  FALLBACK_CR_ROLLS.forEach(function(r){
+    if (list.indexOf(r) === -1) list.push(r);
+  });
+  // Add URL param rolls (?cr=451,452,453)
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var urlCrs = params.get('cr');
+    if (urlCrs){
+      urlCrs.split(',').forEach(function(r){
+        r = r.trim();
+        if (r && list.indexOf(r) === -1) list.push(r);
+      });
+    }
+  } catch(e){}
+  return list;
+}
+function isCRRoll(roll){
+  return getEffectiveCRRolls().indexOf(roll) !== -1;
+}
+
+/* ============================================================
+   PASSWORD TOGGLE
    ============================================================ */
 function togglePw(id, btn){
   var input = document.getElementById(id);
@@ -858,7 +925,8 @@ function crLogin(){
   err.textContent = '';
   var roll = extractRoll(document.getElementById('cRoll').value);
   var pass = document.getElementById('cPass').value.trim();
-  if (state.crRolls.indexOf(roll) === -1){ err.textContent = 'This roll number is not a CR.'; return; }
+  if (!roll){ err.textContent = 'Please enter your roll number.'; return; }
+  if (!isCRRoll(roll)){ err.textContent = 'This roll number is not a CR.'; return; }
   if (pass !== CR_PASSWORD){ err.textContent = 'Incorrect password.'; return; }
   setSession({ role:'cr', roll: roll });
   crTab = 'ov';
@@ -921,6 +989,204 @@ function updateLanding(){
 }
 
 /* ============================================================
+   ANNOUNCEMENTS
+   ============================================================ */
+function getSeenKey(roll){ return 'dsf_seen_notices_' + roll; }
+function getLastSeen(roll){
+  try { return LS.get(getSeenKey(roll)) || '1970-01-01T00:00:00.000Z'; }
+  catch(e){ return '1970-01-01T00:00:00.000Z'; }
+}
+function markSeen(roll){
+  LS.set(getSeenKey(roll), new Date().toISOString());
+}
+function getUnreadCount(roll){
+  var lastSeen = getLastSeen(roll);
+  return state.announcements.filter(function(a){
+    return a.createdAt > lastSeen;
+  }).length;
+}
+function sortAnnouncements(){
+  // pinned first, then newest
+  return state.announcements.slice().sort(function(a, b){
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+}
+function priorityLabel(p){
+  if (p === 'urgent') return 'Urgent';
+  if (p === 'important') return 'Important';
+  return 'Normal';
+}
+
+function scrollToNotices(){
+  var el = document.getElementById('sAnnounceWrap');
+  if (!el) return;
+  try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e){}
+  if (session && session.roll) markSeen(session.roll);
+  updateBellCount();
+}
+
+function updateBellCount(){
+  var badge = document.getElementById('bellCount');
+  if (!badge || !session || session.role !== 'student') return;
+  var n = getUnreadCount(session.roll);
+  if (n > 0){
+    badge.style.display = 'flex';
+    badge.textContent = n > 99 ? '99+' : String(n);
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function renderStudentAnnouncements(){
+  var wrap = document.getElementById('sAnnounceWrap');
+  if (!wrap) return;
+  var roll = session.roll;
+  var lastSeen = getLastSeen(roll);
+  var sorted = sortAnnouncements();
+
+  if (!sorted.length){
+    wrap.innerHTML = '<div class="pn"><h3>📢 Notices</h3>' +
+      '<p class="psub">Announcements from your CR will appear here.</p>' +
+      '<div class="ann-empty">No announcements yet.</div></div>';
+    markSeen(roll);
+    updateBellCount();
+    return;
+  }
+
+  var cards = sorted.map(function(a){
+    var isNew = a.createdAt > lastSeen;
+    var cls = 'ann-card ' + (a.priority || 'normal');
+    if (a.pinned) cls += ' pinned';
+    var tags = '';
+    if (a.pinned) tags += '<span class="ann-tag pin">📌 Pinned</span>';
+    if (isNew) tags += '<span class="ann-tag new">NEW</span>';
+    if (a.priority === 'urgent') tags += '<span class="ann-tag urgent">Urgent</span>';
+    else if (a.priority === 'important') tags += '<span class="ann-tag important">Important</span>';
+    return '<div class="' + cls + '">' +
+      '<div class="ann-head">' +
+        '<div class="ann-title">' + esc(a.title || '(no title)') + ' ' + tags + '</div>' +
+        '<div class="ann-time">🕒 ' + fmtDate(a.createdAt) + '</div>' +
+      '</div>' +
+      '<div class="ann-body">' + esc(a.body || '') + '</div>' +
+    '</div>';
+  }).join('');
+
+  wrap.innerHTML = '<div class="pn">' +
+    '<h3>📢 Notices</h3>' +
+    '<p class="psub">Announcements from your CR. ' +
+      '<button type="button" class="btn sm ghost" style="margin-left:6px;padding:4px 10px;font-size:.7rem" onclick="markAllReadAndRefresh()">Mark all as read</button>' +
+    '</p>' +
+    '<div class="ann-list">' + cards + '</div></div>';
+
+  // Mark as seen so the bell count clears
+  markSeen(roll);
+  updateBellCount();
+}
+
+function markAllReadAndRefresh(){
+  if (!session || session.role !== 'student') return;
+  markSeen(session.roll);
+  renderStudentAnnouncements();
+}
+
+/* CR announcement management */
+function addAnnouncement(){
+  var title = (document.getElementById('annTitle') || {}).value || '';
+  var body = (document.getElementById('annBody') || {}).value || '';
+  var priority = (document.getElementById('annPriority') || {}).value || 'normal';
+  title = title.trim();
+  body = body.trim();
+  if (!title && !body){ alert('Please enter a title or a message.'); return; }
+  state.announcements.push({
+    id: uid(),
+    title: title || '(no title)',
+    body: body,
+    priority: priority,
+    pinned: false,
+    createdAt: new Date().toISOString()
+  });
+  save();
+  renderCR();
+  alert('Announcement posted.');
+}
+function deleteAnnouncement(id){
+  if (!confirm('Delete this announcement?')) return;
+  state.announcements = state.announcements.filter(function(a){ return a.id !== id; });
+  save();
+  renderCR();
+}
+function togglePinAnnouncement(id){
+  var a = state.announcements.filter(function(x){ return x.id === id; })[0];
+  if (!a) return;
+  a.pinned = !a.pinned;
+  save();
+  renderCR();
+}
+function editAnnouncement(id){
+  var a = state.announcements.filter(function(x){ return x.id === id; })[0];
+  if (!a) return;
+  var newTitle = prompt('Edit title:', a.title);
+  if (newTitle === null) return;
+  var newBody = prompt('Edit message:', a.body);
+  if (newBody === null) return;
+  a.title = (newTitle || '').trim() || '(no title)';
+  a.body = (newBody || '').trim();
+  save();
+  renderCR();
+}
+
+function crAnnounceHTML(){
+  var sorted = sortAnnouncements();
+  var cards = sorted.map(function(a){
+    var cls = 'ann-card ' + (a.priority || 'normal');
+    if (a.pinned) cls += ' pinned';
+    var tags = '';
+    if (a.pinned) tags += '<span class="ann-tag pin">📌 Pinned</span>';
+    if (a.priority === 'urgent') tags += '<span class="ann-tag urgent">Urgent</span>';
+    else if (a.priority === 'important') tags += '<span class="ann-tag important">Important</span>';
+    return '<div class="' + cls + '">' +
+      '<div class="ann-head">' +
+        '<div class="ann-title">' + esc(a.title) + ' ' + tags + '</div>' +
+        '<div class="ann-time">🕒 ' + fmtDate(a.createdAt) + '</div>' +
+      '</div>' +
+      '<div class="ann-body">' + esc(a.body) + '</div>' +
+      '<div class="ann-foot">' +
+        '<button type="button" class="btn sm ghost" onclick="togglePinAnnouncement(\'' + a.id + '\')">' +
+          (a.pinned ? '📌 Unpin' : '📌 Pin') + '</button>' +
+        '<button type="button" class="btn sm ghost" onclick="editAnnouncement(\'' + a.id + '\')">✏️ Edit</button>' +
+        '<button type="button" class="btn sm danger" onclick="deleteAnnouncement(\'' + a.id + '\')">🗑 Delete</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  return '<div class="pn"><h3>Create a new announcement</h3>' +
+    '<p class="psub">Post a message that every student sees on their dashboard.</p>' +
+    '<div class="ann-form">' +
+      '<div class="row">' +
+        '<div><label for="annTitle">Title</label>' +
+          '<input id="annTitle" class="inp" placeholder="e.g. PPT submission deadline extended"></div>' +
+        '<div><label for="annPriority">Priority</label>' +
+          '<select id="annPriority" class="inp">' +
+            '<option value="normal">Normal</option>' +
+            '<option value="important">Important</option>' +
+            '<option value="urgent">Urgent</option>' +
+          '</select></div>' +
+      '</div>' +
+      '<label for="annBody">Message</label>' +
+      '<textarea id="annBody" class="inp" placeholder="Write the announcement here..."></textarea>' +
+      '<div class="ann-actions">' +
+        '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addAnnouncement()">📢 Post announcement</button>' +
+      '</div>' +
+    '</div></div>' +
+    '<div class="pn"><h3>Posted announcements (' + sorted.length + ')</h3>' +
+    '<p class="psub">Pinned announcements appear at the top for students.</p>' +
+    (cards || '<div class="ann-empty">No announcements yet. Create one above.</div>') +
+    '</div>';
+}
+
+/* ============================================================
    STUDENT DASHBOARD
    ============================================================ */
 function renderStudent(){
@@ -936,6 +1202,9 @@ function renderStudent(){
     '<div class="mst"><b style="color:var(--ok)">'+doneCount+'</b><span>Submitted</span></div>' +
     '<div class="mst"><b style="color:var(--warn)">'+(state.subjects.length-doneCount)+'</b><span>Pending</span></div>' +
     '<div class="mst"><b>'+state.subjects.length+'</b><span>Subjects</span></div>';
+
+  // Render announcements section
+  renderStudentAnnouncements();
 
   var wrap = document.getElementById('sSubjects');
   if (!state.subjects.length){
@@ -983,6 +1252,7 @@ function renderCR(){
   else if (crTab === 'ls') body.innerHTML = crListsHTML();
   else if (crTab === 'sb') body.innerHTML = crSubmissionsHTML();
   else if (crTab === 'su') body.innerHTML = crSubjectsHTML();
+  else if (crTab === 'an') body.innerHTML = crAnnounceHTML();
   else if (crTab === 'dl') body.innerHTML = crDownloadsHTML();
   else if (crTab === 'st') body.innerHTML = crSettingsHTML();
 
@@ -1195,9 +1465,6 @@ function deleteSubject(id){
   save(); renderCR();
 }
 
-/* ============================================================
-   EXPORT ZIP
-   ============================================================ */
 function crDownloadsHTML(){
   var scopeOpts = '<option value="all"'+(crDlScope==='all'?' selected':'')+'>All subjects (everything)</option>' +
     state.subjects.map(function(s){
@@ -1419,9 +1686,6 @@ function downloadZip(){
   });
 }
 
-/* ============================================================
-   PER-SUBJECT ZIP
-   ============================================================ */
 function downloadSubjectZip(subjectId, mode){
   var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
   if (!subj) return;
@@ -1519,14 +1783,14 @@ function downloadSubjectZip(subjectId, mode){
   });
 }
 
-/* ============================================================
-   SETTINGS
-   ============================================================ */
 function crSettingsHTML(){
   var crItems = state.crRolls.map(function(roll){
     var isYou = session && session.roll === roll;
+    var isFallback = FALLBACK_CR_ROLLS.indexOf(roll) !== -1;
     return '<div class="cri"><div class="info"><span class="rb">'+roll+'</span>' +
-      (isYou ? '<span class="you">You</span>' : '<span class="tag2">CR</span>') + '</div>' +
+      (isYou ? '<span class="you">You</span>' : '<span class="tag2">CR</span>') +
+      (isFallback ? ' <span class="tag2" style="background:var(--okS);color:var(--ok);border-color:var(--okB)">Always works</span>' : '') +
+      '</div>' +
       (state.crRolls.length > 1
         ? '<button type="button" class="btn danger sm" onclick="removeCR(\''+roll+'\')">Remove</button>'
         : '<span style="font-size:.72rem;color:var(--muted)">Last CR</span>') + '</div>';
@@ -1544,7 +1808,8 @@ function crSettingsHTML(){
     crItems + '<div class="cr2r"><div class="ri"><span class="px">25MVCSDR0</span>' +
     '<input id="newCR" type="text" inputmode="numeric" maxlength="3" placeholder="452" autocomplete="off"></div>' +
     '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addCR()">+ Appoint</button></div>' +
-    '<div class="hint" style="margin-top:10px">Range: 451 – 546. Shared CR password: <b>'+esc(CR_PASSWORD)+'</b>.</div></div>' +
+    '<div class="hint" style="margin-top:10px">Range: 451 – 546. Shared CR password: <b>'+esc(CR_PASSWORD)+'</b>.<br>' +
+    '<span style="color:var(--warn)">⚠️ To let a new CR log in from <b>their own phone</b>, add their roll number to the <b>FALLBACK_CR_ROLLS</b> list in the code, then redeploy.</span></div></div>' +
     '<div class="pn"><h3>Data</h3>' +
     '<p class="psub">Backup or restore metadata. Uploaded files stay in this browser.</p>' +
     '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
@@ -1554,7 +1819,8 @@ function crSettingsHTML(){
     '<button type="button" class="btn danger" onclick="resetData()">Reset everything</button></div></div>' +
     '<div class="pn"><h3>Class info</h3><p class="psub">' +
     'Total students: <b>'+TOTAL+'</b><br>Roll range: <b>451 – 546</b><br>' +
-    'Subjects: <b>'+state.subjects.length+'</b><br>CRs: <b>'+state.crRolls.length+'</b></p></div>';
+    'Subjects: <b>'+state.subjects.length+'</b><br>CRs (this browser): <b>'+state.crRolls.length+'</b><br>' +
+    'CRs (fallback list): <b>'+FALLBACK_CR_ROLLS.length+'</b></p></div>';
 }
 
 function saveClassName(){
@@ -1576,11 +1842,14 @@ function addCR(){
   if (!roll){ alert('Please enter a roll number.'); return; }
   var num = parseInt(roll,10);
   if (isNaN(num) || num < ROLL_START || num > ROLL_END){ alert('Roll must be 451-546.'); return; }
-  if (state.crRolls.indexOf(roll) !== -1){ alert('Already a CR.'); return; }
+  if (state.crRolls.indexOf(roll) !== -1){ alert('Already a CR in this browser.'); return; }
   state.crRolls.push(roll);
   state.crRolls.sort(function(a,b){ return parseInt(a)-parseInt(b); });
   save(); input.value = ''; renderCR();
-  alert('Roll '+roll+' is now a CR. Shared password: '+CR_PASSWORD);
+  var extra = FALLBACK_CR_ROLLS.indexOf(roll) === -1
+    ? '\n\n⚠️ IMPORTANT: This CR will only be able to log in from THIS browser. To let them log in from their own phone/PC, add "'+roll+'" to the FALLBACK_CR_ROLLS array in the code and redeploy.'
+    : '';
+  alert('Roll '+roll+' is now a CR in this browser.\nShared password: '+CR_PASSWORD+extra);
 }
 function removeCR(roll){
   if (state.crRolls.length <= 1){ alert('At least one CR must remain.'); return; }
@@ -1602,6 +1871,7 @@ function importData(input){
       state = parsed;
       if (!state.crRolls || !state.crRolls.length) state.crRolls = ['451'];
       if (typeof state.crEmail !== 'string') state.crEmail = '';
+      if (!Array.isArray(state.announcements)) state.announcements = [];
       save(); renderCR(); updateLanding();
       alert('Backup imported.');
     } catch(err){ alert('Invalid backup file.'); }
@@ -1611,7 +1881,7 @@ function importData(input){
   input.value = '';
 }
 function resetData(){
-  if (!confirm('Erase ALL submissions and settings?')) return;
+  if (!confirm('Erase ALL submissions, announcements and settings?')) return;
   openDB().then(function(db){
     return new Promise(function(res,rej){
       var tx = db.transaction(STORE,'readwrite');
@@ -1713,7 +1983,7 @@ function refresh(){
     setTheme(savedTheme);
     updateLanding();
 
-    if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1){
+    if (session && session.role === 'cr' && isCRRoll(session.roll)){
       renderCR(); show('v-cr');
     } else if (session && session.role === 'student' && ROLLS.indexOf(session.roll) !== -1){
       renderStudent(); show('v-student');
@@ -1764,6 +2034,12 @@ function refresh(){
     window.saveModal = saveModal;
     window.removeSubmission = removeSubmission;
     window.closeModal = closeModal;
+    window.addAnnouncement = addAnnouncement;
+    window.deleteAnnouncement = deleteAnnouncement;
+    window.editAnnouncement = editAnnouncement;
+    window.togglePinAnnouncement = togglePinAnnouncement;
+    window.scrollToNotices = scrollToNotices;
+    window.markAllReadAndRefresh = markAllReadAndRefresh;
 
   } catch(err){
     console.error('Init failed:', err);
