@@ -162,6 +162,24 @@ white-space:nowrap;font-weight:600}
 .ri input{border:none;border-radius:0;background:transparent;letter-spacing:3px;font-weight:600;
 font-size:16px;padding:13px 12px;flex:1;min-width:0}
 .ri input:focus{box-shadow:none}
+
+/* PASSWORD WRAP WITH SHOW/HIDE TOGGLE */
+.pw-wrap{position:relative;display:block}
+.pw-wrap input{padding-right:48px}
+.pw-toggle{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  background:transparent;border:none;cursor:pointer;
+  width:38px;height:38px;padding:0;
+  color:var(--muted);
+  display:flex;align-items:center;justify-content:center;
+  border-radius:9px;transition:.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.pw-toggle:hover,.pw-toggle:focus{color:var(--primary);background:var(--primaryS);outline:none}
+.pw-toggle .ic-eye-off{display:none}
+.pw-toggle.show .ic-eye{display:none}
+.pw-toggle.show .ic-eye-off{display:block}
+
 .hint{font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.55}
 .hint b{color:var(--text2)}
 .err{color:var(--bad);font-size:.82rem;margin-top:12px;min-height:18px;font-weight:500}
@@ -493,7 +511,13 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
       </div>
       <div class="hint">Range: 451 – 546</div>
       <label for="sPass">Password</label>
-      <input id="sPass" type="password" placeholder="Your roll number" autocomplete="off">
+      <div class="pw-wrap">
+        <input id="sPass" type="password" placeholder="Your roll number" autocomplete="new-password">
+        <button type="button" class="pw-toggle" onclick="togglePw('sPass', this)" aria-label="Show password" tabindex="-1">
+          <svg class="ic-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="ic-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
+      </div>
       <div class="hint">Your password is your own roll number — e.g. <b>451</b></div>
       <div class="err" id="sErr"></div>
       <button type="button" class="btn primary" onclick="studentLogin()">Login →</button>
@@ -513,7 +537,14 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
         <input id="cRoll" type="text" inputmode="numeric" maxlength="3" placeholder="451" autocomplete="off">
       </div>
       <label for="cPass">Password</label>
-      <input id="cPass" type="password" placeholder="Enter password" autocomplete="off">
+      <div class="pw-wrap">
+        <input id="cPass" type="password" placeholder="Enter password" autocomplete="new-password">
+        <button type="button" class="pw-toggle" onclick="togglePw('cPass', this)" aria-label="Show password" tabindex="-1">
+          <svg class="ic-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="ic-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
+      </div>
+      <div class="hint">Use the shared CR password</div>
       <div class="err" id="cErr"></div>
       <button type="button" class="btn primary" onclick="crLogin()">Login →</button>
     </div>
@@ -611,7 +642,6 @@ function esc(s){
 }
 function uid(){ return Math.random().toString(36).slice(2,9); }
 
-/* Safe storage (iOS private mode throws) */
 var LS = {
   get: function(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
   set: function(k,v){ try { localStorage.setItem(k,v); return true; } catch(e){ return false; } },
@@ -715,6 +745,18 @@ function setSession(s){
 }
 
 /* ============================================================
+   PASSWORD SHOW/HIDE
+   ============================================================ */
+function togglePw(id, btn){
+  var input = document.getElementById(id);
+  if (!input) return;
+  var isHidden = input.type === 'password';
+  input.type = isHidden ? 'text' : 'password';
+  btn.classList.toggle('show', isHidden);
+  btn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+}
+
+/* ============================================================
    THEME
    ============================================================ */
 function setTheme(name){
@@ -778,6 +820,12 @@ function logout(){
   ['sRoll','sPass','cRoll','cPass'].forEach(function(id){
     var el = document.getElementById(id); if (el) el.value = '';
   });
+  // Reset both password fields back to hidden
+  ['sPass','cPass'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.type = 'password';
+  });
+  document.querySelectorAll('.pw-toggle.show').forEach(function(b){ b.classList.remove('show'); });
   var e1 = document.getElementById('sErr'); if (e1) e1.textContent = '';
   var e2 = document.getElementById('cErr'); if (e2) e2.textContent = '';
 }
@@ -1493,11 +1541,11 @@ function crSettingsHTML(){
     '<input class="inp" id="crEmail" type="email" value="'+esc(state.crEmail)+'" placeholder="cr@example.com">' +
     '<button type="button" class="btn primary" onclick="saveEmail()">Save email</button></div>' +
     '<div class="pn"><h3>Class Representatives</h3>' +
-    '<p class="psub">Add or remove CRs. All CRs log in with the shared password <b>'+esc(CR_PASSWORD)+'</b>.</p>' +
+    '<p class="psub">Add or remove CRs. Every CR logs in with the shared password <b>'+esc(CR_PASSWORD)+'</b>.</p>' +
     crItems + '<div class="cr2r"><div class="ri"><span class="px">25MVCSDR0</span>' +
     '<input id="newCR" type="text" inputmode="numeric" maxlength="3" placeholder="452" autocomplete="off"></div>' +
     '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addCR()">+ Appoint</button></div>' +
-    '<div class="hint" style="margin-top:10px">Range: 451 – 546. All CRs share the password <b>'+esc(CR_PASSWORD)+'</b>.</div></div>' +
+    '<div class="hint" style="margin-top:10px">Range: 451 – 546. Shared CR password: <b>'+esc(CR_PASSWORD)+'</b>.</div></div>' +
     '<div class="pn"><h3>Data</h3>' +
     '<p class="psub">Backup or restore metadata. Uploaded files stay in this browser.</p>' +
     '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
@@ -1533,7 +1581,7 @@ function addCR(){
   state.crRolls.push(roll);
   state.crRolls.sort(function(a,b){ return parseInt(a)-parseInt(b); });
   save(); input.value = ''; renderCR();
-  alert('Roll '+roll+' is now a CR. Password: '+CR_PASSWORD);
+  alert('Roll '+roll+' is now a CR. Shared password: '+CR_PASSWORD);
 }
 function removeCR(roll){
   if (state.crRolls.length <= 1){ alert('At least one CR must remain.'); return; }
@@ -1690,11 +1738,11 @@ function refresh(){
     bindEnter('cRoll', 'cPass', null);
     bindEnter('cPass', null, crLogin);
 
-    /* Expose handlers to inline onclick */
     window.show = show;
     window.logout = logout;
     window.studentLogin = studentLogin;
     window.crLogin = crLogin;
+    window.togglePw = togglePw;
     window.setTab = setTab;
     window.toggleTheme = toggleTheme;
     window.copyText = copyText;
