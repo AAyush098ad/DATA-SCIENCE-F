@@ -8,245 +8,107 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root,[data-theme=classic]{
---bg:#e7edf7;--surface:#fafbfe;--surface2:#eef2f9;--line:#dde4ee;--line2:#c8d3e0;
---text:#0f172a;--text2:#334155;--muted:#64748b;
---primary:#2563eb;--primaryD:#1d4ed8;--primaryS:#e6efff;--accent:#0ea5e9;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;
---warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
---bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
---hero1:#c9dafb;--hero2:#cee8f9;
---head:rgba(250,251,254,.9);--headS:rgba(250,251,254,.95);
---sh:rgba(15,23,42,.05);--shL:rgba(15,23,42,.12);--shX:rgba(15,23,42,.25);
---track:#dbe3ee;--modal:rgba(15,23,42,.5);
---waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(37,99,235,.5)}
-[data-theme=midnight]{
---bg:#0b1120;--surface:#131c31;--surface2:#1a2540;--line:#26334f;--line2:#334160;
---text:#e8ecf6;--text2:#c2cade;--muted:#8a97b4;
---primary:#5b8cff;--primaryD:#7ba3ff;--primaryS:#1a2540;--accent:#22d3ee;
---ok:#4ade80;--okS:rgba(74,222,128,.12);--okB:rgba(74,222,128,.35);
---warn:#fbbf24;--warnS:rgba(251,191,36,.12);--warnB:rgba(251,191,36,.35);
---bad:#f87171;--badS:rgba(248,113,113,.12);--badB:rgba(248,113,113,.35);
---hero1:#1e3a8a;--hero2:#0c4a6e;
---head:rgba(11,17,32,.9);--headS:rgba(11,17,32,.95);
---sh:rgba(0,0,0,.35);--shL:rgba(0,0,0,.5);--shX:rgba(0,0,0,.6);
---track:#1e2b48;--modal:rgba(0,0,0,.72);
---waBg:#052e16;--waBd:#166534;--waTx:#bbf7d0;--glow:rgba(91,140,255,.5)}
-[data-theme=ocean]{
---bg:#e3f6f2;--surface:#f9fdfc;--surface2:#e7f6f3;--line:#cbeae4;--line2:#a5dbd1;
---text:#042f2e;--text2:#134e4a;--muted:#0d9488;
---primary:#0d9488;--primaryD:#0f766e;--primaryS:#c3ede4;--accent:#0891b2;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
---bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
---hero1:#b7f0e4;--hero2:#c0e9f4;
---head:rgba(249,253,252,.9);--headS:rgba(249,253,252,.95);
---sh:rgba(13,148,136,.06);--shL:rgba(13,148,136,.12);--shX:rgba(13,148,136,.15);
---track:#c3e9e1;--modal:rgba(4,47,46,.5);
---waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(13,148,136,.5)}
-[data-theme=forest]{
---bg:#e4f5e9;--surface:#f9fdfa;--surface2:#e9f5e2;--line:#c9ead3;--line2:#a3d8b4;
---text:#14532d;--text2:#166534;--muted:#16a34a;
---primary:#16a34a;--primaryD:#15803d;--primaryS:#c7ecd3;--accent:#65a30d;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
---bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
---hero1:#c5f1d2;--hero2:#ddeeb3;
---head:rgba(249,253,250,.9);--headS:rgba(249,253,250,.95);
---sh:rgba(22,163,74,.06);--shL:rgba(22,163,74,.12);--shX:rgba(22,163,74,.15);
---track:#c7e8cf;--modal:rgba(20,83,45,.5);
---waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(22,163,74,.5)}
-[data-theme=violet]{
---bg:#f2eafc;--surface:#fcf9fe;--surface2:#ece4fa;--line:#dcd0f2;--line2:#c3b1e8;
---text:#2e1065;--text2:#4c1d95;--muted:#7c3aed;
---primary:#7c3aed;--primaryD:#6d28d9;--primaryS:#e3d5f8;--accent:#db2777;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
---bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
---hero1:#dcd1f7;--hero2:#f7cfe3;
---head:rgba(252,249,254,.9);--headS:rgba(252,249,254,.95);
---sh:rgba(124,58,237,.06);--shL:rgba(124,58,237,.12);--shX:rgba(124,58,237,.18);
---track:#ded1f4;--modal:rgba(46,16,101,.5);
---waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(124,58,237,.5)}
-[data-theme=sunset]{
---bg:#fbead9;--surface:#fefaf4;--surface2:#f5ead5;--line:#f2d3ab;--line2:#e8ba7e;
---text:#7c2d12;--text2:#9a3412;--muted:#ea580c;
---primary:#ea580c;--primaryD:#c2410c;--primaryS:#fbdec0;--accent:#e11d48;
---ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;
---bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;
---hero1:#fbdcbc;--hero2:#fcbcc4;
---head:rgba(254,250,244,.9);--headS:rgba(254,250,244,.95);
---sh:rgba(234,88,12,.06);--shL:rgba(234,88,12,.12);--shX:rgba(234,88,12,.18);
---track:#f0d6b5;--modal:rgba(124,45,18,.5);
---waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(234,88,12,.5)}
-
+:root,[data-theme=classic]{--bg:#e7edf7;--surface:#fafbfe;--surface2:#eef2f9;--line:#dde4ee;--line2:#c8d3e0;--text:#0f172a;--text2:#334155;--muted:#64748b;--primary:#2563eb;--primaryD:#1d4ed8;--primaryS:#e6efff;--accent:#0ea5e9;--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;--bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;--hero1:#c9dafb;--hero2:#cee8f9;--head:rgba(250,251,254,.9);--headS:rgba(250,251,254,.95);--sh:rgba(15,23,42,.05);--shL:rgba(15,23,42,.12);--shX:rgba(15,23,42,.25);--track:#dbe3ee;--modal:rgba(15,23,42,.5);--waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(37,99,235,.5)}
+[data-theme=midnight]{--bg:#0b1120;--surface:#131c31;--surface2:#1a2540;--line:#26334f;--line2:#334160;--text:#e8ecf6;--text2:#c2cade;--muted:#8a97b4;--primary:#5b8cff;--primaryD:#7ba3ff;--primaryS:#1a2540;--accent:#22d3ee;--ok:#4ade80;--okS:rgba(74,222,128,.12);--okB:rgba(74,222,128,.35);--warn:#fbbf24;--warnS:rgba(251,191,36,.12);--warnB:rgba(251,191,36,.35);--bad:#f87171;--badS:rgba(248,113,113,.12);--badB:rgba(248,113,113,.35);--hero1:#1e3a8a;--hero2:#0c4a6e;--head:rgba(11,17,32,.9);--headS:rgba(11,17,32,.95);--sh:rgba(0,0,0,.35);--shL:rgba(0,0,0,.5);--shX:rgba(0,0,0,.6);--track:#1e2b48;--modal:rgba(0,0,0,.72);--waBg:#052e16;--waBd:#166534;--waTx:#bbf7d0;--glow:rgba(91,140,255,.5)}
+[data-theme=ocean]{--bg:#e3f6f2;--surface:#f9fdfc;--surface2:#e7f6f3;--line:#cbeae4;--line2:#a5dbd1;--text:#042f2e;--text2:#134e4a;--muted:#0d9488;--primary:#0d9488;--primaryD:#0f766e;--primaryS:#c3ede4;--accent:#0891b2;--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;--bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;--hero1:#b7f0e4;--hero2:#c0e9f4;--head:rgba(249,253,252,.9);--headS:rgba(249,253,252,.95);--sh:rgba(13,148,136,.06);--shL:rgba(13,148,136,.12);--shX:rgba(13,148,136,.15);--track:#c3e9e1;--modal:rgba(4,47,46,.5);--waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(13,148,136,.5)}
+[data-theme=forest]{--bg:#e4f5e9;--surface:#f9fdfa;--surface2:#e9f5e2;--line:#c9ead3;--line2:#a3d8b4;--text:#14532d;--text2:#166534;--muted:#16a34a;--primary:#16a34a;--primaryD:#15803d;--primaryS:#c7ecd3;--accent:#65a30d;--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;--bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;--hero1:#c5f1d2;--hero2:#ddeeb3;--head:rgba(249,253,250,.9);--headS:rgba(249,253,250,.95);--sh:rgba(22,163,74,.06);--shL:rgba(22,163,74,.12);--shX:rgba(22,163,74,.15);--track:#c7e8cf;--modal:rgba(20,83,45,.5);--waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(22,163,74,.5)}
+[data-theme=violet]{--bg:#f2eafc;--surface:#fcf9fe;--surface2:#ece4fa;--line:#dcd0f2;--line2:#c3b1e8;--text:#2e1065;--text2:#4c1d95;--muted:#7c3aed;--primary:#7c3aed;--primaryD:#6d28d9;--primaryS:#e3d5f8;--accent:#db2777;--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;--bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;--hero1:#dcd1f7;--hero2:#f7cfe3;--head:rgba(252,249,254,.9);--headS:rgba(252,249,254,.95);--sh:rgba(124,58,237,.06);--shL:rgba(124,58,237,.12);--shX:rgba(124,58,237,.18);--track:#ded1f4;--modal:rgba(46,16,101,.5);--waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(124,58,237,.5)}
+[data-theme=sunset]{--bg:#fbead9;--surface:#fefaf4;--surface2:#f5ead5;--line:#f2d3ab;--line2:#e8ba7e;--text:#7c2d12;--text2:#9a3412;--muted:#ea580c;--primary:#ea580c;--primaryD:#c2410c;--primaryS:#fbdec0;--accent:#e11d48;--ok:#16a34a;--okS:#f0fdf4;--okB:#bbf7d0;--warn:#d97706;--warnS:#fffbeb;--warnB:#fde68a;--bad:#dc2626;--badS:#fef2f2;--badB:#fecaca;--hero1:#fbdcbc;--hero2:#fcbcc4;--head:rgba(254,250,244,.9);--headS:rgba(254,250,244,.95);--sh:rgba(234,88,12,.06);--shL:rgba(234,88,12,.12);--shX:rgba(234,88,12,.18);--track:#f0d6b5;--modal:rgba(124,45,18,.5);--waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(234,88,12,.5)}
 html{height:100%;-webkit-text-size-adjust:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;
-line-height:1.5;overflow-x:hidden;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+body{font-family:-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
 a{color:var(--primary);text-decoration:none}
-a:hover{text-decoration:underline}
 button,.btn,input,select,textarea{touch-action:manipulation;font-family:inherit}
-.view{display:none}.view.active{display:block}
+.view{display:none}.view.active{display:block;animation:fade .3s ease}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.view.active{animation:fade .3s ease}
-
-.loading{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;
-align-items:center;justify-content:center;flex-direction:column;gap:16px;color:var(--muted);font-size:.9rem}
-.spinner{width:36px;height:36px;border:3px solid var(--line2);border-top-color:var(--primary);
-border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-.lh{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
-padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top));
-background:var(--head);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-border-bottom:1px solid var(--line);gap:10px}
+.lh{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top));background:var(--head);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);gap:10px}
 .lh .brand{font-weight:700;display:flex;align-items:center;gap:8px;font-size:.95rem}
-.bmark{min-width:30px;height:30px;padding:0 6px;border-radius:8px;display:grid;place-items:center;
-background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-weight:800;font-size:.68rem}
+.bmark{min-width:30px;height:30px;padding:0 6px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-weight:800;font-size:.68rem}
 .lh .hint{font-size:.75rem;color:var(--muted);white-space:nowrap}
-.hero{min-height:calc(100vh - 60px);min-height:calc(100dvh - 60px);display:flex;flex-direction:column;
-align-items:center;justify-content:center;padding:40px 18px 70px;text-align:center;
-background:radial-gradient(700px 340px at 50% -10%,var(--hero1) 0,transparent 65%),
-radial-gradient(500px 280px at 100% 100%,var(--hero2) 0,transparent 60%)}
-.logo{width:68px;height:68px;border-radius:18px;display:grid;place-items:center;
-font-size:19px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));
-color:#fff;box-shadow:0 16px 34px -12px var(--glow);margin-bottom:20px}
+.hero{min-height:calc(100vh - 60px);min-height:calc(100dvh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 18px 70px;text-align:center;background:radial-gradient(700px 340px at 50% -10%,var(--hero1) 0,transparent 65%),radial-gradient(500px 280px at 100% 100%,var(--hero2) 0,transparent 60%)}
+.logo{width:68px;height:68px;border-radius:18px;display:grid;place-items:center;font-size:19px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:0 16px 34px -12px var(--glow);margin-bottom:20px}
 .hero h1{font-size:clamp(1.9rem,7vw,3.4rem);font-weight:800;letter-spacing:-1.2px;line-height:1.15}
-.hero h1 span{background:linear-gradient(100deg,var(--primary),var(--accent));
--webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 span{background:linear-gradient(100deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
 .tag{color:var(--muted);margin-top:14px;font-size:clamp(.9rem,3.4vw,1.05rem);max-width:520px;line-height:1.65}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:36px;width:100%;max-width:560px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 20px;
-cursor:pointer;color:var(--text);text-align:center;transition:.2s;box-shadow:0 4px 16px -4px var(--shL);font-size:inherit}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 20px;cursor:pointer;color:var(--text);text-align:center;transition:.2s;box-shadow:0 4px 16px -4px var(--shL);font-size:inherit}
 .card:active{transform:scale(.98)}
 .card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 18px 40px -16px var(--glow)}
-.ci{width:50px;height:50px;margin:0 auto 14px;border-radius:14px;display:grid;place-items:center;
-font-size:22px;background:var(--primaryS);color:var(--primary)}
+.ci{width:50px;height:50px;margin:0 auto 14px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:var(--primaryS);color:var(--primary)}
 .card.cr .ci{color:var(--accent)}
 .card h3{font-size:1.05rem;font-weight:700;margin-bottom:5px}
 .card p{color:var(--muted);font-size:.83rem}
-.lf{margin-top:34px;color:var(--muted);font-size:.78rem;line-height:1.9;background:var(--surface);
-border:1px solid var(--line);border-radius:14px;padding:14px 22px;box-shadow:0 1px 2px var(--sh);max-width:480px}
+.lf{margin-top:34px;color:var(--muted);font-size:.78rem;line-height:1.9;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 22px;box-shadow:0 1px 2px var(--sh);max-width:480px}
 .lf b{color:var(--text2)}
-
-.aw{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;
-justify-content:center;padding:30px 16px;padding-bottom:calc(30px + env(safe-area-inset-bottom));
-background:radial-gradient(600px 300px at 50% 0,var(--hero1) 0,transparent 65%)}
-.bk{background:none;border:none;color:var(--muted);font-size:.88rem;cursor:pointer;
-margin-bottom:14px;max-width:420px;width:100%;text-align:left;padding:8px 4px}
-.bk:active{color:var(--primary)}
-.ac{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);
-border-radius:18px;padding:28px 22px;box-shadow:0 18px 44px -18px var(--shX)}
+.aw{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 16px;padding-bottom:calc(30px + env(safe-area-inset-bottom));background:radial-gradient(600px 300px at 50% 0,var(--hero1) 0,transparent 65%)}
+.bk{background:none;border:none;color:var(--muted);font-size:.88rem;cursor:pointer;margin-bottom:14px;max-width:420px;width:100%;text-align:left;padding:8px 4px}
+.ac{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px 22px;box-shadow:0 18px 44px -18px var(--shX)}
 .ac h2{font-size:1.35rem;font-weight:700;letter-spacing:-.5px;margin-bottom:6px}
 .ac .sub{color:var(--muted);font-size:.85rem;margin-bottom:20px}
-label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.7px;
-color:var(--muted);margin:14px 0 7px;font-weight:700}
-.inp,input[type=text],input[type=password],input[type=email],select,textarea{
-width:100%;background:var(--surface);border:1px solid var(--line2);color:var(--text);
-padding:13px 14px;border-radius:10px;font-size:16px;line-height:1.3;outline:none;
--webkit-appearance:none;appearance:none;transition:border-color .18s,box-shadow .18s}
+label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:14px 0 7px;font-weight:700}
+.inp,input[type=text],input[type=password],input[type=email],select,textarea{width:100%;background:var(--surface);border:1px solid var(--line2);color:var(--text);padding:13px 14px;border-radius:10px;font-size:16px;line-height:1.3;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .18s,box-shadow .18s}
 .inp:focus,input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primaryS)}
-.inp::placeholder,input::placeholder{color:var(--muted);opacity:.75}
-.ri{display:flex;align-items:stretch;background:var(--surface);border:1px solid var(--line2);
-border-radius:10px;overflow:hidden;transition:.18s}
+.ri{display:flex;align-items:stretch;background:var(--surface);border:1px solid var(--line2);border-radius:10px;overflow:hidden}
 .ri:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primaryS)}
-.ri .px{display:flex;align-items:center;padding:0 11px;background:var(--surface2);color:var(--muted);
-font-size:.78rem;letter-spacing:.4px;border-right:1px solid var(--line);white-space:nowrap;font-weight:600}
-.ri input{border:none;border-radius:0;background:transparent;letter-spacing:3px;font-weight:600;
-font-size:16px;padding:13px 12px;flex:1;min-width:0}
+.ri .px{display:flex;align-items:center;padding:0 11px;background:var(--surface2);color:var(--muted);font-size:.78rem;border-right:1px solid var(--line);white-space:nowrap;font-weight:600}
+.ri input{border:none;border-radius:0;background:transparent;letter-spacing:3px;font-weight:600;font-size:16px;padding:13px 12px;flex:1;min-width:0}
 .ri input:focus{box-shadow:none}
 .pw-wrap{position:relative;display:block}
 .pw-wrap input{padding-right:48px}
-.pw-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:transparent;
-border:none;cursor:pointer;width:38px;height:38px;padding:0;color:var(--muted);
-display:flex;align-items:center;justify-content:center;border-radius:9px;transition:.15s}
-.pw-toggle:hover,.pw-toggle:focus{color:var(--primary);background:var(--primaryS);outline:none}
+.pw-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:transparent;border:none;cursor:pointer;width:38px;height:38px;padding:0;color:var(--muted);display:flex;align-items:center;justify-content:center;border-radius:9px}
 .pw-toggle .ic-eye-off{display:none}
 .pw-toggle.show .ic-eye{display:none}
 .pw-toggle.show .ic-eye-off{display:block}
 .hint{font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.55}
 .hint b{color:var(--text2)}
 .err{color:var(--bad);font-size:.82rem;margin-top:12px;min-height:18px;font-weight:500}
-.btn{font-size:.9rem;font-weight:600;border-radius:10px;padding:13px 18px;border:1px solid transparent;
-cursor:pointer;transition:.18s;white-space:nowrap;-webkit-appearance:none;appearance:none;
-display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+.btn{font-size:.9rem;font-weight:600;border-radius:10px;padding:13px 18px;border:1px solid transparent;cursor:pointer;transition:.18s;white-space:nowrap;-webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
 .btn.primary{background:var(--primary);color:#fff;width:100%;margin-top:20px;box-shadow:0 4px 12px -4px var(--glow)}
-.btn.primary:active{background:var(--primaryD)}
 .btn.ghost{background:var(--surface);border-color:var(--line2);color:var(--text2)}
-.btn.ghost:active{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
 .btn.danger{background:var(--surface);border-color:var(--badB);color:var(--bad)}
-.btn.danger:active{background:var(--badS);border-color:var(--bad)}
 .btn.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
 .btn.sm{padding:9px 14px;font-size:.78rem;border-radius:8px;width:auto;margin:0;min-height:36px}
 .btn:disabled{opacity:.55;cursor:not-allowed}
-
-.tb{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
-padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top));background:var(--headS);
--webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);gap:10px}
+.tb{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top));background:var(--headS);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);gap:10px}
 .tb .brand{font-weight:700;display:flex;align-items:center;gap:8px;font-size:.9rem}
 .tr{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.chip{background:var(--primaryS);border:1px solid var(--primaryS);color:var(--primaryD);
-padding:6px 11px;border-radius:999px;font-size:.74rem;font-weight:700;white-space:nowrap}
-.bell{position:relative;background:var(--surface);border:1px solid var(--line2);color:var(--text2);
-width:38px;height:36px;border-radius:9px;cursor:pointer;display:flex;align-items:center;
-justify-content:center;transition:.15s}
-.bell:hover{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
-.bell-count{position:absolute;top:-5px;right:-5px;background:var(--bad);color:#fff;
-font-size:.6rem;font-weight:700;min-width:17px;height:17px;padding:0 4px;border-radius:999px;
-display:flex;align-items:center;justify-content:center;border:2px solid var(--headS)}
+.chip{background:var(--primaryS);border:1px solid var(--primaryS);color:var(--primaryD);padding:6px 11px;border-radius:999px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.bell{position:relative;background:var(--surface);border:1px solid var(--line2);color:var(--text2);width:38px;height:36px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.bell-count{position:absolute;top:-5px;right:-5px;background:var(--bad);color:#fff;font-size:.6rem;font-weight:700;min-width:17px;height:17px;padding:0 4px;border-radius:999px;display:flex;align-items:center;justify-content:center;border:2px solid var(--headS)}
 .co{max-width:1180px;margin:0 auto;padding:22px 16px 60px;padding-bottom:calc(60px + env(safe-area-inset-bottom))}
 .pt{font-size:1.35rem;font-weight:800;letter-spacing:-.5px;line-height:1.25}
 .ps{color:var(--muted);font-size:.84rem;margin-top:4px}
-
 .tp{position:relative}
-.tt{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line2);
-color:var(--text2);font-size:.78rem;font-weight:600;padding:8px 11px;border-radius:9px;
-cursor:pointer;min-height:36px}
-.tt:active{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
+.tt{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line2);color:var(--text2);font-size:.78rem;font-weight:600;padding:8px 11px;border-radius:9px;cursor:pointer;min-height:36px}
 .tt .sw{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));flex-shrink:0}
 .tt .tl{display:none}
 @media(min-width:520px){.tt .tl{display:inline}}
-.tpop{position:absolute;top:calc(100% + 8px);right:0;z-index:60;background:var(--surface);
-border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px -18px var(--shX);
-padding:8px;min-width:190px;display:none}
+.tpop{position:absolute;top:calc(100% + 8px);right:0;z-index:60;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px -18px var(--shX);padding:8px;min-width:190px;display:none}
 .tpop.open{display:block}
-.tpop-t{font-size:.68rem;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);
-font-weight:700;padding:8px 10px 6px}
-.topt{display:flex;align-items:center;gap:10px;width:100%;background:transparent;border:none;
-font-size:.86rem;color:var(--text2);padding:10px;border-radius:8px;cursor:pointer;text-align:left;min-height:42px}
-.topt:active{background:var(--surface2);color:var(--text)}
+.tpop-t{font-size:.68rem;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;padding:8px 10px 6px}
+.topt{display:flex;align-items:center;gap:10px;width:100%;background:transparent;border:none;font-size:.86rem;color:var(--text2);padding:10px;border-radius:8px;cursor:pointer;text-align:left;min-height:42px}
 .topt.active{background:var(--primaryS);color:var(--primary);font-weight:600}
 .topt .dot{width:18px;height:18px;border-radius:50%;flex-shrink:0}
 .topt .ck{margin-left:auto;opacity:0;color:var(--primary);font-weight:700}
 .topt.active .ck{opacity:1}
-
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
 .st{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 2px var(--sh)}
 .stn{font-size:1.65rem;font-weight:800;letter-spacing:-1.2px;line-height:1}
 .stl{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;margin-top:8px;font-weight:700}
 .st.ok .stn{color:var(--ok)}.st.warn .stn{color:var(--warn)}
-.st.acc .stn{background:linear-gradient(100deg,var(--primary),var(--accent));
--webkit-background-clip:text;background-clip:text;color:transparent}
+.st.acc .stn{background:linear-gradient(100deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
 .pg{height:9px;background:var(--track);border-radius:999px;overflow:hidden;margin-bottom:22px}
-.pgf{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));
-border-radius:999px;transition:width .6s}
-
-.tabs{display:flex;gap:8px;margin:18px -16px;padding:0 16px 4px;overflow-x:auto;
--webkit-overflow-scrolling:touch;scrollbar-width:none}
+.pgf{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;transition:width .6s}
+.tabs{display:flex;gap:8px;margin:18px -16px;padding:0 16px 4px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{background:var(--surface);border:1px solid var(--line);color:var(--muted);
-padding:9px 15px;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer;
-white-space:nowrap;flex-shrink:0;min-height:38px}
+.tab{background:var(--surface);border:1px solid var(--line);color:var(--muted);padding:9px 15px;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:38px}
 .tab.active{background:var(--primary);border-color:var(--primary);color:#fff}
-
-.pn{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;
-margin-bottom:14px;box-shadow:0 1px 2px var(--sh)}
+.pn{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 1px 2px var(--sh)}
 .pn h3{font-size:1rem;font-weight:700;margin-bottom:4px}
 .pn .psub{color:var(--muted);font-size:.8rem;margin-bottom:14px;line-height:1.55}
-
 .ann-form{margin-bottom:16px}
 .ann-form .row{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:10px}
 @media(max-width:600px){.ann-form .row{grid-template-columns:1fr}}
 .ann-form textarea{min-height:100px;resize:vertical;font-family:inherit}
-.ann-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
 .ann-list{display:flex;flex-direction:column;gap:12px}
 .ann-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface2);position:relative}
 .ann-card.pinned{border-color:var(--primary);background:var(--primaryS)}
@@ -254,7 +116,7 @@ margin-bottom:14px;box-shadow:0 1px 2px var(--sh)}
 .ann-card.important{border-left:4px solid var(--warn);background:var(--warnS)}
 .ann-card.urgent{border-left:4px solid var(--bad);background:var(--badS)}
 .ann-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;flex-wrap:wrap}
-.ann-title{font-size:.95rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ann-title{font-size:.95rem;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ann-time{font-size:.72rem;color:var(--muted);white-space:nowrap}
 .ann-body{font-size:.85rem;color:var(--text2);line-height:1.65;white-space:pre-wrap;word-break:break-word}
 .ann-tag{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:999px}
@@ -262,307 +124,160 @@ margin-bottom:14px;box-shadow:0 1px 2px var(--sh)}
 .ann-tag.new{background:var(--bad);color:#fff}
 .ann-tag.important{background:var(--warnS);color:var(--warn);border:1px solid var(--warnB)}
 .ann-tag.urgent{background:var(--badS);color:var(--bad);border:1px solid var(--badB)}
-.ann-tag.normal{background:var(--primaryS);color:var(--primary);border:1px solid var(--primaryS)}
 .ann-foot{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
-.ann-empty{text-align:center;color:var(--muted);padding:30px 14px;font-size:.86rem;
-background:var(--surface2);border-radius:12px;border:1px dashed var(--line)}
-
+.ann-empty{text-align:center;color:var(--muted);padding:30px 14px;font-size:.86rem;background:var(--surface2);border-radius:12px;border:1px dashed var(--line)}
 .sgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:18px}
-.sc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;
-display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px var(--sh)}
+.sc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px var(--sh)}
 .sc.done{border-color:var(--okB)}
 .sch{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .sch h4{font-size:.98rem;font-weight:700;line-height:1.35}
 .tpc{font-size:.82rem;color:var(--muted);line-height:1.55}
 .tpc b{color:var(--text2);font-weight:600}
-.bg{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
-padding:5px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.bg{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:5px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0}
 .bg.ok{background:var(--okS);color:var(--ok);border:1px solid var(--okB)}
 .bg.pd{background:var(--warnS);color:var(--warn);border:1px solid var(--warnB)}
-.fi{font-size:.75rem;color:var(--muted);background:var(--surface2);border:1px solid var(--line);
-border-radius:9px;padding:10px 12px;word-break:break-word;line-height:1.7}
-.fi b{color:var(--text2)}
+.fi{font-size:.75rem;color:var(--muted);background:var(--surface2);border:1px solid var(--line);border-radius:9px;padding:10px 12px;word-break:break-word;line-height:1.7}
 .sa{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;padding-top:4px}
 .sa .btn{flex:1;min-width:100px}
-
 .ms{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.mst{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;
-display:flex;flex-direction:column;gap:3px;min-width:100px;flex:1}
+.mst{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;min-width:100px;flex:1}
 .mst b{font-size:1.2rem;letter-spacing:-.6px}
 .mst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
-
-.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);
-border-radius:14px;background:var(--surface)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 table{width:100%;border-collapse:collapse;font-size:.83rem;min-width:720px}
-thead th{text-align:left;padding:12px;background:var(--surface2);color:var(--muted);
-font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;font-weight:700;
-border-bottom:1px solid var(--line);white-space:nowrap}
+thead th{text-align:left;padding:12px;background:var(--surface2);color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;font-weight:700;border-bottom:1px solid var(--line);white-space:nowrap}
 tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle;color:var(--text2)}
-tbody tr:last-child td{border-bottom:none}
-.rb{display:inline-block;background:var(--primaryS);border:1px solid var(--primaryS);
-color:var(--primaryD);border-radius:8px;padding:5px 11px;font-weight:700;letter-spacing:1.1px;font-size:.8rem}
+.rb{display:inline-block;background:var(--primaryS);color:var(--primaryD);border-radius:8px;padding:5px 11px;font-weight:700;letter-spacing:1.1px;font-size:.8rem}
 .ra{display:flex;gap:6px;flex-wrap:wrap}
 .tbr{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
 .tbr .inp,.tbr select{max-width:100%;flex:1 1 200px;min-width:0}
-
 .lg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .lc{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--surface2)}
 .lc.ok{border-color:var(--okB)}.lc.pd{border-color:var(--warnB)}
 .lh2{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
 .lh2 b{font-size:.88rem;font-weight:700}
-.lh2 .cnt{font-size:.72rem;font-weight:700;color:var(--muted);background:var(--surface);
-border:1px solid var(--line);border-radius:999px;padding:3px 9px;margin-left:6px}
-.lc.ok .cnt{color:var(--ok);border-color:var(--okB);background:var(--okS)}
-.lc.pd .cnt{color:var(--warn);border-color:var(--warnB);background:var(--warnS)}
-.la{width:100%;min-height:110px;max-height:200px;resize:vertical;background:var(--surface);
-border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,monospace;
-font-size:16px;line-height:1.85;color:var(--text2);white-space:pre-wrap;word-break:break-word;overflow-y:auto}
-.la:focus{outline:none;border-color:var(--primary)}
-.wb{background:var(--waBg);border:1px solid var(--waBd);border-radius:12px;padding:14px;
-font-family:ui-monospace,Menlo,monospace;font-size:.82rem;line-height:1.85;color:var(--waTx);
-white-space:pre-wrap;word-break:break-word;max-height:240px;overflow-y:auto;margin-top:6px}
+.lh2 .cnt{font-size:.72rem;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 9px;margin-left:6px}
+.la{width:100%;min-height:110px;max-height:200px;resize:vertical;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:16px;line-height:1.85;color:var(--text2);white-space:pre-wrap;word-break:break-word;overflow-y:auto}
+.wb{background:var(--waBg);border:1px solid var(--waBd);border-radius:12px;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;line-height:1.85;color:var(--waTx);white-space:pre-wrap;word-break:break-word;max-height:240px;overflow-y:auto;margin-top:6px}
 .cr2{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
 @media(max-width:760px){.lg{grid-template-columns:1fr}}
-
-.zh{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;
-border-radius:14px;padding:22px;margin-bottom:14px;box-shadow:0 18px 40px -16px var(--glow)}
+.zh{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-radius:14px;padding:22px;margin-bottom:14px}
 .zh h2{font-size:1.2rem;font-weight:800;margin-bottom:8px}
 .zh p{font-size:.85rem;opacity:.92;line-height:1.65}
-.zt{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
-font-family:ui-monospace,Menlo,monospace;font-size:.76rem;line-height:1.8;color:var(--text2);
-white-space:pre;overflow-x:auto;margin-top:8px}
-.zt b{color:var(--primaryD);font-weight:600}
 .zs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
-.zst{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
-display:flex;flex-direction:column;gap:3px}
+.zst{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:3px}
 .zst b{font-size:1.3rem;font-weight:800;letter-spacing:-.8px}
 .zst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
 .zpg{margin-top:14px;height:8px;background:var(--track);border-radius:999px;overflow:hidden;display:none}
 .zpg.show{display:block}
-.zpg span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));
-border-radius:999px;transition:width .3s}
-.zst2{margin-top:10px;font-size:.8rem;color:var(--muted);min-height:18px;line-height:1.5}
+.zpg span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px}
+.zst2{margin-top:10px;font-size:.8rem;color:var(--muted);min-height:18px}
 .za{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .za .btn{flex:1 1 200px;margin:0}
 .mc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 16px}
-.mcard{background:var(--surface2);border:2px solid var(--line);border-radius:12px;padding:14px;
-cursor:pointer;text-align:left;color:var(--text2);min-height:80px;font-size:inherit}
+.mcard{background:var(--surface2);border:2px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;text-align:left;color:var(--text2);min-height:80px;font-size:inherit}
 .mcard.active{border-color:var(--primary);background:var(--primaryS)}
-.mcard .mt{font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:4px;
-display:flex;align-items:center;gap:8px}
+.mcard .mt{font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:4px;display:flex;align-items:center;gap:8px}
 .mcard .md{font-size:.74rem;color:var(--muted);line-height:1.5}
-.mcard .mk{width:16px;height:16px;border-radius:50%;border:2px solid var(--line2);
-display:inline-grid;place-items:center;flex-shrink:0}
+.mcard .mk{width:16px;height:16px;border-radius:50%;border:2px solid var(--line2);display:inline-grid;place-items:center;flex-shrink:0}
 .mcard.active .mk{border-color:var(--primary);background:var(--primary)}
-.mcard.active .mk::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
-@media(max-width:600px){.mc{grid-template-columns:1fr}}
-
 .subj-dl-list{display:flex;flex-direction:column;gap:10px}
-.subj-dl-row{display:flex;justify-content:space-between;align-items:center;gap:12px;
-padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);flex-wrap:wrap}
+.subj-dl-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);flex-wrap:wrap}
 .subj-dl-info{flex:1;min-width:180px}
 .subj-dl-name{font-weight:600;color:var(--text);font-size:.9rem;margin-bottom:4px}
 .subj-dl-meta{display:flex;gap:12px;flex-wrap:wrap}
 .ok-tag{font-size:.72rem;color:var(--ok);font-weight:600}
 .pd-tag{font-size:.72rem;color:var(--warn);font-weight:600}
 .subj-dl-btns{display:flex;gap:8px;flex-wrap:wrap}
-@media(max-width:520px){.subj-dl-btns{width:100%}.subj-dl-btns .btn{flex:1}}
-
-.sr{display:grid;grid-template-columns:1.1fr 1.3fr auto;gap:10px;align-items:center;
-padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);margin-bottom:10px}
-.sr .lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;
-display:block;margin-bottom:4px;font-weight:700}
+.sr{display:grid;grid-template-columns:1.1fr 1.3fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);margin-bottom:10px}
+.sr .lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:4px;font-weight:700}
 .ar{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:16px}
 .empty{text-align:center;color:var(--muted);padding:30px 14px;font-size:.86rem}
-
-.cri{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;
-border:1px solid var(--line);border-radius:12px;background:var(--surface2);margin-bottom:8px;flex-wrap:wrap}
+.cri{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);margin-bottom:8px;flex-wrap:wrap}
 .cri .info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.tag2{background:var(--primaryS);color:var(--primaryD);border:1px solid var(--primaryS);
-font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:3px 9px;border-radius:999px}
-.you{background:var(--okS);color:var(--ok);border:1px solid var(--okB);
-font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:3px 9px;border-radius:999px}
+.tag2{background:var(--primaryS);color:var(--primaryD);font-size:.66rem;font-weight:700;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.you{background:var(--okS);color:var(--ok);font-size:.66rem;font-weight:700;text-transform:uppercase;padding:3px 9px;border-radius:999px}
 .cr2r{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:14px}
-
 .br{margin-bottom:16px}
 .brt{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:7px;gap:10px;flex-wrap:wrap}
 .brt .n{color:var(--muted);font-size:.76rem;white-space:nowrap;font-weight:600}
 .bar{height:8px;background:var(--track);border-radius:999px;overflow:hidden}
-.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));
-border-radius:999px;transition:width .5s}
-
-.mbd{position:fixed;inset:0;background:var(--modal);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-display:none;align-items:center;justify-content:center;padding:16px;z-index:100;
-padding-top:calc(16px + env(safe-area-inset-top));padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px}
+.mbd{position:fixed;inset:0;background:var(--modal);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px;z-index:100;padding-top:calc(16px + env(safe-area-inset-top));padding-bottom:calc(16px + env(safe-area-inset-bottom))}
 .mbd.open{display:flex}
-.mdl{width:100%;max-width:460px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);
-overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border:1px solid var(--line);
-border-radius:18px;padding:22px;box-shadow:0 30px 70px -20px var(--shX)}
+.mdl{width:100%;max-width:460px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px}
 .mdl h3{font-size:1.1rem;font-weight:700;margin-bottom:5px}
 .mdl .sub{color:var(--muted);font-size:.8rem;margin-bottom:6px}
 .ma{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
 .ma .btn{flex:1 1 120px;margin:0}
-.fs{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;
-background:var(--surface2);border:1.5px dashed var(--line2);color:var(--muted);padding:14px;
-border-radius:10px;font-size:.85rem;cursor:pointer;min-height:52px;text-align:center}
-.fs:active{border-color:var(--primary);background:var(--primaryS)}
-.fs input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;
-cursor:pointer;font-size:100px;padding:0;border:none;margin:0}
+.fs{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--surface2);border:1.5px dashed var(--line2);color:var(--muted);padding:14px;border-radius:10px;font-size:.85rem;cursor:pointer;min-height:52px;text-align:center}
+.fs input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:100px;padding:0;border:none;margin:0}
 .fpick{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:6px}
-.fpick input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;
-cursor:pointer;font-size:100px;padding:0;border:none}
-
-.fn{text-align:center;color:var(--muted);font-size:.74rem;padding:22px 16px calc(30px + env(safe-area-inset-bottom));
-line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(--surface)}
-
-@media(max-width:640px){
-.sr,.ar,.cr2r{grid-template-columns:1fr}
-.sr .btn,.ar .btn,.cr2r .btn{width:100%}
-.tb{padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top))}
-.bmark{min-width:28px;height:28px;font-size:.62rem}
-.sg{grid-template-columns:repeat(2,1fr);gap:10px}
-.st{padding:14px}.stn{font-size:1.4rem}
-.pn{padding:16px}.mdl{padding:18px}
-.ma{flex-direction:column-reverse}.ma .btn{width:100%}
-.cr2{justify-content:stretch}.cr2 .btn{width:100%}
-.za .btn{flex:1 1 100%}
-}
-@media(max-width:400px){
-.hero h1{font-size:1.7rem}
-.cards{grid-template-columns:1fr}
-.brand span:not(.bmark){display:none}
-}
+.fpick input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:100px}
+.fn{text-align:center;color:var(--muted);font-size:.74rem;padding:22px 16px calc(30px + env(safe-area-inset-bottom));line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(--surface)}
+@media(max-width:640px){.sr,.ar,.cr2r{grid-template-columns:1fr}.sr .btn,.ar .btn,.cr2r .btn{width:100%}.sg{grid-template-columns:repeat(2,1fr)}.st{padding:14px}.stn{font-size:1.4rem}.mc{grid-template-columns:1fr}.ma{flex-direction:column-reverse}.ma .btn{width:100%}.za .btn{flex:1 1 100%}}
+@media(max-width:400px){.hero h1{font-size:1.7rem}.cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div class="loading" id="loading"><div class="spinner"></div><div id="loadMsg">Connecting…</div></div>
-
-<!-- LANDING -->
 <section class="view active" id="v-landing">
-  <header class="lh">
-    <div class="brand"><span class="bmark">DSF</span><span>DS-F</span></div>
-    <div class="hint">451 – 546 · 96 students</div>
-  </header>
+  <header class="lh"><div class="brand"><span class="bmark">DSF</span><span>DS-F</span></div><div class="hint">451 – 546 · 96 students</div></header>
   <div class="hero">
-    <div class="logo">DS-F</div>
-    <h1>Welcome to <span>DS-F</span></h1>
+    <div class="logo">DS-F</div><h1>Welcome to <span>DS-F</span></h1>
     <p class="tag">One place for the whole class to submit PPTs, track pending work and stay organised.</p>
     <div class="cards">
-      <button type="button" class="card" onclick="show('v-slogin')">
-        <div class="ci">🎓</div><h3>Student Login</h3><p>Roll numbers 451 – 546</p>
-      </button>
-      <button type="button" class="card cr" onclick="show('v-clogin')">
-        <div class="ci">🛡️</div><h3>CR Login</h3><p>Class Representative access</p>
-      </button>
+      <button type="button" class="card" onclick="show('v-slogin')"><div class="ci">🎓</div><h3>Student Login</h3><p>Roll numbers 451 – 546</p></button>
+      <button type="button" class="card cr" onclick="show('v-clogin')"><div class="ci">🛡️</div><h3>CR Login</h3><p>Class Representative access</p></button>
     </div>
-    <div class="lf" id="lf">
-      Total students: <b>96</b> • Roll numbers <b>451</b> to <b>546</b><br>
-      Only the last 3 digits of the roll number are used everywhere.
-      <span id="lfEmail"></span>
-    </div>
+    <div class="lf" id="lf">Total students: <b>96</b> • Roll numbers <b>451</b> to <b>546</b><br>Only the last 3 digits are used everywhere.<span id="lfEmail"></span></div>
   </div>
 </section>
 
-<!-- STUDENT LOGIN -->
-<section class="view" id="v-slogin">
-  <div class="aw">
-    <button type="button" class="bk" onclick="show('v-landing')">← Back to home</button>
-    <div class="ac">
-      <h2>Student Login</h2>
-      <p class="sub">Enter the last 3 digits of your roll number.</p>
-      <label for="sRoll">Roll Number</label>
-      <div class="ri"><span class="px">25MVCSDR0</span>
-        <input id="sRoll" type="text" inputmode="numeric" maxlength="3" placeholder="451" autocomplete="off">
-      </div>
-      <div class="hint">Range: 451 – 546</div>
-      <label for="sPass">Password</label>
-      <div class="pw-wrap">
-        <input id="sPass" type="password" placeholder="Your roll number" autocomplete="new-password">
-        <button type="button" class="pw-toggle" onclick="togglePw('sPass', this)" aria-label="Show password" tabindex="-1">
-          <svg class="ic-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          <svg class="ic-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-        </button>
-      </div>
-      <div class="hint">Your password is your own roll number — e.g. <b>451</b></div>
-      <div class="err" id="sErr"></div>
-      <button type="button" class="btn primary" onclick="studentLogin()">Login →</button>
-    </div>
-  </div>
+<section class="view" id="v-slogin"><div class="aw"><button type="button" class="bk" onclick="show('v-landing')">← Back to home</button>
+  <div class="ac"><h2>Student Login</h2><p class="sub">Enter the last 3 digits of your roll number.</p>
+    <label>Roll Number</label><div class="ri"><span class="px">25MVCSDR0</span><input id="sRoll" type="text" inputmode="numeric" maxlength="3" placeholder="451" autocomplete="off"></div>
+    <div class="hint">Range: 451 – 546</div>
+    <label>Password</label><div class="pw-wrap"><input id="sPass" type="password" placeholder="Your roll number" autocomplete="new-password"><button type="button" class="pw-toggle" onclick="togglePw('sPass',this)"><svg class="ic-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ic-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button></div>
+    <div class="hint">Your password is your roll number — e.g. <b>451</b></div>
+    <div class="err" id="sErr"></div><button type="button" class="btn primary" onclick="studentLogin()">Login →</button>
+  </div></div>
 </section>
 
-<!-- CR LOGIN -->
-<section class="view" id="v-clogin">
-  <div class="aw">
-    <button type="button" class="bk" onclick="show('v-landing')">← Back to home</button>
-    <div class="ac">
-      <h2>CR Login</h2>
-      <p class="sub">Class Representative access only.</p>
-      <label for="cRoll">CR Roll Number</label>
-      <div class="ri"><span class="px">25MVCSDR0</span>
-        <input id="cRoll" type="text" inputmode="numeric" maxlength="3" placeholder="451" autocomplete="off">
-      </div>
-      <label for="cPass">Password</label>
-      <div class="pw-wrap">
-        <input id="cPass" type="password" placeholder="Enter password" autocomplete="new-password">
-        <button type="button" class="pw-toggle" onclick="togglePw('cPass', this)" aria-label="Show password" tabindex="-1">
-          <svg class="ic-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          <svg class="ic-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-        </button>
-      </div>
-      <div class="hint">Use the shared CR password</div>
-      <div class="err" id="cErr"></div>
-      <button type="button" class="btn primary" onclick="crLogin()">Login →</button>
-    </div>
-  </div>
+<section class="view" id="v-clogin"><div class="aw"><button type="button" class="bk" onclick="show('v-landing')">← Back to home</button>
+  <div class="ac"><h2>CR Login</h2><p class="sub">Class Representative access only.</p>
+    <label>CR Roll Number</label><div class="ri"><span class="px">25MVCSDR0</span><input id="cRoll" type="text" inputmode="numeric" maxlength="3" placeholder="451" autocomplete="off"></div>
+    <label>Password</label><div class="pw-wrap"><input id="cPass" type="password" placeholder="Enter password" autocomplete="new-password"><button type="button" class="pw-toggle" onclick="togglePw('cPass',this)"><svg class="ic-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ic-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button></div>
+    <div class="hint">Shared CR password</div>
+    <div class="err" id="cErr"></div><button type="button" class="btn primary" onclick="crLogin()">Login →</button>
+  </div></div>
 </section>
 
-<!-- STUDENT DASHBOARD -->
 <section class="view" id="v-student">
-  <header class="tb">
-    <div class="brand"><span class="bmark">DSF</span><span>DS-F</span></div>
-    <div class="tr">
-      <span class="chip" id="sChip">—</span>
-      <button type="button" class="bell" id="bellBtn" onclick="scrollToNotices()" aria-label="Notifications">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="bell-count" id="bellCount" style="display:none">0</span>
-      </button>
-      <div class="tp">
-        <button type="button" class="tt" onclick="toggleTheme(event,'tpopS')" aria-label="Theme">
-          <span class="sw"></span><span class="tl">Classic</span>
-        </button>
-        <div class="tpop" id="tpopS"><div class="tpop-t">Theme</div></div>
-      </div>
+  <header class="tb"><div class="brand"><span class="bmark">DSF</span><span>DS-F</span></div>
+    <div class="tr"><span class="chip" id="sChip">—</span>
+      <button type="button" class="bell" onclick="scrollToNotices()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-count" id="bellCount" style="display:none">0</span></button>
+      <div class="tp"><button type="button" class="tt" onclick="toggleTheme(event,'tpopS')"><span class="sw"></span><span class="tl">Classic</span></button><div class="tpop" id="tpopS"><div class="tpop-t">Theme</div></div></div>
       <button type="button" class="btn ghost sm" onclick="logout()">Logout</button>
     </div>
   </header>
   <div class="co">
-    <div class="pt" id="sClass">—</div>
-    <div class="ps" id="sLine">—</div>
+    <div class="pt" id="sClass">—</div><div class="ps" id="sLine">—</div>
     <div class="ms" id="sStats"></div>
     <div id="sAnnounceWrap" style="margin-top:18px"></div>
     <div class="sgr" id="sSubjects"></div>
   </div>
 </section>
 
-<!-- CR DASHBOARD -->
 <section class="view" id="v-cr">
-  <header class="tb">
-    <div class="brand"><span class="bmark">DSF</span><span>DS-F · CR</span></div>
-    <div class="tr">
-      <span class="chip" id="cChip">CR 451</span>
-      <div class="tp">
-        <button type="button" class="tt" onclick="toggleTheme(event,'tpopC')" aria-label="Theme">
-          <span class="sw"></span><span class="tl">Classic</span>
-        </button>
-        <div class="tpop" id="tpopC"><div class="tpop-t">Theme</div></div>
-      </div>
+  <header class="tb"><div class="brand"><span class="bmark">DSF</span><span>DS-F · CR</span></div>
+    <div class="tr"><span class="chip" id="cChip">CR 451</span>
+      <div class="tp"><button type="button" class="tt" onclick="toggleTheme(event,'tpopC')"><span class="sw"></span><span class="tl">Classic</span></button><div class="tpop" id="tpopC"><div class="tpop-t">Theme</div></div></div>
       <button type="button" class="btn ghost sm" onclick="logout()">Logout</button>
     </div>
   </header>
   <div class="co">
-    <div class="pt" id="cClass">—</div>
-    <div class="ps">Class Representative control panel</div>
+    <div class="pt" id="cClass">—</div><div class="ps">Class Representative control panel</div>
     <div class="tabs">
       <button type="button" class="tab active" data-tab="ov" onclick="setTab('ov')">📊 Dashboard</button>
       <button type="button" class="tab" data-tab="ls" onclick="setTab('ls')">📋 Lists</button>
@@ -577,210 +292,158 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
 </section>
 
 <div class="mbd" id="modal"><div class="mdl" id="modalBox"></div></div>
-<div class="fn">DS-F · roll numbers 451–546 · 96 students<br>Data syncs live across all devices via Firebase.</div>
+<div class="fn">DS-F · roll numbers 451–546 · 96 students<br>Data stored in this browser (no cloud sync).</div>
 
 <script>
 /* ============================================================
-   ⚙️ FIREBASE CONFIG — PASTE YOURS HERE
+   OFFLINE MODE — no Firebase, no Supabase.
+   All data is stored in this browser's localStorage + IndexedDB.
+   Each device keeps its own copy. Nothing syncs across devices.
    ============================================================ */
-var FIREBASE_CONFIG = {
-  apiKey: "PASTE_YOUR_API_KEY_HERE",
-  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
-};
 
-/* ============================================================
-   APP CONFIG
-   ============================================================ */
 var CR_PASSWORD = 'CR_DSF_2025';
-var PREFIX = '25MVCSDR';
-var ROLL_START = 451, ROLL_END = 546;
+var PREFIX = '25MVCSDR', ROLL_START = 451, ROLL_END = 546;
+var KEY = 'dsf_state_v2';
+var SESS_KEY = 'dsf_session';
 var THEME_KEY = 'dsf_theme';
+var DB_NAME = 'dsf_files_db';
+var STORE = 'files';
+var BUCKET = 'local';
 
 var ROLLS = [];
 for (var i = ROLL_START; i <= ROLL_END; i++) ROLLS.push(String(i));
 var TOTAL = ROLLS.length;
 
 var THEMES = [
-  { id:'classic',  label:'Classic',  color:'#2563eb' },
+  { id:'classic', label:'Classic', color:'#2563eb' },
   { id:'midnight', label:'Midnight', color:'#5b8cff' },
-  { id:'ocean',    label:'Ocean',    color:'#0d9488' },
-  { id:'forest',   label:'Forest',   color:'#16a34a' },
-  { id:'violet',   label:'Violet',   color:'#7c3aed' },
-  { id:'sunset',   label:'Sunset',   color:'#ea580c' }
+  { id:'ocean', label:'Ocean', color:'#0d9488' },
+  { id:'forest', label:'Forest', color:'#16a34a' },
+  { id:'violet', label:'Violet', color:'#7c3aed' },
+  { id:'sunset', label:'Sunset', color:'#ea580c' }
 ];
-
 var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 function fullRoll(r){ return PREFIX + String(r).replace(/^(\d{1,4})$/, function(m){ return m.padStart(4,'0'); }); }
-function esc(s){
-  if (s == null) s = '';
-  return String(s).replace(/[&<>"']/g, function(c){
-    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
-  });
-}
-function uid(){ return Math.random().toString(36).slice(2,9) + Date.now().toString(36); }
+function esc(s){ if (s == null) s = ''; return String(s).replace(/[&<>"']/g, function(c){ return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); }
+function uid(){ return 'id-' + Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
 
 var LS = {
   get: function(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
-  set: function(k,v){ try { localStorage.setItem(k,v); return true; } catch(e){ return false; } }
+  set: function(k,v){ try { localStorage.setItem(k,v); return true; } catch(e){ return false; } },
+  rm:  function(k){ try { localStorage.removeItem(k); } catch(e){} }
+};
+var SS = {
+  get: function(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } },
+  set: function(k,v){ try { sessionStorage.setItem(k,v); return true; } catch(e){ return false; } },
+  rm:  function(k){ try { sessionStorage.removeItem(k); } catch(e){} }
 };
 
 /* ============================================================
-   STATE (populated from Firestore, kept in memory)
+   INDEXEDDB — file storage
    ============================================================ */
-var state = {
-  className: 'MCS — Semester 1',
-  crRolls: ['451'],
-  crEmail: '',
-  subjects: [],
-  submissions: {},
-  announcements: []
-};
+var dbPromise = null;
+function openDB(){
+  if (dbPromise) return dbPromise;
+  dbPromise = new Promise(function(resolve,reject){
+    if (!window.indexedDB){ reject(new Error('IndexedDB not supported')); return; }
+    var req;
+    try { req = indexedDB.open(DB_NAME, 1); } catch(e){ reject(e); return; }
+    req.onupgradeneeded = function(e){
+      var db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: 'key' });
+    };
+    req.onsuccess = function(){ resolve(req.result); };
+    req.onerror = function(){ reject(req.error); };
+  }).catch(function(err){ dbPromise = null; throw err; });
+  return dbPromise;
+}
+function saveFileBlob(key, blob, meta){
+  return openDB().then(function(db){
+    return new Promise(function(resolve,reject){
+      var tx = db.transaction(STORE, 'readwrite');
+      var rec = { key: key, blob: blob };
+      if (meta) for (var k in meta) rec[k] = meta[k];
+      tx.objectStore(STORE).put(rec);
+      tx.oncomplete = function(){ resolve(true); };
+      tx.onerror = function(){ reject(tx.error); };
+    });
+  }).catch(function(e){ console.warn('saveFileBlob failed', e); return false; });
+}
+function getFileBlob(key){
+  return openDB().then(function(db){
+    return new Promise(function(resolve,reject){
+      var tx = db.transaction(STORE, 'readonly');
+      var req = tx.objectStore(STORE).get(key);
+      req.onsuccess = function(){ resolve(req.result || null); };
+      req.onerror = function(){ reject(req.error); };
+    });
+  }).catch(function(){ return null; });
+}
+function getAllFileBlobs(){
+  return openDB().then(function(db){
+    return new Promise(function(resolve,reject){
+      var tx = db.transaction(STORE, 'readonly');
+      var req = tx.objectStore(STORE).getAll();
+      req.onsuccess = function(){ resolve(req.result || []); };
+      req.onerror = function(){ reject(req.error); };
+    });
+  }).catch(function(){ return []; });
+}
+function deleteFileBlob(key){
+  return openDB().then(function(db){
+    return new Promise(function(resolve,reject){
+      var tx = db.transaction(STORE, 'readwrite');
+      tx.objectStore(STORE).delete(key);
+      tx.oncomplete = function(){ resolve(true); };
+      tx.onerror = function(){ reject(tx.error); };
+    });
+  }).catch(function(){ return false; });
+}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+function defaultState(){
+  return {
+    className: 'MCS — Semester 1',
+    crRolls: ['451'],
+    crEmail: '',
+    subjects: [
+      { id: uid(), name:'Research Methodology',        topic:'Literature Review & Citation' },
+      { id: uid(), name:'Advanced Data Structures',    topic:'Graph Traversal Algorithms' },
+      { id: uid(), name:'Operating Systems',           topic:'CPU Scheduling Algorithms' },
+      { id: uid(), name:'Database Management Systems', topic:'Normalization & Indexing' }
+    ],
+    submissions: {},
+    announcements: []
+  };
+}
+
+var state;
+try {
+  var raw = LS.get(KEY);
+  state = raw ? JSON.parse(raw) : null;
+  if (!state || !state.subjects || !state.subjects.length) state = defaultState();
+} catch(e){ state = defaultState(); }
+if (!state.crRolls || !state.crRolls.length) state.crRolls = ['451'];
+if (typeof state.crEmail !== 'string') state.crEmail = '';
+if (!state.submissions) state.submissions = {};
+if (!Array.isArray(state.announcements)) state.announcements = [];
+
+function save(){ LS.set(KEY, JSON.stringify(state)); }
+function refresh(){
+  updateLanding();
+  if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1) renderCR();
+  else if (session && session.role === 'student') renderStudent();
+}
 
 var session = null;
-try { var sraw = LS.get('dsf_session'); session = sraw ? JSON.parse(sraw) : null; } catch(e){ session = null; }
+try { var sraw = SS.get(SESS_KEY); session = sraw ? JSON.parse(sraw) : null; } catch(e){ session = null; }
 function setSession(s){
   session = s;
-  LS.set('dsf_session', s ? JSON.stringify(s) : '');
-  if (!s) try { localStorage.removeItem('dsf_session'); } catch(e){}
-}
-
-var db = null, storage = null, dataReady = false;
-
-/* ============================================================
-   FIREBASE INIT
-   ============================================================ */
-function firebaseConfigured(){
-  return FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.apiKey.indexOf('PASTE_') !== 0;
-}
-
-function initFirebase(){
-  if (!firebaseConfigured()){
-    document.getElementById('loadMsg').innerHTML =
-      '<b style="color:#dc2626">Firebase is not configured.</b><br>' +
-      'Please edit the file and add your Firebase config.<br>' +
-      'See the setup instructions in the code comments.';
-    return Promise.reject(new Error('Firebase not configured'));
-  }
-
-  firebase.initializeApp(FIREBASE_CONFIG);
-  db = firebase.firestore();
-  storage = firebase.storage();
-
-  return firebase.auth().signInAnonymously().then(function(){
-    // Config listener — subjects, class name, CR rolls, CR email
-    db.collection('dsf_config').doc('main').onSnapshot(function(doc){
-      if (doc.exists){
-        var d = doc.data();
-        state.className = d.className || state.className;
-        state.crRolls = Array.isArray(d.crRolls) && d.crRolls.length ? d.crRolls : ['451'];
-        state.crEmail = typeof d.crEmail === 'string' ? d.crEmail : '';
-        state.subjects = Array.isArray(d.subjects) ? d.subjects : [];
-      } else {
-        // First ever run — create defaults
-        var defaults = {
-          className: 'MCS — Semester 1',
-          crRolls: ['451'],
-          crEmail: '',
-          subjects: [
-            { id: uid(), name:'Research Methodology',        topic:'Literature Review & Citation' },
-            { id: uid(), name:'Advanced Data Structures',    topic:'Graph Traversal Algorithms' },
-            { id: uid(), name:'Operating Systems',           topic:'CPU Scheduling Algorithms' },
-            { id: uid(), name:'Database Management Systems', topic:'Normalization & Indexing' }
-          ]
-        };
-        db.collection('dsf_config').doc('main').set(defaults);
-        state.subjects = defaults.subjects;
-      }
-      refresh();
-    }, function(err){ console.error('config listener', err); });
-
-    // Submissions listener
-    db.collection('dsf_submissions').onSnapshot(function(snap){
-      var subs = {};
-      snap.forEach(function(doc){
-        var d = doc.data();
-        if (!d.roll || !d.subjectId) return;
-        if (!subs[d.roll]) subs[d.roll] = {};
-        subs[d.roll][d.subjectId] = d;
-      });
-      state.submissions = subs;
-      refresh();
-    }, function(err){ console.error('submissions listener', err); });
-
-    // Announcements listener
-    db.collection('dsf_announcements').onSnapshot(function(snap){
-      var arr = [];
-      snap.forEach(function(doc){
-        var d = doc.data();
-        d.id = doc.id;
-        arr.push(d);
-      });
-      state.announcements = arr;
-      refresh();
-    }, function(err){ console.error('announcements listener', err); });
-
-    dataReady = true;
-    document.getElementById('loading').style.display = 'none';
-  }).catch(function(err){
-    console.error('Auth failed:', err);
-    document.getElementById('loadMsg').innerHTML =
-      '<b style="color:#dc2626">Connection failed.</b><br>' + err.message;
-  });
-}
-
-/* ============================================================
-   DATA WRITES
-   ============================================================ */
-function saveConfig(){
-  if (!db) return;
-  db.collection('dsf_config').doc('main').set({
-    className: state.className,
-    crRolls: state.crRolls,
-    crEmail: state.crEmail,
-    subjects: state.subjects
-  }).catch(function(e){ console.error(e); alert('Could not save. Check your internet.'); });
-}
-
-function saveSubmissionDoc(roll, subjectId, entry){
-  if (!db) return Promise.reject(new Error('no db'));
-  return db.collection('dsf_submissions').doc(roll + '__' + subjectId).set(entry);
-}
-function deleteSubmissionDoc(roll, subjectId){
-  if (!db) return Promise.resolve();
-  return db.collection('dsf_submissions').doc(roll + '__' + subjectId).delete();
-}
-async function uploadSubmissionFile(roll, subjectId, file){
-  if (!storage) throw new Error('no storage');
-  var ext = (file.name.split('.').pop() || 'bin').toLowerCase();
-  var path = 'submissions/' + roll + '__' + subjectId + '.' + ext;
-  var ref = storage.ref(path);
-  await ref.put(file);
-  var url = await ref.getDownloadURL();
-  return { url: url, path: path, ext: ext };
-}
-async function deleteSubmissionFile(path){
-  if (!storage || !path) return;
-  try { await storage.ref(path).delete(); } catch(e){ console.warn(e); }
-}
-
-function saveAnnouncement(a){
-  if (!db) return;
-  var id = a.id;
-  var data = { title: a.title, body: a.body, priority: a.priority, pinned: a.pinned, createdAt: a.createdAt };
-  if (id){
-    db.collection('dsf_announcements').doc(id).set(data).catch(function(e){ console.error(e); });
-  } else {
-    db.collection('dsf_announcements').add(data).catch(function(e){ console.error(e); });
-  }
-}
-function deleteAnnouncementDoc(id){
-  if (!db) return;
-  db.collection('dsf_announcements').doc(id).delete();
+  if (s) SS.set(SESS_KEY, JSON.stringify(s));
+  else SS.rm(SESS_KEY);
 }
 
 /* ============================================================
@@ -788,15 +451,11 @@ function deleteAnnouncementDoc(id){
    ============================================================ */
 function computeStats(){
   var submitted = 0;
-  ROLLS.forEach(function(r){
-    if (Object.keys(state.submissions[r] || {}).length > 0) submitted++;
-  });
-  return { submitted: submitted, pending: TOTAL - submitted, percent: Math.round(submitted/TOTAL*100) };
+  ROLLS.forEach(function(r){ if (Object.keys(state.submissions[r] || {}).length > 0) submitted++; });
+  return { submitted: submitted, pending: TOTAL - submitted, percent: Math.round(submitted / TOTAL * 100) };
 }
 function subjectCount(sid){
-  var n = 0;
-  ROLLS.forEach(function(r){ if ((state.submissions[r]||{})[sid]) n++; });
-  return n;
+  var n = 0; ROLLS.forEach(function(r){ if ((state.submissions[r]||{})[sid]) n++; }); return n;
 }
 function fmtDate(iso){
   if (!iso) return '';
@@ -832,21 +491,14 @@ function fileKey(r, sid){ return r + '__' + sid; }
 function updateLanding(){
   var el = document.getElementById('lfEmail');
   if (!el) return;
-  el.innerHTML = state.crEmail
-    ? '<br>✉️ Contact CR: <a href="mailto:'+esc(state.crEmail)+'">'+esc(state.crEmail)+'</a>'
-    : '';
+  el.innerHTML = state.crEmail ? '<br>✉️ Contact CR: <a href="mailto:'+esc(state.crEmail)+'">'+esc(state.crEmail)+'</a>' : '';
 }
-
-/* ============================================================
-   PASSWORD TOGGLE
-   ============================================================ */
 function togglePw(id, btn){
   var input = document.getElementById(id);
   if (!input) return;
-  var isHidden = input.type === 'password';
-  input.type = isHidden ? 'text' : 'password';
-  btn.classList.toggle('show', isHidden);
-  btn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+  var h = input.type === 'password';
+  input.type = h ? 'text' : 'password';
+  btn.classList.toggle('show', h);
 }
 
 /* ============================================================
@@ -857,18 +509,14 @@ function setTheme(name){
   document.documentElement.setAttribute('data-theme', name);
   LS.set(THEME_KEY, name);
   var t = THEMES.filter(function(x){ return x.id === name; })[0];
-  var labels = document.querySelectorAll('.theme-label, .tl');
-  for (var i = 0; i < labels.length; i++) labels[i].textContent = t.label;
-  var opts = document.querySelectorAll('.topt');
-  for (var j = 0; j < opts.length; j++) opts[j].classList.toggle('active', opts[j].getAttribute('data-name') === name);
+  document.querySelectorAll('.theme-label, .tl').forEach(function(el){ el.textContent = t.label; });
+  document.querySelectorAll('.topt').forEach(function(el){ el.classList.toggle('active', el.getAttribute('data-name') === name); });
 }
 function toggleTheme(e, id){
   if (e){ e.preventDefault(); e.stopPropagation(); }
-  var pop = document.getElementById(id);
-  if (!pop) return;
+  var pop = document.getElementById(id); if (!pop) return;
   var wasOpen = pop.classList.contains('open');
-  var all = document.querySelectorAll('.tpop.open');
-  for (var i = 0; i < all.length; i++) all[i].classList.remove('open');
+  document.querySelectorAll('.tpop.open').forEach(function(p){ p.classList.remove('open'); });
   if (!wasOpen){ buildThemePopover(pop); pop.classList.add('open'); }
 }
 function buildThemePopover(pop){
@@ -876,33 +524,24 @@ function buildThemePopover(pop){
   pop.setAttribute('data-built','1');
   var current = LS.get(THEME_KEY) || 'classic';
   THEMES.forEach(function(t){
-    var btn = document.createElement('button');
-    btn.type = 'button';
+    var btn = document.createElement('button'); btn.type = 'button';
     btn.className = 'topt' + (t.id === current ? ' active' : '');
     btn.setAttribute('data-name', t.id);
-    btn.onclick = function(ev){
-      ev.preventDefault(); ev.stopPropagation();
-      setTheme(t.id);
-      var all = document.querySelectorAll('.tpop.open');
-      for (var i = 0; i < all.length; i++) all[i].classList.remove('open');
-    };
+    btn.onclick = function(ev){ ev.preventDefault(); ev.stopPropagation(); setTheme(t.id); document.querySelectorAll('.tpop.open').forEach(function(p){ p.classList.remove('open'); }); };
     btn.innerHTML = '<span class="dot" style="background:'+t.color+'"></span><span>'+t.label+'</span><span class="ck">✓</span>';
     pop.appendChild(btn);
   });
 }
 document.addEventListener('click', function(e){
-  if (!e.target.closest || !e.target.closest('.tp')){
-    var all = document.querySelectorAll('.tpop.open');
-    for (var i = 0; i < all.length; i++) all[i].classList.remove('open');
-  }
+  if (!e.target.closest || !e.target.closest('.tp'))
+    document.querySelectorAll('.tpop.open').forEach(function(p){ p.classList.remove('open'); });
 });
 
 /* ============================================================
    ROUTING
    ============================================================ */
 function show(id){
-  var views = document.querySelectorAll('.view');
-  for (var i = 0; i < views.length; i++) views[i].classList.toggle('active', views[i].id === id);
+  document.querySelectorAll('.view').forEach(function(v){ v.classList.toggle('active', v.id === id); });
   try { window.scrollTo(0,0); } catch(e){}
   if (id === 'v-landing') updateLanding();
   if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
@@ -910,36 +549,21 @@ function show(id){
 function logout(){
   setSession(null);
   show('v-landing');
-  ['sRoll','sPass','cRoll','cPass'].forEach(function(id){
-    var el = document.getElementById(id); if (el) el.value = '';
-  });
-  ['sPass','cPass'].forEach(function(id){
-    var el = document.getElementById(id);
-    if (el) el.type = 'password';
-  });
+  ['sRoll','sPass','cRoll','cPass'].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
+  ['sPass','cPass'].forEach(function(id){ var el = document.getElementById(id); if (el) el.type = 'password'; });
   document.querySelectorAll('.pw-toggle.show').forEach(function(b){ b.classList.remove('show'); });
   var e1 = document.getElementById('sErr'); if (e1) e1.textContent = '';
   var e2 = document.getElementById('cErr'); if (e2) e2.textContent = '';
 }
 
-/* ============================================================
-   LOGIN
-   ============================================================ */
-function extractRoll(raw){
-  var d = String(raw).replace(/\D/g,'');
-  if (!d) return '';
-  return d.length > 3 ? d.slice(-3) : d;
-}
+function extractRoll(raw){ var d = String(raw).replace(/\D/g,''); if (!d) return ''; return d.length > 3 ? d.slice(-3) : d; }
 function studentLogin(){
-  var err = document.getElementById('sErr');
-  err.textContent = '';
+  var err = document.getElementById('sErr'); err.textContent = '';
   var roll = extractRoll(document.getElementById('sRoll').value);
   var pass = document.getElementById('sPass').value.trim();
   if (!roll){ err.textContent = 'Please enter your roll number.'; return; }
   var num = parseInt(roll,10);
-  if (isNaN(num) || num < ROLL_START || num > ROLL_END){
-    err.textContent = 'Roll number must be between 451 and 546.'; return;
-  }
+  if (isNaN(num) || num < ROLL_START || num > ROLL_END){ err.textContent = 'Roll must be between 451 and 546.'; return; }
   var ok = pass === roll || pass.toUpperCase() === fullRoll(roll) || extractRoll(pass) === roll;
   if (!ok){ err.textContent = 'Wrong password. Your password is your roll number.'; return; }
   setSession({ role:'student', roll: roll });
@@ -947,8 +571,7 @@ function studentLogin(){
   show('v-student');
 }
 function crLogin(){
-  var err = document.getElementById('cErr');
-  err.textContent = '';
+  var err = document.getElementById('cErr'); err.textContent = '';
   var roll = extractRoll(document.getElementById('cRoll').value);
   var pass = document.getElementById('cPass').value.trim();
   if (!roll){ err.textContent = 'Please enter your roll number.'; return; }
@@ -963,17 +586,12 @@ function crLogin(){
 /* ============================================================
    ANNOUNCEMENTS
    ============================================================ */
-function getSeenKey(roll){ return 'dsf_seen_notices_' + roll; }
-function getLastSeen(roll){
-  try { return LS.get(getSeenKey(roll)) || '1970-01-01T00:00:00.000Z'; }
-  catch(e){ return '1970-01-01T00:00:00.000Z'; }
-}
-function markSeen(roll){ LS.set(getSeenKey(roll), new Date().toISOString()); }
-function getUnreadCount(roll){
-  var lastSeen = getLastSeen(roll);
-  return state.announcements.filter(function(a){
-    return (a.createdAt || '') > lastSeen;
-  }).length;
+function getSeenKey(r){ return 'dsf_seen_' + r; }
+function getLastSeen(r){ try { return LS.get(getSeenKey(r)) || '1970-01-01T00:00:00.000Z'; } catch(e){ return '1970-01-01T00:00:00.000Z'; } }
+function markSeen(r){ LS.set(getSeenKey(r), new Date().toISOString()); }
+function getUnreadCount(r){
+  var ls = getLastSeen(r);
+  return state.announcements.filter(function(a){ return (a.createdAt || '') > ls; }).length;
 }
 function sortAnnouncements(){
   return state.announcements.slice().sort(function(a, b){
@@ -983,131 +601,76 @@ function sortAnnouncements(){
   });
 }
 function scrollToNotices(){
-  var el = document.getElementById('sAnnounceWrap');
-  if (!el) return;
-  try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e){}
+  var el = document.getElementById('sAnnounceWrap'); if (!el) return;
+  try { el.scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){}
   if (session && session.roll) markSeen(session.roll);
   updateBellCount();
 }
 function updateBellCount(){
-  var badge = document.getElementById('bellCount');
-  if (!badge || !session || session.role !== 'student') return;
+  var b = document.getElementById('bellCount');
+  if (!b || !session || session.role !== 'student') return;
   var n = getUnreadCount(session.roll);
-  if (n > 0){ badge.style.display = 'flex'; badge.textContent = n > 99 ? '99+' : String(n); }
-  else badge.style.display = 'none';
+  if (n > 0){ b.style.display = 'flex'; b.textContent = n > 99 ? '99+' : String(n); }
+  else b.style.display = 'none';
 }
 function renderStudentAnnouncements(){
-  var wrap = document.getElementById('sAnnounceWrap');
-  if (!wrap) return;
-  var roll = session.roll;
-  var lastSeen = getLastSeen(roll);
-  var sorted = sortAnnouncements();
+  var wrap = document.getElementById('sAnnounceWrap'); if (!wrap) return;
+  var roll = session.roll; var lastSeen = getLastSeen(roll); var sorted = sortAnnouncements();
   if (!sorted.length){
-    wrap.innerHTML = '<div class="pn"><h3>📢 Notices</h3>' +
-      '<p class="psub">Announcements from your CR will appear here.</p>' +
-      '<div class="ann-empty">No announcements yet.</div></div>';
+    wrap.innerHTML = '<div class="pn"><h3>📢 Notices</h3><p class="psub">Announcements from your CR will appear here.</p><div class="ann-empty">No announcements yet.</div></div>';
     markSeen(roll); updateBellCount(); return;
   }
   var cards = sorted.map(function(a){
     var isNew = (a.createdAt || '') > lastSeen;
-    var cls = 'ann-card ' + (a.priority || 'normal');
-    if (a.pinned) cls += ' pinned';
+    var cls = 'ann-card ' + (a.priority || 'normal'); if (a.pinned) cls += ' pinned';
     var tags = '';
     if (a.pinned) tags += '<span class="ann-tag pin">📌 Pinned</span>';
     if (isNew) tags += '<span class="ann-tag new">NEW</span>';
     if (a.priority === 'urgent') tags += '<span class="ann-tag urgent">Urgent</span>';
     else if (a.priority === 'important') tags += '<span class="ann-tag important">Important</span>';
-    return '<div class="'+cls+'"><div class="ann-head">' +
-      '<div class="ann-title">'+esc(a.title || '(no title)')+' '+tags+'</div>' +
-      '<div class="ann-time">🕒 '+fmtDate(a.createdAt)+'</div></div>' +
-      '<div class="ann-body">'+esc(a.body || '')+'</div></div>';
+    return '<div class="'+cls+'"><div class="ann-head"><div class="ann-title">'+esc(a.title || '(no title)')+' '+tags+'</div><div class="ann-time">🕒 '+fmtDate(a.createdAt)+'</div></div><div class="ann-body">'+esc(a.body || '')+'</div></div>';
   }).join('');
-  wrap.innerHTML = '<div class="pn"><h3>📢 Notices</h3>' +
-    '<p class="psub">Announcements from your CR. ' +
-      '<button type="button" class="btn sm ghost" style="margin-left:6px;padding:4px 10px;font-size:.7rem" onclick="markAllReadAndRefresh()">Mark all as read</button>' +
-    '</p><div class="ann-list">'+cards+'</div></div>';
+  wrap.innerHTML = '<div class="pn"><h3>📢 Notices</h3><p class="psub">Announcements from your CR. <button type="button" class="btn sm ghost" style="margin-left:6px;padding:4px 10px;font-size:.7rem" onclick="markAllReadAndRefresh()">Mark all as read</button></p><div class="ann-list">'+cards+'</div></div>';
   markSeen(roll); updateBellCount();
 }
-function markAllReadAndRefresh(){
-  if (!session || session.role !== 'student') return;
-  markSeen(session.roll);
-  renderStudentAnnouncements();
-}
+function markAllReadAndRefresh(){ if (session && session.role === 'student'){ markSeen(session.roll); renderStudentAnnouncements(); } }
 function addAnnouncement(){
-  var title = (document.getElementById('annTitle') || {}).value || '';
-  var body = (document.getElementById('annBody') || {}).value || '';
-  var priority = (document.getElementById('annPriority') || {}).value || 'normal';
+  var title = (document.getElementById('annTitle')||{}).value || '';
+  var body = (document.getElementById('annBody')||{}).value || '';
+  var priority = (document.getElementById('annPriority')||{}).value || 'normal';
   title = title.trim(); body = body.trim();
   if (!title && !body){ alert('Please enter a title or a message.'); return; }
-  saveAnnouncement({
-    id: null,
-    title: title || '(no title)',
-    body: body,
-    priority: priority,
-    pinned: false,
-    createdAt: new Date().toISOString()
-  });
-  alert('Announcement posted.');
+  state.announcements.push({ id: uid(), title: title || '(no title)', body: body, priority: priority, pinned: false, createdAt: new Date().toISOString() });
+  save(); renderCR(); alert('Announcement posted.');
 }
 function deleteAnnouncement(id){
   if (!confirm('Delete this announcement?')) return;
-  deleteAnnouncementDoc(id);
+  state.announcements = state.announcements.filter(function(a){ return a.id !== id; });
+  save(); renderCR();
 }
 function togglePinAnnouncement(id){
   var a = state.announcements.filter(function(x){ return x.id === id; })[0];
-  if (!a) return;
-  saveAnnouncement({ id: id, title: a.title, body: a.body, priority: a.priority,
-                     pinned: !a.pinned, createdAt: a.createdAt });
+  if (!a) return; a.pinned = !a.pinned; save(); renderCR();
 }
 function editAnnouncement(id){
-  var a = state.announcements.filter(function(x){ return x.id === id; })[0];
-  if (!a) return;
-  var newTitle = prompt('Edit title:', a.title); if (newTitle === null) return;
-  var newBody = prompt('Edit message:', a.body); if (newBody === null) return;
-  saveAnnouncement({ id: id, title: (newTitle || '').trim() || '(no title)',
-                     body: (newBody || '').trim(), priority: a.priority,
-                     pinned: a.pinned, createdAt: a.createdAt });
+  var a = state.announcements.filter(function(x){ return x.id === id; })[0]; if (!a) return;
+  var nt = prompt('Edit title:', a.title); if (nt === null) return;
+  var nb = prompt('Edit message:', a.body); if (nb === null) return;
+  a.title = (nt || '').trim() || '(no title)';
+  a.body = (nb || '').trim();
+  save(); renderCR();
 }
 function crAnnounceHTML(){
   var sorted = sortAnnouncements();
   var cards = sorted.map(function(a){
-    var cls = 'ann-card ' + (a.priority || 'normal');
-    if (a.pinned) cls += ' pinned';
+    var cls = 'ann-card ' + (a.priority || 'normal'); if (a.pinned) cls += ' pinned';
     var tags = '';
     if (a.pinned) tags += '<span class="ann-tag pin">📌 Pinned</span>';
     if (a.priority === 'urgent') tags += '<span class="ann-tag urgent">Urgent</span>';
     else if (a.priority === 'important') tags += '<span class="ann-tag important">Important</span>';
-    return '<div class="'+cls+'"><div class="ann-head">' +
-      '<div class="ann-title">'+esc(a.title)+' '+tags+'</div>' +
-      '<div class="ann-time">🕒 '+fmtDate(a.createdAt)+'</div></div>' +
-      '<div class="ann-body">'+esc(a.body)+'</div>' +
-      '<div class="ann-foot">' +
-        '<button type="button" class="btn sm ghost" onclick="togglePinAnnouncement(\''+a.id+'\')">'+(a.pinned?'📌 Unpin':'📌 Pin')+'</button>' +
-        '<button type="button" class="btn sm ghost" onclick="editAnnouncement(\''+a.id+'\')">✏️ Edit</button>' +
-        '<button type="button" class="btn sm danger" onclick="deleteAnnouncement(\''+a.id+'\')">🗑 Delete</button>' +
-      '</div></div>';
+    return '<div class="'+cls+'"><div class="ann-head"><div class="ann-title">'+esc(a.title)+' '+tags+'</div><div class="ann-time">🕒 '+fmtDate(a.createdAt)+'</div></div><div class="ann-body">'+esc(a.body)+'</div><div class="ann-foot"><button type="button" class="btn sm ghost" onclick="togglePinAnnouncement(\''+a.id+'\')">'+(a.pinned?'📌 Unpin':'📌 Pin')+'</button><button type="button" class="btn sm ghost" onclick="editAnnouncement(\''+a.id+'\')">✏️ Edit</button><button type="button" class="btn sm danger" onclick="deleteAnnouncement(\''+a.id+'\')">🗑 Delete</button></div></div>';
   }).join('');
-  return '<div class="pn"><h3>Create a new announcement</h3>' +
-    '<p class="psub">Post a message that every student sees on their dashboard.</p>' +
-    '<div class="ann-form">' +
-      '<div class="row">' +
-        '<div><label for="annTitle">Title</label>' +
-          '<input id="annTitle" class="inp" placeholder="e.g. PPT submission deadline extended"></div>' +
-        '<div><label for="annPriority">Priority</label>' +
-          '<select id="annPriority" class="inp">' +
-            '<option value="normal">Normal</option>' +
-            '<option value="important">Important</option>' +
-            '<option value="urgent">Urgent</option>' +
-          '</select></div>' +
-      '</div>' +
-      '<label for="annBody">Message</label>' +
-      '<textarea id="annBody" class="inp" placeholder="Write the announcement here..."></textarea>' +
-      '<div class="ann-actions">' +
-        '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addAnnouncement()">📢 Post announcement</button>' +
-      '</div></div></div>' +
-    '<div class="pn"><h3>Posted announcements ('+sorted.length+')</h3>' +
-    '<p class="psub">Pinned announcements appear at the top for students.</p>' +
-    (cards || '<div class="ann-empty">No announcements yet. Create one above.</div>') + '</div>';
+  return '<div class="pn"><h3>Create a new announcement</h3><p class="psub">Post a message that every student sees on their dashboard.</p><div class="ann-form"><div class="row"><div><label for="annTitle">Title</label><input id="annTitle" class="inp" placeholder="e.g. PPT submission deadline extended"></div><div><label for="annPriority">Priority</label><select id="annPriority" class="inp"><option value="normal">Normal</option><option value="important">Important</option><option value="urgent">Urgent</option></select></div></div><label for="annBody">Message</label><textarea id="annBody" class="inp" placeholder="Write the announcement here..."></textarea><div style="margin-top:10px"><button type="button" class="btn primary" style="margin:0;width:auto" onclick="addAnnouncement()">📢 Post announcement</button></div></div></div><div class="pn"><h3>Posted announcements ('+sorted.length+')</h3>' + (cards || '<div class="ann-empty">No announcements yet.</div>') + '</div>';
 }
 
 /* ============================================================
@@ -1127,17 +690,13 @@ function renderStudent(){
     '<div class="mst"><b>'+state.subjects.length+'</b><span>Subjects</span></div>';
   renderStudentAnnouncements();
   var wrap = document.getElementById('sSubjects');
-  if (!state.subjects.length){
-    wrap.innerHTML = '<div class="empty">No subjects yet. Your CR will add them soon.</div>'; return;
-  }
+  if (!state.subjects.length){ wrap.innerHTML = '<div class="empty">No subjects yet. Your CR will add them soon.</div>'; return; }
   wrap.innerHTML = state.subjects.map(function(s){
     var sub = subs[s.id], done = !!sub;
     return '<div class="sc '+(done?'done':'')+'">' +
-      '<div class="sch"><h4>'+esc(s.name)+'</h4>' +
-      '<span class="bg '+(done?'ok':'pd')+'">'+(done?'Submitted':'Pending')+'</span></div>' +
+      '<div class="sch"><h4>'+esc(s.name)+'</h4><span class="bg '+(done?'ok':'pd')+'">'+(done?'Submitted':'Pending')+'</span></div>' +
       '<p class="tpc"><b>Topic:</b> '+esc(sub?(sub.topic||s.topic):s.topic)+'</p>' +
       (done ? '<div class="fi">📎 '+esc(sub.fileName||'No file')+(sub.fileSize?' · '+fmtSize(sub.fileSize):'')+'<br>🕒 '+fmtDate(sub.at)+
-        (sub.downloadUrl?'<br>🔗 <a href="'+esc(sub.downloadUrl)+'" target="_blank" rel="noopener">Open / download file</a>':'')+
         (sub.link?'<br>🔗 <a href="'+esc(sub.link)+'" target="_blank" rel="noopener">External link</a>':'')+
         (sub.note?'<br>📝 '+esc(sub.note):'')+'</div>' : '') +
       '<div class="sa">' +
@@ -1150,9 +709,7 @@ function renderStudent(){
 /* ============================================================
    CR DASHBOARD
    ============================================================ */
-var crTab = 'ov';
-var crSubFilter = null, crSearch = '', crListFilter = 'all';
-var crDlScope = 'all', crDlMode = 'submitted';
+var crTab = 'ov', crSubFilter = null, crSearch = '', crListFilter = 'all', crDlScope = 'all', crDlMode = 'submitted';
 
 function setTab(t){ crTab = t; renderCR(); }
 function renderCR(){
@@ -1162,8 +719,7 @@ function renderCR(){
   if (!state.subjects.length && (crTab === 'sb' || crTab === 'ls' || crTab === 'dl')) crTab = 'ov';
   if (crTab === 'sb' && !crSubFilter) crSubFilter = state.subjects[0] ? state.subjects[0].id : null;
   if (crTab === 'dl' && crDlScope !== 'all' && !state.subjects.some(function(s){ return s.id === crDlScope; })) crDlScope = 'all';
-  var tabs = document.querySelectorAll('.tab');
-  for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('active', tabs[i].getAttribute('data-tab') === crTab);
+  document.querySelectorAll('.tab').forEach(function(el){ el.classList.toggle('active', el.getAttribute('data-tab') === crTab); });
   var body = document.getElementById('crBody');
   if (crTab === 'ov') body.innerHTML = crOverviewHTML();
   else if (crTab === 'ls') body.innerHTML = crListsHTML();
@@ -1178,104 +734,48 @@ function crOverviewHTML(){
   var st = computeStats();
   var perSubject = state.subjects.map(function(sub){
     var n = subjectCount(sub.id), pct = Math.round(n/TOTAL*100);
-    return '<div class="br"><div class="brt"><span>'+esc(sub.name)+'</span>' +
-      '<span class="n">'+n+' / '+TOTAL+' submitted</span></div>' +
-      '<div class="bar"><span style="width:'+pct+'%"></span></div></div>';
+    return '<div class="br"><div class="brt"><span>'+esc(sub.name)+'</span><span class="n">'+n+' / '+TOTAL+'</span></div><div class="bar"><span style="width:'+pct+'%"></span></div></div>';
   }).join('');
   var recent = [];
   ROLLS.forEach(function(r){
     var subs = state.submissions[r] || {};
     Object.keys(subs).forEach(function(sid){
       var subj = state.subjects.filter(function(x){ return x.id === sid; })[0];
-      if (subj){
-        var item = { roll: r, subject: subj.name };
-        for (var k in subs[sid]) item[k] = subs[sid][k];
-        recent.push(item);
-      }
+      if (subj){ var item = { roll: r, subject: subj.name }; for (var k in subs[sid]) item[k] = subs[sid][k]; recent.push(item); }
     });
   });
   recent.sort(function(a,b){ return new Date(b.at) - new Date(a.at); });
   var recList = recent.slice(0,8).map(function(x){
-    return '<div class="br" style="margin-bottom:12px"><div class="brt">' +
-      '<span><span class="rb" style="padding:3px 9px;font-size:.72rem">'+x.roll+'</span> ' +
-      esc(x.subject)+' — <span style="color:var(--muted)">'+esc(x.topic||'—')+'</span></span>' +
-      '<span class="n">'+fmtDate(x.at)+'</span></div></div>';
+    return '<div class="br" style="margin-bottom:12px"><div class="brt"><span><span class="rb" style="padding:3px 9px;font-size:.72rem">'+x.roll+'</span> '+esc(x.subject)+' — <span style="color:var(--muted)">'+esc(x.topic||'—')+'</span></span><span class="n">'+fmtDate(x.at)+'</span></div></div>';
   }).join('') || '<div class="empty">No submissions yet.</div>';
-  return '<div class="sg">' +
-    '<div class="st"><div class="stn">'+TOTAL+'</div><div class="stl">Total Students</div></div>' +
-    '<div class="st ok"><div class="stn">'+st.submitted+'</div><div class="stl">Submitted</div></div>' +
-    '<div class="st warn"><div class="stn">'+st.pending+'</div><div class="stl">Pending</div></div>' +
-    '<div class="st acc"><div class="stn">'+st.percent+'%</div><div class="stl">Completion</div></div></div>' +
-    '<div class="pg"><div class="pgf" style="width:'+st.percent+'%"></div></div>' +
-    '<div class="pn"><h3>Progress by subject</h3>' +
-    '<p class="psub">How many students have submitted each subject\'s PPT</p>' +
-    (perSubject || '<div class="empty">No subjects added yet.</div>') + '</div>' +
-    '<div class="pn"><h3>Recent submissions</h3>' +
-    '<p class="psub">Latest activity across the class</p>' + recList + '</div>';
+  return '<div class="sg"><div class="st"><div class="stn">'+TOTAL+'</div><div class="stl">Total</div></div><div class="st ok"><div class="stn">'+st.submitted+'</div><div class="stl">Submitted</div></div><div class="st warn"><div class="stn">'+st.pending+'</div><div class="stl">Pending</div></div><div class="st acc"><div class="stn">'+st.percent+'%</div><div class="stl">Done</div></div></div><div class="pg"><div class="pgf" style="width:'+st.percent+'%"></div></div><div class="pn"><h3>Progress by subject</h3>'+(perSubject || '<div class="empty">No subjects yet.</div>')+'</div><div class="pn"><h3>Recent submissions</h3>'+recList+'</div>';
 }
 function getListsFor(scope){
   var sub = [], pend = [];
-  if (scope === 'all'){
-    ROLLS.forEach(function(r){
-      if (Object.keys(state.submissions[r]||{}).length > 0) sub.push(r); else pend.push(r);
-    });
-  } else {
-    ROLLS.forEach(function(r){
-      if ((state.submissions[r]||{})[scope]) sub.push(r); else pend.push(r);
-    });
-  }
+  if (scope === 'all'){ ROLLS.forEach(function(r){ if (Object.keys(state.submissions[r]||{}).length > 0) sub.push(r); else pend.push(r); }); }
+  else { ROLLS.forEach(function(r){ if ((state.submissions[r]||{})[scope]) sub.push(r); else pend.push(r); }); }
   return { submitted: sub, pending: pend };
 }
 function crListsHTML(){
-  var scopeOpts = '<option value="all"'+(crListFilter==='all'?' selected':'')+'>All subjects (overall)</option>' +
-    state.subjects.map(function(s){
-      return '<option value="'+s.id+'"'+(s.id===crListFilter?' selected':'')+'>'+esc(s.name)+'</option>';
-    }).join('');
-  var L = getListsFor(crListFilter);
-  var subCsv = L.submitted.join(', '), penCsv = L.pending.join(', ');
+  var scopeOpts = '<option value="all"'+(crListFilter==='all'?' selected':'')+'>All subjects (overall)</option>' + state.subjects.map(function(s){ return '<option value="'+s.id+'"'+(s.id===crListFilter?' selected':'')+'>'+esc(s.name)+'</option>'; }).join('');
+  var L = getListsFor(crListFilter); var subCsv = L.submitted.join(', '), penCsv = L.pending.join(', ');
   var subRange = compactRolls(L.submitted), penRange = compactRolls(L.pending);
-  var scopeLabel = crListFilter === 'all' ? 'Overall PPT submission'
-    : ((state.subjects.filter(function(s){ return s.id === crListFilter; })[0] || {}).name || 'Subject');
-  var waMsg = '*DS-F — '+scopeLabel+'*\n\nTotal students: '+TOTAL+
-    '\n✅ Submitted: '+L.submitted.length+'\n⏳ Pending: '+L.pending.length+
-    '\n\n*Pending roll numbers ('+L.pending.length+'):*\n'+penRange+
-    '\n\n*Submitted roll numbers ('+L.submitted.length+'):*\n'+subRange;
-  return '<div class="pn"><h3>Submission lists</h3>' +
-    '<p class="psub">Choose what to show — copy and send on WhatsApp. Only the last 3 digits are used.</p>' +
-    '<div class="tbr"><select class="inp" onchange="crListFilter=this.value; renderCR()">'+scopeOpts+'</select>' +
-    '<button type="button" class="btn ghost sm" onclick="copyText(\'listSub\', this)">Copy submitted</button>' +
-    '<button type="button" class="btn ghost sm" onclick="copyText(\'listPen\', this)">Copy pending</button>' +
-    '<button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyText(\'waBox\', this)">Copy WhatsApp message</button></div>' +
-    '<div class="lg">' +
-    '<div class="lc ok"><div class="lh2"><b>✅ Submitted <span class="cnt">'+L.submitted.length+'</span></b>' +
-    '<button type="button" class="btn sm ghost" onclick="copyText(\'listSub\', this)">Copy</button></div>' +
-    '<textarea readonly class="la" id="listSub">'+(subCsv||'— none —')+'</textarea></div>' +
-    '<div class="lc pd"><div class="lh2"><b>⏳ Pending <span class="cnt">'+L.pending.length+'</span></b>' +
-    '<button type="button" class="btn sm ghost" onclick="copyText(\'listPen\', this)">Copy</button></div>' +
-    '<textarea readonly class="la" id="listPen">'+(penCsv||'— none —')+'</textarea></div></div></div>' +
-    '<div class="pn"><h3>WhatsApp message preview</h3>' +
-    '<p class="psub">Roll numbers are grouped into ranges so it stays short and readable.</p>' +
-    '<div class="wb" id="waBox">'+esc(waMsg)+'</div>' +
-    '<div class="cr2"><button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyText(\'waBox\', this)">Copy message</button></div></div>';
+  var scopeLabel = crListFilter === 'all' ? 'Overall PPT submission' : ((state.subjects.filter(function(s){ return s.id === crListFilter; })[0] || {}).name || 'Subject');
+  var waMsg = '*DS-F — '+scopeLabel+'*\n\nTotal students: '+TOTAL+'\n✅ Submitted: '+L.submitted.length+'\n⏳ Pending: '+L.pending.length+'\n\n*Pending ('+L.pending.length+'):*\n'+penRange+'\n\n*Submitted ('+L.submitted.length+'):*\n'+subRange;
+  return '<div class="pn"><h3>Submission lists</h3><p class="psub">Copy and send on WhatsApp. Only last 3 digits.</p><div class="tbr"><select class="inp" onchange="crListFilter=this.value; renderCR()">'+scopeOpts+'</select><button type="button" class="btn ghost sm" onclick="copyText(\'listSub\',this)">Copy submitted</button><button type="button" class="btn ghost sm" onclick="copyText(\'listPen\',this)">Copy pending</button><button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyText(\'waBox\',this)">Copy WhatsApp</button></div><div class="lg"><div class="lc ok"><div class="lh2"><b>✅ Submitted <span class="cnt">'+L.submitted.length+'</span></b></div><textarea readonly class="la" id="listSub">'+(subCsv||'— none —')+'</textarea></div><div class="lc pd"><div class="lh2"><b>⏳ Pending <span class="cnt">'+L.pending.length+'</span></b></div><textarea readonly class="la" id="listPen">'+(penCsv||'— none —')+'</textarea></div></div></div><div class="pn"><h3>WhatsApp preview</h3><div class="wb" id="waBox">'+esc(waMsg)+'</div><div class="cr2"><button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyText(\'waBox\',this)">Copy message</button></div></div>';
 }
 function copyText(id, btn){
-  var el = document.getElementById(id);
-  if (!el) return;
+  var el = document.getElementById(id); if (!el) return;
   var text = (el.value !== undefined) ? el.value : el.textContent;
-  var done = function(){
-    var old = btn.textContent; btn.textContent = '✓ Copied';
-    setTimeout(function(){ btn.textContent = old; }, 1400);
-  };
-  if (navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text,done); });
-  } else fallbackCopy(text, done);
+  var done = function(){ var old = btn.textContent; btn.textContent = '✓ Copied'; setTimeout(function(){ btn.textContent = old; }, 1400); };
+  if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text,done); }); }
+  else fallbackCopy(text, done);
 }
 function fallbackCopy(text, done){
   try {
     var ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '0';
-    ta.style.width = '1px'; ta.style.height = '1px'; ta.style.opacity = '0'; ta.style.fontSize = '16px';
-    ta.setAttribute('readonly','');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0'; ta.style.fontSize = '16px';
     document.body.appendChild(ta);
     if (isIOS){
       ta.contentEditable = 'true'; ta.readOnly = false;
@@ -1286,198 +786,110 @@ function fallbackCopy(text, done){
     ta.focus();
     var ok = document.execCommand('copy');
     document.body.removeChild(ta);
-    if (ok) done(); else alert('Copy failed. Please select and copy the text manually.');
-  } catch(e){ alert('Copy failed. Please select and copy the text manually.'); }
+    if (ok) done(); else alert('Copy failed.');
+  } catch(e){ alert('Copy failed.'); }
 }
 function crSubmissionsHTML(){
-  var opts = state.subjects.map(function(s){
-    return '<option value="'+s.id+'"'+(s.id===crSubFilter?' selected':'')+'>'+esc(s.name)+'</option>';
-  }).join('');
-  return '<div class="tbr"><select class="inp" onchange="crSubFilter=this.value; renderCR()">'+opts+'</select>' +
-    '<input class="inp" id="crSearch" placeholder="Search roll (e.g. 451)" value="'+esc(crSearch)+'" ' +
-    'inputmode="numeric" oninput="crSearch=this.value; updateSubmBody()">' +
-    '<button type="button" class="btn ghost sm" onclick="openSubmit(\''+ROLL_START+'\',\''+crSubFilter+'\')">+ Quick add</button></div>' +
-    '<div class="tw"><table><thead><tr><th>Roll</th><th>Status</th><th>Topic</th><th>File</th><th>Link</th><th>Actions</th></tr></thead>' +
-    '<tbody id="submBody">'+submRowsHTML()+'</tbody></table></div>';
+  var opts = state.subjects.map(function(s){ return '<option value="'+s.id+'"'+(s.id===crSubFilter?' selected':'')+'>'+esc(s.name)+'</option>'; }).join('');
+  return '<div class="tbr"><select class="inp" onchange="crSubFilter=this.value; renderCR()">'+opts+'</select><input class="inp" id="crSearch" placeholder="Search roll" value="'+esc(crSearch)+'" inputmode="numeric" oninput="crSearch=this.value; updateSubmBody()"><button type="button" class="btn ghost sm" onclick="openSubmit(\''+ROLL_START+'\',\''+crSubFilter+'\')">+ Quick add</button></div><div class="tw"><table><thead><tr><th>Roll</th><th>Status</th><th>Topic</th><th>File</th><th>Link</th><th>Actions</th></tr></thead><tbody id="submBody">'+submRowsHTML()+'</tbody></table></div>';
 }
 function submRowsHTML(){
   if (!state.subjects.length) return '<tr><td colspan="6" class="empty">No subjects yet.</td></tr>';
-  var sid = crSubFilter || state.subjects[0].id;
-  var q = crSearch.trim().toLowerCase();
-  var list = ROLLS.filter(function(r){ return !q || r.indexOf(q) !== -1 || fullRoll(r).toLowerCase().indexOf(q) !== -1; });
-  if (!list.length) return '<tr><td colspan="6" class="empty">No matching roll numbers.</td></tr>';
+  var sid = crSubFilter || state.subjects[0].id; var q = crSearch.trim().toLowerCase();
+  var list = ROLLS.filter(function(r){ return !q || r.indexOf(q) !== -1; });
+  if (!list.length) return '<tr><td colspan="6" class="empty">No matches.</td></tr>';
   return list.map(function(r){
     var sub = (state.submissions[r] || {})[sid];
-    return '<tr><td><span class="rb">'+r+'</span></td>' +
-      '<td>'+(sub?'<span class="bg ok">Submitted</span>':'<span class="bg pd">Pending</span>')+'</td>' +
-      '<td>'+(sub?esc(sub.topic||'—'):'—')+'</td>' +
-      '<td style="color:var(--muted);font-size:.78rem;word-break:break-word">'+(sub&&sub.fileName?esc(sub.fileName):'—')+'</td>' +
-      '<td>'+(sub&&sub.downloadUrl?'<a href="'+esc(sub.downloadUrl)+'" target="_blank" rel="noopener">File</a> ':'')+
-        (sub&&sub.link?'<a href="'+esc(sub.link)+'" target="_blank" rel="noopener">Link</a>':'')+
-        (!sub||(!sub.downloadUrl&&!sub.link)?'—':'')+'</td>' +
-      '<td><div class="ra"><button type="button" class="btn sm '+(sub?'ghost':'primary')+'" onclick="openSubmit(\''+r+'\',\''+sid+'\')">'+(sub?'Replace':'Add')+'</button>' +
-      (sub?'<button type="button" class="btn sm danger" onclick="removeSubmission(\''+r+'\',\''+sid+'\')">Remove</button>':'') +
-      '</div></td></tr>';
+    return '<tr><td><span class="rb">'+r+'</span></td><td>'+(sub?'<span class="bg ok">Submitted</span>':'<span class="bg pd">Pending</span>')+'</td><td>'+(sub?esc(sub.topic||'—'):'—')+'</td><td style="color:var(--muted);font-size:.78rem;word-break:break-word">'+(sub&&sub.fileName?esc(sub.fileName):'—')+'</td><td>'+(sub&&sub.link?'<a href="'+esc(sub.link)+'" target="_blank">Link</a>':(!sub?'—':''))+'</td><td><div class="ra"><button type="button" class="btn sm '+(sub?'ghost':'primary')+'" onclick="openSubmit(\''+r+'\',\''+sid+'\')">'+(sub?'Replace':'Add')+'</button>'+(sub?'<button type="button" class="btn sm danger" onclick="removeSubmission(\''+r+'\',\''+sid+'\')">Remove</button>':'')+'</div></td></tr>';
   }).join('');
 }
 function updateSubmBody(){ var el = document.getElementById('submBody'); if (el) el.innerHTML = submRowsHTML(); }
 function crSubjectsHTML(){
   var rows = state.subjects.map(function(s){
-    return '<div class="sr"><div><span class="lbl">Subject name</span>' +
-      '<input class="inp" value="'+esc(s.name)+'" onchange="updateSubject(\''+s.id+'\',\'name\',this.value)"></div>' +
-      '<div><span class="lbl">Topic name</span>' +
-      '<input class="inp" value="'+esc(s.topic)+'" onchange="updateSubject(\''+s.id+'\',\'topic\',this.value)"></div>' +
-      '<button type="button" class="btn danger sm" style="margin-top:18px" onclick="deleteSubject(\''+s.id+'\')">Delete</button></div>';
+    return '<div class="sr"><div><span class="lbl">Subject name</span><input class="inp" value="'+esc(s.name)+'" onchange="updateSubject(\''+s.id+'\',\'name\',this.value)"></div><div><span class="lbl">Topic name</span><input class="inp" value="'+esc(s.topic)+'" onchange="updateSubject(\''+s.id+'\',\'topic\',this.value)"></div><button type="button" class="btn danger sm" style="margin-top:18px" onclick="deleteSubject(\''+s.id+'\')">Delete</button></div>';
   }).join('');
-  return '<div class="pn"><h3>Subjects & Topics</h3>' +
-    '<p class="psub">Edit names directly — changes save automatically. Deleting a subject also removes its submissions.</p>' +
-    (rows || '<div class="empty">No subjects yet. Add one below.</div>') +
-    '<div class="ar"><input class="inp" id="newSubj" placeholder="New subject name">' +
-    '<input class="inp" id="newTopic" placeholder="Topic name">' +
-    '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addSubject()">+ Add Subject</button></div></div>';
+  return '<div class="pn"><h3>Subjects & Topics</h3>'+(rows || '<div class="empty">No subjects yet.</div>')+'<div class="ar"><input class="inp" id="newSubj" placeholder="Subject name"><input class="inp" id="newTopic" placeholder="Topic name"><button type="button" class="btn primary" style="margin:0;width:auto" onclick="addSubject()">+ Add</button></div></div>';
 }
 function updateSubject(id, field, value){
   var s = state.subjects.filter(function(x){ return x.id === id; })[0];
-  if (!s) return;
-  s[field] = value;
-  saveConfig();
+  if (!s) return; s[field] = value; save();
 }
 function addSubject(){
-  var name = document.getElementById('newSubj').value.trim();
-  var topic = document.getElementById('newTopic').value.trim();
-  if (!name){ alert('Please enter a subject name.'); return; }
-  state.subjects.push({ id: uid(), name: name, topic: topic || '—' });
-  saveConfig();
+  var n = document.getElementById('newSubj').value.trim();
+  var t = document.getElementById('newTopic').value.trim();
+  if (!n){ alert('Enter a subject name.'); return; }
+  state.subjects.push({ id: uid(), name: n, topic: t || '—' });
+  save(); renderCR();
 }
-async function deleteSubject(id){
-  var s = state.subjects.filter(function(x){ return x.id === id; })[0];
-  if (!s) return;
+function deleteSubject(id){
+  var s = state.subjects.filter(function(x){ return x.id === id; })[0]; if (!s) return;
   if (!confirm('Delete "'+s.name+'" and all its submissions?')) return;
-  // Delete all submissions for this subject
-  var dels = [];
   ROLLS.forEach(function(r){
-    var sub = (state.submissions[r] || {})[id];
-    if (sub){
-      if (sub.storagePath) dels.push(deleteSubmissionFile(sub.storagePath));
-      dels.push(deleteSubmissionDoc(r, id));
-    }
+    if (state.submissions[r] && state.submissions[r][id]) deleteFileBlob(fileKey(r, id));
   });
-  await Promise.all(dels);
   state.subjects = state.subjects.filter(function(x){ return x.id !== id; });
-  saveConfig();
+  ROLLS.forEach(function(r){ if (state.submissions[r]) delete state.submissions[r][id]; });
   if (crSubFilter === id) crSubFilter = state.subjects[0] ? state.subjects[0].id : null;
   if (crListFilter === id) crListFilter = 'all';
   if (crDlScope === id) crDlScope = 'all';
+  save(); renderCR();
 }
 function crDownloadsHTML(){
-  var scopeOpts = '<option value="all"'+(crDlScope==='all'?' selected':'')+'>All subjects (everything)</option>' +
-    state.subjects.map(function(s){
-      return '<option value="'+s.id+'"'+(s.id===crDlScope?' selected':'')+'>'+esc(s.name)+'</option>';
-    }).join('');
+  var scopeOpts = '<option value="all"'+(crDlScope==='all'?' selected':'')+'>All subjects</option>' + state.subjects.map(function(s){ return '<option value="'+s.id+'"'+(s.id===crDlScope?' selected':'')+'>'+esc(s.name)+'</option>'; }).join('');
   var perSubjectHTML = state.subjects.map(function(s){
-    var submitted = subjectCount(s.id), pending = TOTAL - submitted;
-    return '<div class="subj-dl-row"><div class="subj-dl-info">' +
-        '<div class="subj-dl-name">'+esc(s.name)+'</div>' +
-        '<div class="subj-dl-meta">' +
-          '<span class="ok-tag">✅ '+submitted+' submitted</span>' +
-          '<span class="pd-tag">⏳ '+pending+' pending</span>' +
-        '</div></div>' +
-      '<div class="subj-dl-btns">' +
-        '<button type="button" class="btn ghost sm" data-dl-btn="'+s.id+'_submitted" onclick="downloadSubjectZip(\''+s.id+'\',\'submitted\')">⬇ Submitted</button>' +
-        '<button type="button" class="btn ghost sm" data-dl-btn="'+s.id+'_pending" onclick="downloadSubjectZip(\''+s.id+'\',\'pending\')">⬇ Pending</button>' +
-      '</div></div>';
+    var sub = subjectCount(s.id), pend = TOTAL - sub;
+    return '<div class="subj-dl-row"><div class="subj-dl-info"><div class="subj-dl-name">'+esc(s.name)+'</div><div class="subj-dl-meta"><span class="ok-tag">✅ '+sub+'</span><span class="pd-tag">⏳ '+pend+'</span></div></div><div class="subj-dl-btns"><button type="button" class="btn ghost sm" data-dl-btn="'+s.id+'_submitted" onclick="downloadSubjectZip(\''+s.id+'\',\'submitted\')">⬇ Submitted</button><button type="button" class="btn ghost sm" data-dl-btn="'+s.id+'_pending" onclick="downloadSubjectZip(\''+s.id+'\',\'pending\')">⬇ Pending</button></div></div>';
   }).join('') || '<div class="empty">No subjects yet.</div>';
-  return '<div class="zh"><h2>📦 Export submissions as ZIP</h2>' +
-    '<p>Download uploaded PPTs in one ZIP file. Files are arranged inside folders by roll number.</p></div>' +
-    '<div class="pn"><h3>1. Choose students to include</h3>' +
-    '<p class="psub">Pick a download mode for the "everything" ZIP below.</p>' +
-    '<div class="mc">' +
-    '<button type="button" class="mcard '+(crDlMode==='submitted'?'active':'')+'" onclick="crDlMode=\'submitted\'; renderCR()">' +
-    '<div class="mt"><span class="mk"></span> Only submitted</div>' +
-    '<div class="md">Includes only students who have submitted at least one file.</div></button>' +
-    '<button type="button" class="mcard '+(crDlMode==='all'?'active':'')+'" onclick="crDlMode=\'all\'; renderCR()">' +
-    '<div class="mt"><span class="mk"></span> All students</div>' +
-    '<div class="md">Creates a folder for every roll number (including empty ones).</div></button></div>' +
-    '<h3 style="margin-top:18px">2. Subject scope</h3>' +
-    '<p class="psub">Optionally limit to a single subject.</p>' +
-    '<div class="tbr"><select class="inp" id="zipScope" onchange="crDlScope=this.value; updateZipStats()">'+scopeOpts+'</select>' +
-    '<button type="button" class="btn ghost sm" onclick="updateZipStats()">↻ Refresh</button></div>' +
-    '<div class="zs" id="zipStats"></div>' +
-    '<div class="za"><button type="button" class="btn ok" id="zipBtn" onclick="downloadZip()">⬇ Download ZIP</button></div>' +
-    '<div class="zpg" id="zipProg"><span id="zipBar"></span></div>' +
-    '<div class="zst2" id="zipStatus"></div></div>' +
-    '<div class="pn"><h3>Per-subject downloads</h3>' +
-    '<p class="psub">Get a separate ZIP for each subject — submitted files or the pending students list.</p>' +
-    '<div class="subj-dl-list">'+perSubjectHTML+'</div></div>' +
-    '<div class="pn"><h3>Notes</h3><p class="psub" style="margin-bottom:8px">' +
-    '• Files are stored in Firebase Storage.<br>' +
-    '• On iPhone/iPad, the ZIP opens in a new tab — tap "Save to Files".<br>' +
-    '• Per-subject buttons download one subject at a time (submitted files or pending list).</p></div>';
+  return '<div class="zh"><h2>📦 Export submissions as ZIP</h2><p>Download PPTs in one ZIP. Files arranged by roll number.</p></div><div class="pn"><h3>1. Students to include</h3><div class="mc"><button type="button" class="mcard '+(crDlMode==='submitted'?'active':'')+'" onclick="crDlMode=\'submitted\'; renderCR()"><div class="mt"><span class="mk"></span> Only submitted</div><div class="md">Skips pending students.</div></button><button type="button" class="mcard '+(crDlMode==='all'?'active':'')+'" onclick="crDlMode=\'all\'; renderCR()"><div class="mt"><span class="mk"></span> All students</div><div class="md">Includes empty folders for pending.</div></button></div><h3>2. Subject scope</h3><div class="tbr"><select class="inp" id="zipScope" onchange="crDlScope=this.value; updateZipStats()">'+scopeOpts+'</select><button type="button" class="btn ghost sm" onclick="updateZipStats()">↻</button></div><div class="zs" id="zipStats"></div><div class="za"><button type="button" class="btn ok" id="zipBtn" onclick="downloadZip()">⬇ Download ZIP</button></div><div class="zpg" id="zipProg"><span id="zipBar"></span></div><div class="zst2" id="zipStatus"></div></div><div class="pn"><h3>Per-subject downloads</h3><div class="subj-dl-list">'+perSubjectHTML+'</div></div>';
 }
 function updateZipStats(){
-  var statsEl = document.getElementById('zipStats');
-  if (!statsEl) return;
-  var scope = crDlScope;
-  var withFile = 0, withoutFile = 0, totalBytes = 0, submittedCount = 0;
-  ROLLS.forEach(function(r){
-    var subs = state.submissions[r] || {};
-    var hasAny = false;
-    Object.keys(subs).forEach(function(sid){
-      if (scope !== 'all' && sid !== scope) return;
-      hasAny = true;
-      var sub = subs[sid];
-      if (sub.downloadUrl){ withFile++; totalBytes += (sub.fileSize || 0); }
-      else withoutFile++;
+  var el = document.getElementById('zipStats'); if (!el) return;
+  var scope = crDlScope; var withFile = 0, withoutFile = 0, totalBytes = 0, submittedCount = 0;
+  getAllFileBlobs().then(function(stored){
+    var map = {}; stored.forEach(function(f){ map[f.key] = f; });
+    ROLLS.forEach(function(r){
+      var subs = state.submissions[r] || {}; var hasAny = false;
+      Object.keys(subs).forEach(function(sid){
+        if (scope !== 'all' && sid !== scope) return;
+        hasAny = true;
+        var rec = map[fileKey(r, sid)];
+        if (rec && rec.blob){ withFile++; totalBytes += (rec.blob.size || 0); }
+        else withoutFile++;
+      });
+      if (hasAny) submittedCount++;
     });
-    if (hasAny) submittedCount++;
+    el.innerHTML = '<div class="zst"><b>'+withFile+'</b><span>Files ready</span></div><div class="zst"><b>'+withoutFile+'</b><span>Link-only</span></div><div class="zst"><b>'+fmtSize(totalBytes)+'</b><span>Total</span></div><div class="zst"><b style="color:var(--ok)">'+submittedCount+'</b><span>With content</span></div>';
   });
-  var totalSize = fmtSize(totalBytes) || '0 B';
-  statsEl.innerHTML =
-    '<div class="zst"><b>'+withFile+'</b><span>Files ready</span></div>' +
-    '<div class="zst"><b>'+withoutFile+'</b><span>Link-only</span></div>' +
-    '<div class="zst"><b>'+totalSize+'</b><span>Total size</span></div>' +
-    '<div class="zst"><b style="color:var(--ok)">'+submittedCount+'</b><span>With content</span></div>';
 }
 function triggerDownload(blob, filename){
   var url = URL.createObjectURL(blob);
   if (isIOS){
     try {
-      var file = new File([blob], filename, { type: 'application/zip' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })){
-        navigator.share({ files: [file], title: filename }).then(function(){ URL.revokeObjectURL(url); })
+      var f = new File([blob], filename, { type:'application/zip' });
+      if (navigator.canShare && navigator.canShare({ files:[f] })){
+        navigator.share({ files:[f], title:filename }).then(function(){ URL.revokeObjectURL(url); })
           .catch(function(){ window.open(url, '_blank'); setTimeout(function(){ URL.revokeObjectURL(url); }, 60000); });
         return;
       }
     } catch(e){}
     var w = window.open(url, '_blank');
-    if (!w){ var a = document.createElement('a'); a.href = url; a.download = filename;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+    if (!w){ var a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
     setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
     return;
   }
-  var a2 = document.createElement('a');
-  a2.href = url; a2.download = filename; a2.rel = 'noopener';
+  var a2 = document.createElement('a'); a2.href = url; a2.download = filename; a2.rel = 'noopener';
   document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
   setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
 }
-async function fetchFileBlob(url){
-  try { var r = await fetch(url); return await r.blob(); }
-  catch(e){ console.warn('fetch failed', e); return null; }
-}
 async function downloadZip(){
-  var btn = document.getElementById('zipBtn');
-  var prog = document.getElementById('zipProg');
-  var bar = document.getElementById('zipBar');
-  var status = document.getElementById('zipStatus');
-  if (typeof JSZip === 'undefined'){ alert('ZIP library failed to load.'); return; }
-  btn.disabled = true; btn.textContent = '⏳ Preparing...';
-  prog.classList.add('show'); bar.style.width = '5%';
-  status.textContent = 'Collecting files...';
+  var btn = document.getElementById('zipBtn'), prog = document.getElementById('zipProg'), bar = document.getElementById('zipBar'), status = document.getElementById('zipStatus');
+  if (typeof JSZip === 'undefined'){ alert('ZIP library not loaded.'); return; }
+  btn.disabled = true; btn.textContent = '⏳ Preparing...'; prog.classList.add('show'); bar.style.width = '5%'; status.textContent = 'Collecting...';
   var scope = crDlScope, mode = crDlMode;
   try {
-    var zip = new JSZip();
-    var root = zip.folder('DS-F_Submissions');
-    var added = 0, infoOnly = 0, total = 0;
+    var stored = await getAllFileBlobs();
+    var map = {}; stored.forEach(function(f){ map[f.key] = f; });
+    var zip = new JSZip(); var root = zip.folder('DS-F_Submissions'); var added = 0, infoOnly = 0, total = 0;
     ROLLS.forEach(function(r){
       var subs = state.submissions[r] || {};
       var rel = Object.keys(subs).filter(function(sid){ return scope === 'all' || sid === scope; });
@@ -1495,23 +907,15 @@ async function downloadZip(){
         var sid = rel[si];
         var subj = state.subjects.filter(function(s){ return s.id === sid; })[0];
         if (!subj) continue;
-        var sub = subs[sid];
-        var subjName = safeName(subj.name, 'Subject');
-        if (sub.downloadUrl){
-          var ext = (sub.fileName || 'file').split('.').pop().toLowerCase() || 'bin';
-          var blob = await fetchFileBlob(sub.downloadUrl);
-          if (blob) rf.file(roll + '_' + subjName + '.' + ext, blob);
-          else {
-            rf.file(roll + '_' + subjName + '_INFO.txt',
-              'Roll: '+roll+'\nSubject: '+subj.name+'\nFile: '+(sub.fileName||'')+
-              '\nDownload: '+sub.downloadUrl+'\n(File fetch failed)');
-          }
+        var sub = subs[sid]; var sname = safeName(subj.name, 'Subject');
+        var rec = map[fileKey(roll, sid)];
+        if (rec && rec.blob){
+          var orig = rec.fileName || sub.fileName || 'file';
+          var ext = orig.indexOf('.') !== -1 ? orig.split('.').pop() : 'bin';
+          rf.file(roll + '_' + sname + '.' + ext, rec.blob);
           added++;
         } else {
-          var info = 'Roll: '+roll+'\nSubject: '+subj.name+'\nTopic: '+(sub.topic||'—')+
-            '\nLink: '+(sub.link||'—')+'\nNote: '+(sub.note||'—')+
-            '\nSubmitted: '+fmtDate(sub.at)+'\n(No file — link/note only)';
-          rf.file(roll + '_' + subjName + '_INFO.txt', info);
+          rf.file(roll + '_' + sname + '_INFO.txt', 'Roll: '+roll+'\nSubject: '+subj.name+'\nTopic: '+(sub.topic||'—')+'\nLink: '+(sub.link||'—')+'\nNote: '+(sub.note||'—')+'\nSubmitted: '+fmtDate(sub.at)+'\n(No file — link/note only)');
           infoOnly++;
         }
         processed++;
@@ -1519,174 +923,110 @@ async function downloadZip(){
         bar.style.width = pct + '%';
       }
     }
-    var st = computeStats();
-    var L = getListsFor(scope === 'all' ? 'all' : scope);
-    var summary = 'DS-F — Submission Export\n=====================================\n' +
-      'Class: '+state.className+'\nExported: '+new Date().toLocaleString()+
-      '\nDownload mode: '+(mode==='submitted'?'Only submitted students':'All students')+
-      '\nSubject scope: '+(scope==='all'?'All subjects':((state.subjects.filter(function(s){return s.id===scope;})[0]||{}).name||'—'))+
-      '\n\nTotal students: '+TOTAL+'\nSubmitted: '+st.submitted+'\nPending: '+st.pending+
-      '\nCompletion: '+st.percent+'%\n\nFiles in this ZIP: '+added+
-      '\nLink-only entries: '+infoOnly+'\n\nPer-subject counts:\n' +
-      state.subjects.map(function(s){ return '  - '+s.name+': '+subjectCount(s.id)+'/'+TOTAL; }).join('\n');
-    root.file('_SUMMARY.txt', summary);
-    root.file('_SUBMITTED_ROLLS.txt', L.submitted.length
-      ? 'Submitted ('+L.submitted.length+'):\n'+L.submitted.join(', ')+'\n\nRanges: '+compactRolls(L.submitted)
-      : 'No submissions.');
-    root.file('_PENDING_ROLLS.txt', L.pending.length
-      ? 'Pending ('+L.pending.length+'):\n'+L.pending.join(', ')+'\n\nRanges: '+compactRolls(L.pending)
-      : 'No pending students. Everyone submitted! 🎉');
+    var st = computeStats(); var L = getListsFor(scope === 'all' ? 'all' : scope);
+    root.file('_SUMMARY.txt', 'DS-F Export\nClass: '+state.className+'\nDate: '+new Date().toLocaleString()+'\nMode: '+mode+'\nScope: '+scope+'\n\nTotal: '+TOTAL+'\nSubmitted: '+st.submitted+'\nPending: '+st.pending+'\n\nFiles: '+added+'\nLink-only: '+infoOnly);
+    root.file('_SUBMITTED_ROLLS.txt', L.submitted.length ? 'Submitted ('+L.submitted.length+'):\n'+L.submitted.join(', ')+'\n\nRanges: '+compactRolls(L.submitted) : 'No submissions.');
+    root.file('_PENDING_ROLLS.txt', L.pending.length ? 'Pending ('+L.pending.length+'):\n'+L.pending.join(', ')+'\n\nRanges: '+compactRolls(L.pending) : 'Everyone submitted! 🎉');
     status.textContent = 'Building ZIP...'; bar.style.width = '92%';
-    var blob = await zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} },
-      function(meta){ bar.style.width = (92 + Math.round(meta.percent*0.08)) + '%'; });
+    var blob = await zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} }, function(m){ bar.style.width = (92 + Math.round(m.percent*0.08)) + '%'; });
     bar.style.width = '100%';
-    status.textContent = isIOS ? 'Opening ZIP...' : 'Download starting...';
     var stamp = new Date().toISOString().slice(0,10);
-    var scopeTag = scope === 'all' ? 'All_Subjects'
-      : safeName((state.subjects.filter(function(s){return s.id===scope;})[0]||{}).name||'Subject','Subject');
-    var modeTag = mode === 'submitted' ? 'Submitted' : 'All';
-    triggerDownload(blob, 'DS-F_'+modeTag+'_'+scopeTag+'_'+stamp+'.zip');
-    status.textContent = '✅ Done! '+added+' file(s) + '+infoOnly+' info file(s) packed.';
-    btn.textContent = '⬇ Download ZIP'; btn.disabled = false;
+    var sTag = scope === 'all' ? 'All' : safeName((state.subjects.filter(function(s){return s.id===scope;})[0]||{}).name||'Subject','Subject');
+    var mTag = mode === 'submitted' ? 'Submitted' : 'All';
+    triggerDownload(blob, 'DS-F_'+mTag+'_'+sTag+'_'+stamp+'.zip');
+    status.textContent = '✅ Done! '+added+' files + '+infoOnly+' info.'; btn.textContent = '⬇ Download ZIP'; btn.disabled = false;
     setTimeout(function(){ prog.classList.remove('show'); bar.style.width = '0'; status.textContent = ''; }, 5000);
   } catch(err){
-    console.error(err);
-    alert('ZIP failed: ' + (err.message || 'Unknown error'));
-    status.textContent = '❌ Export failed.';
-    btn.textContent = '⬇ Download ZIP'; btn.disabled = false;
-    prog.classList.remove('show');
+    console.error(err); alert('ZIP failed: '+err.message);
+    btn.textContent = '⬇ Download ZIP'; btn.disabled = false; prog.classList.remove('show');
   }
 }
 async function downloadSubjectZip(subjectId, mode){
-  var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
-  if (!subj) return;
-  if (typeof JSZip === 'undefined'){ alert('ZIP library failed to load.'); return; }
+  var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0]; if (!subj) return;
+  if (typeof JSZip === 'undefined'){ alert('ZIP library missing.'); return; }
   var btn = document.querySelector('[data-dl-btn="'+subjectId+'_'+mode+'"]');
-  if (btn){ btn.disabled = true; btn.textContent = '⏳ Working...'; }
-  var safeSubj = safeName(subj.name, 'Subject');
-  var isSubmitted = mode === 'submitted';
+  if (btn){ btn.disabled = true; btn.textContent = '⏳'; }
+  var sname = safeName(subj.name, 'Subject'); var isSub = mode === 'submitted';
   try {
+    var stored = await getAllFileBlobs();
+    var map = {}; stored.forEach(function(f){ map[f.key] = f; });
     var zip = new JSZip();
-    var folderName = 'DS-F_' + safeSubj + '_' + (isSubmitted ? 'Submitted' : 'Pending');
-    var root = zip.folder(folderName);
-    var fileCount = 0;
-    var submittedRolls = [], pendingRolls = [];
-    if (isSubmitted){
-      for (var i = 0; i < ROLLS.length; i++){
-        var r = ROLLS[i];
-        var sub = (state.submissions[r] || {})[subjectId];
-        if (!sub) continue;
-        submittedRolls.push(r);
-        if (sub.downloadUrl){
-          var ext = (sub.fileName || 'file').split('.').pop().toLowerCase() || 'bin';
-          var blob = await fetchFileBlob(sub.downloadUrl);
-          if (blob){ root.file(r + '_' + safeSubj + '.' + ext, blob); fileCount++; }
-        } else {
-          root.file(r + '_' + safeSubj + '_INFO.txt',
-            'Roll: '+r+'\nSubject: '+subj.name+'\nTopic: '+(sub.topic||'—')+
-            '\nLink: '+(sub.link||'—')+'\nNote: '+(sub.note||'—')+
-            '\nSubmitted: '+fmtDate(sub.at)+'\n(No file — link/note only)');
-          fileCount++;
-        }
-      }
-    } else {
+    var root = zip.folder('DS-F_' + sname + '_' + (isSub ? 'Submitted' : 'Pending'));
+    var count = 0; var subRolls = [], pendRolls = [];
+    if (isSub){
       ROLLS.forEach(function(r){
-        if (!(state.submissions[r] || {})[subjectId]) pendingRolls.push(r);
+        var sub = (state.submissions[r] || {})[subjectId]; if (!sub) return;
+        subRolls.push(r);
+        var rec = map[fileKey(r, subjectId)];
+        if (rec && rec.blob){
+          var orig = rec.fileName || sub.fileName || 'file';
+          var ext = orig.indexOf('.') !== -1 ? orig.split('.').pop() : 'bin';
+          root.file(r + '_' + sname + '.' + ext, rec.blob);
+          count++;
+        } else {
+          root.file(r + '_' + sname + '_INFO.txt', 'Roll: '+r+'\nSubject: '+subj.name+'\nTopic: '+(sub.topic||'—')+'\nLink: '+(sub.link||'—')+'\nNote: '+(sub.note||'—'));
+          count++;
+        }
       });
-      var pendingText = 'DS-F — Pending students for: ' + subj.name + '\n' +
-        '============================================\n' +
-        'Total students: ' + TOTAL + '\nPending: ' + pendingRolls.length +
-        '\nSubmitted: ' + (TOTAL - pendingRolls.length) + '\n\n' +
-        'Pending roll numbers:\n' + (pendingRolls.join(', ') || '— none —') +
-        '\n\nGrouped ranges:\n' + compactRolls(pendingRolls) + '\n';
-      root.file('_PENDING_' + safeSubj + '.txt', pendingText);
-      fileCount = 1;
+    } else {
+      ROLLS.forEach(function(r){ if (!(state.submissions[r]||{})[subjectId]) pendRolls.push(r); });
+      root.file('_PENDING_' + sname + '.txt', 'Pending for ' + subj.name + '\nTotal: '+TOTAL+'\nPending: '+pendRolls.length+'\nSubmitted: '+(TOTAL-pendRolls.length)+'\n\n'+(pendRolls.join(', ')||'— none —')+'\n\nRanges: '+compactRolls(pendRolls));
+      count = 1;
     }
-    var stats = isSubmitted ? submittedRolls : pendingRolls;
-    var summary = 'DS-F — ' + (isSubmitted ? 'Submitted files' : 'Pending students') + '\n' +
-      '=====================================\nSubject: ' + subj.name + '\n' +
-      'Exported: ' + new Date().toLocaleString() + '\n' +
-      'Count: ' + stats.length + ' students\nFiles: ' + fileCount + '\n\n' +
-      'Roll numbers:\n' + (stats.join(', ') || '— none —') + '\n\n' +
-      'Grouped ranges:\n' + compactRolls(stats) + '\n';
-    root.file('_SUMMARY.txt', summary);
-    var blob2 = await zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} });
-    var stamp2 = new Date().toISOString().slice(0, 10);
-    triggerDownload(blob2, 'DS-F_' + safeSubj + '_' + (isSubmitted ? 'Submitted' : 'Pending') + '_' + stamp2 + '.zip');
-    if (btn){ btn.disabled = false; btn.textContent = isSubmitted ? '⬇ Submitted' : '⬇ Pending'; }
+    var stats = isSub ? subRolls : pendRolls;
+    root.file('_SUMMARY.txt', 'DS-F - ' + (isSub ? 'Submitted files' : 'Pending students') + '\nSubject: ' + subj.name + '\nDate: ' + new Date().toLocaleString() + '\nCount: ' + stats.length + '\nFiles: ' + count + '\n\nRolls:\n' + (stats.join(', ')||'— none —') + '\n\nRanges: ' + compactRolls(stats));
+    var blob = await zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} });
+    var stamp = new Date().toISOString().slice(0,10);
+    triggerDownload(blob, 'DS-F_' + sname + '_' + (isSub ? 'Submitted' : 'Pending') + '_' + stamp + '.zip');
+    if (btn){ btn.disabled = false; btn.textContent = isSub ? '⬇ Submitted' : '⬇ Pending'; }
   } catch(err){
-    console.error(err);
-    alert('Download failed: ' + (err.message || 'Unknown error'));
-    if (btn){ btn.disabled = false; btn.textContent = isSubmitted ? '⬇ Submitted' : '⬇ Pending'; }
+    console.error(err); alert('Failed: '+err.message);
+    if (btn){ btn.disabled = false; btn.textContent = isSub ? '⬇ Submitted' : '⬇ Pending'; }
   }
 }
 function crSettingsHTML(){
   var crItems = state.crRolls.map(function(roll){
     var isYou = session && session.roll === roll;
-    return '<div class="cri"><div class="info"><span class="rb">'+roll+'</span>' +
-      (isYou ? '<span class="you">You</span>' : '<span class="tag2">CR</span>') + '</div>' +
-      (state.crRolls.length > 1
-        ? '<button type="button" class="btn danger sm" onclick="removeCR(\''+roll+'\')">Remove</button>'
-        : '<span style="font-size:.72rem;color:var(--muted)">Last CR</span>') + '</div>';
+    return '<div class="cri"><div class="info"><span class="rb">'+roll+'</span>'+(isYou?'<span class="you">You</span>':'<span class="tag2">CR</span>')+'</div>'+(state.crRolls.length>1?'<button type="button" class="btn danger sm" onclick="removeCR(\''+roll+'\')">Remove</button>':'<span style="font-size:.72rem;color:var(--muted)">Last CR</span>')+'</div>';
   }).join('');
-  return '<div class="pn"><h3>Class name</h3>' +
-    '<p class="psub">This name is shown on both dashboards.</p>' +
-    '<input class="inp" id="className" value="'+esc(state.className)+'" placeholder="e.g. MCS — Semester 1">' +
-    '<button type="button" class="btn primary" onclick="saveClassName()">Save class name</button></div>' +
-    '<div class="pn"><h3>CR email</h3>' +
-    '<p class="psub">Students see this on the landing page.</p>' +
-    '<input class="inp" id="crEmail" type="email" value="'+esc(state.crEmail)+'" placeholder="cr@example.com">' +
-    '<button type="button" class="btn primary" onclick="saveEmail()">Save email</button></div>' +
-    '<div class="pn"><h3>Class Representatives</h3>' +
-    '<p class="psub">Add or remove CRs. Every CR logs in with the shared password <b>'+esc(CR_PASSWORD)+'</b>. ' +
-    'Changes sync to every device instantly.</p>' +
-    crItems + '<div class="cr2r"><div class="ri"><span class="px">25MVCSDR0</span>' +
-    '<input id="newCR" type="text" inputmode="numeric" maxlength="3" placeholder="452" autocomplete="off"></div>' +
-    '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addCR()">+ Appoint</button></div>' +
-    '<div class="hint" style="margin-top:10px">Range: 451 – 546. Shared CR password: <b>'+esc(CR_PASSWORD)+'</b>.</div></div>' +
-    '<div class="pn"><h3>Class info</h3><p class="psub">' +
-    'Total students: <b>'+TOTAL+'</b><br>Roll range: <b>451 – 546</b><br>' +
-    'Subjects: <b>'+state.subjects.length+'</b><br>CRs: <b>'+state.crRolls.length+'</b></p></div>';
+  return '<div class="pn"><h3>Class name</h3><input class="inp" id="className" value="'+esc(state.className)+'"><button type="button" class="btn primary" onclick="saveClassName()">Save</button></div><div class="pn"><h3>CR email</h3><input class="inp" id="crEmail" type="email" value="'+esc(state.crEmail)+'" placeholder="cr@example.com"><button type="button" class="btn primary" onclick="saveEmail()">Save</button></div><div class="pn"><h3>CRs</h3><p class="psub">All CRs share password <b>'+esc(CR_PASSWORD)+'</b>.</p>'+crItems+'<div class="cr2r"><div class="ri"><span class="px">25MVCSDR0</span><input id="newCR" type="text" inputmode="numeric" maxlength="3" placeholder="452"></div><button type="button" class="btn primary" style="margin:0;width:auto" onclick="addCR()">+ Appoint</button></div></div><div class="pn"><h3>Class info</h3><p class="psub">Total: <b>'+TOTAL+'</b><br>Subjects: <b>'+state.subjects.length+'</b><br>CRs: <b>'+state.crRolls.length+'</b></p></div>';
 }
 function saveClassName(){
   var v = document.getElementById('className').value.trim();
-  if (!v){ alert('Class name cannot be empty.'); return; }
-  state.className = v; saveConfig();
+  if (!v){ alert('Cannot be empty.'); return; }
+  state.className = v; save();
   document.getElementById('cClass').textContent = v;
-  alert('Class name saved.');
+  alert('Saved.');
 }
 function saveEmail(){
   var v = document.getElementById('crEmail').value.trim();
-  if (v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ alert('Please enter a valid email.'); return; }
-  state.crEmail = v; saveConfig();
-  updateLanding();
-  alert('CR email saved.');
+  if (v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ alert('Invalid email.'); return; }
+  state.crEmail = v; save(); updateLanding();
+  alert('Saved.');
 }
 function addCR(){
-  var input = document.getElementById('newCR');
-  var roll = extractRoll(input.value);
-  if (!roll){ alert('Please enter a roll number.'); return; }
-  var num = parseInt(roll,10);
-  if (isNaN(num) || num < ROLL_START || num > ROLL_END){ alert('Roll must be 451-546.'); return; }
-  if (state.crRolls.indexOf(roll) !== -1){ alert('Already a CR.'); return; }
-  state.crRolls.push(roll);
+  var i = document.getElementById('newCR');
+  var r = extractRoll(i.value);
+  if (!r){ alert('Enter roll.'); return; }
+  var n = parseInt(r,10);
+  if (n < ROLL_START || n > ROLL_END){ alert('451-546 only.'); return; }
+  if (state.crRolls.indexOf(r) !== -1){ alert('Already CR.'); return; }
+  state.crRolls.push(r);
   state.crRolls.sort(function(a,b){ return parseInt(a)-parseInt(b); });
-  saveConfig();
-  input.value = '';
-  alert('Roll ' + roll + ' is now a CR. They can log in from any device with password: ' + CR_PASSWORD);
+  save(); i.value = ''; renderCR();
+  alert('Roll ' + r + ' is now CR. Password: ' + CR_PASSWORD);
 }
 function removeCR(roll){
-  if (state.crRolls.length <= 1){ alert('At least one CR must remain.'); return; }
-  if (!confirm('Remove roll '+roll+' as CR?')) return;
+  if (state.crRolls.length <= 1){ alert('At least one CR.'); return; }
+  if (!confirm('Remove '+roll+'?')) return;
   state.crRolls = state.crRolls.filter(function(r){ return r !== roll; });
-  saveConfig();
+  save(); renderCR();
 }
 
 /* ============================================================
    MODAL
    ============================================================ */
-var modal = document.getElementById('modal');
-var modalBox = document.getElementById('modalBox');
+var modal = document.getElementById('modal'), modalBox = document.getElementById('modalBox');
 modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
 function openModal(){ modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
@@ -1695,133 +1035,87 @@ function openSubmit(roll, subjectId){
   var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
   if (!subj){ alert('Subject not found.'); return; }
   var cur = (state.submissions[roll] || {})[subjectId] || {};
-  modalBox.innerHTML = '<h3>'+(cur.fileName||cur.link||cur.topic?'Edit submission':'Submit PPT')+'</h3>' +
-    '<p class="sub">Roll <b>'+roll+'</b> · '+esc(subj.name)+'</p>' +
-    '<label for="mTopic">Topic</label>' +
-    '<input id="mTopic" class="inp" value="'+esc(cur.topic != null ? cur.topic : subj.topic)+'" placeholder="Topic name">' +
-    '<label for="mFile">File (PPT / PPTX / PDF)</label>' +
-    '<label class="fs" for="mFile"><span>📎</span>' +
-    '<span id="mFileName">'+(cur.fileName ? 'Replace: '+esc(cur.fileName) : 'Tap to choose a file')+'</span>' +
-    '<input id="mFile" type="file" accept=".ppt,.pptx,.pdf,.odp,.key" onchange="onFileChosen(this)">' +
-    '</label>' +
+  modalBox.innerHTML = '<h3>'+(cur.fileName||cur.link||cur.topic?'Edit':'Submit PPT')+'</h3><p class="sub">Roll <b>'+roll+'</b> · '+esc(subj.name)+'</p>' +
+    '<label>Topic</label><input id="mTopic" class="inp" value="'+esc(cur.topic != null ? cur.topic : subj.topic)+'">' +
+    '<label>File (PPT / PPTX / PDF)</label><label class="fs" for="mFile"><span>📎</span><span id="mFileName">'+(cur.fileName ? 'Replace: '+esc(cur.fileName) : 'Tap to choose')+'</span><input id="mFile" type="file" accept=".ppt,.pptx,.pdf,.odp,.key" onchange="onFileChosen(this)"></label>' +
     (cur.fileName ? '<div class="hint">Current: <b>'+esc(cur.fileName)+'</b></div>' : '') +
-    '<label for="mLink">Link (optional)</label>' +
-    '<input id="mLink" class="inp" value="'+esc(cur.link||'')+'" placeholder="https://..." inputmode="url">' +
-    '<label for="mNote">Note (optional)</label>' +
-    '<input id="mNote" class="inp" value="'+esc(cur.note||'')+'" placeholder="Any remark">' +
-    '<div class="ma"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>' +
-    '<button type="button" class="btn primary" id="mSaveBtn" onclick="saveModal(\''+roll+'\',\''+subjectId+'\')">Save</button></div>';
+    '<label>Link (optional)</label><input id="mLink" class="inp" value="'+esc(cur.link||'')+'" placeholder="https://..." inputmode="url">' +
+    '<label>Note (optional)</label><input id="mNote" class="inp" value="'+esc(cur.note||'')+'" placeholder="Any remark">' +
+    '<div class="ma"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button><button type="button" class="btn primary" id="mSaveBtn" onclick="saveModal(\''+roll+'\',\''+subjectId+'\')">Save</button></div>';
   openModal();
 }
 function onFileChosen(input){
   var el = document.getElementById('mFileName'); if (!el) return;
-  el.textContent = input.files && input.files[0] ? '📎 ' + input.files[0].name : 'Tap to choose a file';
+  el.textContent = input.files && input.files[0] ? '📎 ' + input.files[0].name : 'Tap to choose';
 }
 async function saveModal(roll, subjectId){
   var btn = document.getElementById('mSaveBtn');
   var topic = document.getElementById('mTopic').value.trim();
   var link = document.getElementById('mLink').value.trim();
   var note = document.getElementById('mNote').value.trim();
-  var fileEl = document.getElementById('mFile');
-  var file = fileEl.files && fileEl.files[0];
+  var fileEl = document.getElementById('mFile'); var file = fileEl.files && fileEl.files[0];
   var prev = (state.submissions[roll] || {})[subjectId] || {};
   var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0] || {};
   btn.disabled = true; btn.textContent = '⏳ Saving...';
-  var entry = {
-    roll: roll, subjectId: subjectId,
-    topic: topic || subj.topic || '',
-    fileName: file ? file.name : (prev.fileName || ''),
-    fileSize: file ? file.size : (prev.fileSize || 0),
-    downloadUrl: prev.downloadUrl || '',
-    storagePath: prev.storagePath || '',
-    link: link, note: note,
-    at: new Date().toISOString()
-  };
   try {
+    var entry = {
+      topic: topic || subj.topic || '',
+      fileName: file ? file.name : (prev.fileName || ''),
+      fileSize: file ? file.size : (prev.fileSize || 0),
+      link: link,
+      note: note,
+      at: new Date().toISOString()
+    };
     if (file){
-      var up = await uploadSubmissionFile(roll, subjectId, file);
-      if (prev.storagePath && prev.storagePath !== up.path) await deleteSubmissionFile(prev.storagePath);
-      entry.downloadUrl = up.url;
-      entry.storagePath = up.path;
+      await saveFileBlob(fileKey(roll, subjectId), file, { fileName: file.name, fileSize: file.size, savedAt: entry.at });
     }
-    await saveSubmissionDoc(roll, subjectId, entry);
-    closeModal();
-    refresh();
+    if (!state.submissions[roll]) state.submissions[roll] = {};
+    state.submissions[roll][subjectId] = entry;
+    save();
+    closeModal(); refresh();
   } catch(err){
-    console.error(err);
-    alert('Upload failed: ' + (err.message || 'Check your internet connection.'));
+    console.error(err); alert('Failed: ' + (err.message || ''));
     btn.disabled = false; btn.textContent = 'Save';
   }
 }
 async function removeSubmission(roll, subjectId){
-  var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
   if (!confirm('Remove submission for roll '+roll+'?')) return;
-  var sub = (state.submissions[roll] || {})[subjectId];
-  try {
-    if (sub && sub.storagePath) await deleteSubmissionFile(sub.storagePath);
-    await deleteSubmissionDoc(roll, subjectId);
-    refresh();
-  } catch(e){ alert('Delete failed: ' + e.message); }
-}
-function refresh(){
-  if (!dataReady && !state.subjects.length) return;
-  if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1) renderCR();
-  else if (session && session.role === 'student') renderStudent();
-  updateLanding();
+  if (state.submissions[roll]){
+    delete state.submissions[roll][subjectId];
+    if (!Object.keys(state.submissions[roll]).length) delete state.submissions[roll];
+  }
+  await deleteFileBlob(fileKey(roll, subjectId));
+  save(); refresh();
 }
 
 /* ============================================================
    INIT
    ============================================================ */
 (function init(){
-  var savedTheme = LS.get(THEME_KEY) || 'classic';
-  setTheme(savedTheme);
+  setTheme(LS.get(THEME_KEY) || 'classic');
+  updateLanding();
 
-  document.getElementById('loading').style.display = 'flex';
-
-  initFirebase().then(function(){
-    // Restore session after Firebase data has loaded
-    if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1){
-      renderCR(); show('v-cr');
-    } else if (session && session.role === 'student' && ROLLS.indexOf(session.roll) !== -1){
-      renderStudent(); show('v-student');
-    } else {
-      session = null; setSession(null);
-    }
-  });
+  if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1){ renderCR(); show('v-cr'); }
+  else if (session && session.role === 'student' && ROLLS.indexOf(session.roll) !== -1){ renderStudent(); show('v-student'); }
+  else { session = null; setSession(null); }
 
   function bindEnter(fromId, toId, action){
     var from = document.getElementById(fromId); if (!from) return;
     from.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.keyCode === 13){
-        e.preventDefault();
-        var to = toId ? document.getElementById(toId) : null;
-        if (to) to.focus();
-        else if (typeof action === 'function') action();
-      }
+      if (e.key === 'Enter'){ e.preventDefault(); var to = toId ? document.getElementById(toId) : null; if (to) to.focus(); else if (typeof action === 'function') action(); }
     });
   }
-  bindEnter('sRoll', 'sPass', null);
-  bindEnter('sPass', null, studentLogin);
-  bindEnter('cRoll', 'cPass', null);
-  bindEnter('cPass', null, crLogin);
+  bindEnter('sRoll', 'sPass'); bindEnter('sPass', null, studentLogin);
+  bindEnter('cRoll', 'cPass'); bindEnter('cPass', null, crLogin);
 
-  window.show = show; window.logout = logout;
-  window.studentLogin = studentLogin; window.crLogin = crLogin;
-  window.togglePw = togglePw; window.setTab = setTab; window.toggleTheme = toggleTheme;
-  window.copyText = copyText; window.updateSubmBody = updateSubmBody;
-  window.updateSubject = updateSubject; window.addSubject = addSubject;
-  window.deleteSubject = deleteSubject; window.updateZipStats = updateZipStats;
-  window.downloadZip = downloadZip; window.downloadSubjectZip = downloadSubjectZip;
-  window.saveClassName = saveClassName; window.saveEmail = saveEmail;
-  window.addCR = addCR; window.removeCR = removeCR;
-  window.openSubmit = openSubmit; window.onFileChosen = onFileChosen;
-  window.saveModal = saveModal; window.removeSubmission = removeSubmission;
-  window.closeModal = closeModal; window.addAnnouncement = addAnnouncement;
-  window.deleteAnnouncement = deleteAnnouncement; window.editAnnouncement = editAnnouncement;
-  window.togglePinAnnouncement = togglePinAnnouncement;
-  window.scrollToNotices = scrollToNotices;
-  window.markAllReadAndRefresh = markAllReadAndRefresh;
+  window.show = show; window.logout = logout; window.studentLogin = studentLogin; window.crLogin = crLogin;
+  window.togglePw = togglePw; window.setTab = setTab; window.toggleTheme = toggleTheme; window.copyText = copyText;
+  window.updateSubmBody = updateSubmBody; window.updateSubject = updateSubject; window.addSubject = addSubject; window.deleteSubject = deleteSubject;
+  window.updateZipStats = updateZipStats; window.downloadZip = downloadZip; window.downloadSubjectZip = downloadSubjectZip;
+  window.saveClassName = saveClassName; window.saveEmail = saveEmail; window.addCR = addCR; window.removeCR = removeCR;
+  window.openSubmit = openSubmit; window.onFileChosen = onFileChosen; window.saveModal = saveModal; window.removeSubmission = removeSubmission; window.closeModal = closeModal;
+  window.addAnnouncement = addAnnouncement; window.deleteAnnouncement = deleteAnnouncement; window.editAnnouncement = editAnnouncement;
+  window.togglePinAnnouncement = togglePinAnnouncement; window.scrollToNotices = scrollToNotices; window.markAllReadAndRefresh = markAllReadAndRefresh;
 })();
 </script>
 </body>
