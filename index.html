@@ -820,7 +820,6 @@ function logout(){
   ['sRoll','sPass','cRoll','cPass'].forEach(function(id){
     var el = document.getElementById(id); if (el) el.value = '';
   });
-  // Reset both password fields back to hidden
   ['sPass','cPass'].forEach(function(id){
     var el = document.getElementById(id);
     if (el) el.type = 'password';
