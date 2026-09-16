@@ -6,6 +6,10 @@
 <meta name="theme-color" content="#2563eb">
 <title>DS-F — PPT Submission Portal</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root,[data-theme=classic]{
@@ -78,18 +82,21 @@
 --waBg:#e7ffdb;--waBd:#b5e6a0;--waTx:#0b3d0b;--glow:rgba(234,88,12,.5)}
 
 html{height:100%;-webkit-text-size-adjust:100%}
-body{
-font-family:-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;
--webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;
-padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+body{font-family:-apple-system,BlinkMacSystemFont,ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;
+line-height:1.5;overflow-x:hidden;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
 a{color:var(--primary);text-decoration:none}
 a:hover{text-decoration:underline}
 button,.btn,input,select,textarea{touch-action:manipulation;font-family:inherit}
-.view{display:none}
-.view.active{display:block}
+.view{display:none}.view.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .view.active{animation:fade .3s ease}
+
+.loading{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;
+align-items:center;justify-content:center;flex-direction:column;gap:16px;color:var(--muted);font-size:.9rem}
+.spinner{width:36px;height:36px;border:3px solid var(--line2);border-top-color:var(--primary);
+border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .lh{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
 padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top));
@@ -99,9 +106,8 @@ border-bottom:1px solid var(--line);gap:10px}
 .bmark{min-width:30px;height:30px;padding:0 6px;border-radius:8px;display:grid;place-items:center;
 background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-weight:800;font-size:.68rem}
 .lh .hint{font-size:.75rem;color:var(--muted);white-space:nowrap}
-.hero{min-height:calc(100vh - 60px);min-height:calc(100dvh - 60px);
-display:flex;flex-direction:column;align-items:center;justify-content:center;
-padding:40px 18px 70px;text-align:center;
+.hero{min-height:calc(100vh - 60px);min-height:calc(100dvh - 60px);display:flex;flex-direction:column;
+align-items:center;justify-content:center;padding:40px 18px 70px;text-align:center;
 background:radial-gradient(700px 340px at 50% -10%,var(--hero1) 0,transparent 65%),
 radial-gradient(500px 280px at 100% 100%,var(--hero2) 0,transparent 60%)}
 .logo{width:68px;height:68px;border-radius:18px;display:grid;place-items:center;
@@ -112,9 +118,8 @@ color:#fff;box-shadow:0 16px 34px -12px var(--glow);margin-bottom:20px}
 -webkit-background-clip:text;background-clip:text;color:transparent}
 .tag{color:var(--muted);margin-top:14px;font-size:clamp(.9rem,3.4vw,1.05rem);max-width:520px;line-height:1.65}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:36px;width:100%;max-width:560px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;
-padding:26px 20px;cursor:pointer;color:var(--text);text-align:center;
-transition:.2s;box-shadow:0 4px 16px -4px var(--shL);font-size:inherit}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 20px;
+cursor:pointer;color:var(--text);text-align:center;transition:.2s;box-shadow:0 4px 16px -4px var(--shL);font-size:inherit}
 .card:active{transform:scale(.98)}
 .card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 18px 40px -16px var(--glow)}
 .ci{width:50px;height:50px;margin:0 auto 14px;border-radius:14px;display:grid;place-items:center;
@@ -122,16 +127,15 @@ font-size:22px;background:var(--primaryS);color:var(--primary)}
 .card.cr .ci{color:var(--accent)}
 .card h3{font-size:1.05rem;font-weight:700;margin-bottom:5px}
 .card p{color:var(--muted);font-size:.83rem}
-.lf{margin-top:34px;color:var(--muted);font-size:.78rem;line-height:1.9;
-background:var(--surface);border:1px solid var(--line);border-radius:14px;
-padding:14px 22px;box-shadow:0 1px 2px var(--sh);max-width:480px}
+.lf{margin-top:34px;color:var(--muted);font-size:.78rem;line-height:1.9;background:var(--surface);
+border:1px solid var(--line);border-radius:14px;padding:14px 22px;box-shadow:0 1px 2px var(--sh);max-width:480px}
 .lf b{color:var(--text2)}
 
-.aw{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
-align-items:center;justify-content:center;padding:30px 16px;padding-bottom:calc(30px + env(safe-area-inset-bottom));
+.aw{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;
+justify-content:center;padding:30px 16px;padding-bottom:calc(30px + env(safe-area-inset-bottom));
 background:radial-gradient(600px 300px at 50% 0,var(--hero1) 0,transparent 65%)}
-.bk{background:none;border:none;color:var(--muted);font-size:.88rem;
-cursor:pointer;margin-bottom:14px;max-width:420px;width:100%;text-align:left;padding:8px 4px}
+.bk{background:none;border:none;color:var(--muted);font-size:.88rem;cursor:pointer;
+margin-bottom:14px;max-width:420px;width:100%;text-align:left;padding:8px 4px}
 .bk:active{color:var(--primary)}
 .ac{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);
 border-radius:18px;padding:28px 22px;box-shadow:0 18px 44px -18px var(--shX)}
@@ -145,39 +149,29 @@ padding:13px 14px;border-radius:10px;font-size:16px;line-height:1.3;outline:none
 -webkit-appearance:none;appearance:none;transition:border-color .18s,box-shadow .18s}
 .inp:focus,input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primaryS)}
 .inp::placeholder,input::placeholder{color:var(--muted);opacity:.75}
-select.inp{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-background-repeat:no-repeat;background-position:right 14px center;background-size:10px;padding-right:36px}
 .ri{display:flex;align-items:stretch;background:var(--surface);border:1px solid var(--line2);
 border-radius:10px;overflow:hidden;transition:.18s}
 .ri:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primaryS)}
-.ri .px{display:flex;align-items:center;padding:0 11px;background:var(--surface2);
-color:var(--muted);font-size:.78rem;letter-spacing:.4px;border-right:1px solid var(--line);
-white-space:nowrap;font-weight:600}
+.ri .px{display:flex;align-items:center;padding:0 11px;background:var(--surface2);color:var(--muted);
+font-size:.78rem;letter-spacing:.4px;border-right:1px solid var(--line);white-space:nowrap;font-weight:600}
 .ri input{border:none;border-radius:0;background:transparent;letter-spacing:3px;font-weight:600;
 font-size:16px;padding:13px 12px;flex:1;min-width:0}
 .ri input:focus{box-shadow:none}
-
 .pw-wrap{position:relative;display:block}
 .pw-wrap input{padding-right:48px}
-.pw-toggle{
-  position:absolute;right:6px;top:50%;transform:translateY(-50%);
-  background:transparent;border:none;cursor:pointer;
-  width:38px;height:38px;padding:0;color:var(--muted);
-  display:flex;align-items:center;justify-content:center;
-  border-radius:9px;transition:.15s;-webkit-tap-highlight-color:transparent;
-}
+.pw-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:transparent;
+border:none;cursor:pointer;width:38px;height:38px;padding:0;color:var(--muted);
+display:flex;align-items:center;justify-content:center;border-radius:9px;transition:.15s}
 .pw-toggle:hover,.pw-toggle:focus{color:var(--primary);background:var(--primaryS);outline:none}
 .pw-toggle .ic-eye-off{display:none}
 .pw-toggle.show .ic-eye{display:none}
 .pw-toggle.show .ic-eye-off{display:block}
-
 .hint{font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.55}
 .hint b{color:var(--text2)}
 .err{color:var(--bad);font-size:.82rem;margin-top:12px;min-height:18px;font-weight:500}
-.btn{font-size:.9rem;font-weight:600;border-radius:10px;padding:13px 18px;
-border:1px solid transparent;cursor:pointer;transition:.18s;white-space:nowrap;
--webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;
-justify-content:center;gap:6px;min-height:44px}
+.btn{font-size:.9rem;font-weight:600;border-radius:10px;padding:13px 18px;border:1px solid transparent;
+cursor:pointer;transition:.18s;white-space:nowrap;-webkit-appearance:none;appearance:none;
+display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
 .btn.primary{background:var(--primary);color:#fff;width:100%;margin-top:20px;box-shadow:0 4px 12px -4px var(--glow)}
 .btn.primary:active{background:var(--primaryD)}
 .btn.ghost{background:var(--surface);border-color:var(--line2);color:var(--text2)}
@@ -188,46 +182,40 @@ justify-content:center;gap:6px;min-height:44px}
 .btn.sm{padding:9px 14px;font-size:.78rem;border-radius:8px;width:auto;margin:0;min-height:36px}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 
-.tb{position:sticky;top:0;z-index:40;display:flex;align-items:center;
-justify-content:space-between;padding:10px 16px;
-padding-top:calc(10px + env(safe-area-inset-top));
-background:var(--headS);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-border-bottom:1px solid var(--line);gap:10px}
+.tb{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top));background:var(--headS);
+-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);gap:10px}
 .tb .brand{font-weight:700;display:flex;align-items:center;gap:8px;font-size:.9rem}
 .tr{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .chip{background:var(--primaryS);border:1px solid var(--primaryS);color:var(--primaryD);
 padding:6px 11px;border-radius:999px;font-size:.74rem;font-weight:700;white-space:nowrap}
-.bell{position:relative;background:var(--surface);border:1px solid var(--line2);
-color:var(--text2);width:38px;height:36px;border-radius:9px;cursor:pointer;
-display:flex;align-items:center;justify-content:center;transition:.15s}
+.bell{position:relative;background:var(--surface);border:1px solid var(--line2);color:var(--text2);
+width:38px;height:36px;border-radius:9px;cursor:pointer;display:flex;align-items:center;
+justify-content:center;transition:.15s}
 .bell:hover{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
 .bell-count{position:absolute;top:-5px;right:-5px;background:var(--bad);color:#fff;
-font-size:.6rem;font-weight:700;min-width:17px;height:17px;padding:0 4px;
-border-radius:999px;display:flex;align-items:center;justify-content:center;
-border:2px solid var(--headS)}
-.co{max-width:1180px;margin:0 auto;padding:22px 16px 60px;
-padding-bottom:calc(60px + env(safe-area-inset-bottom))}
+font-size:.6rem;font-weight:700;min-width:17px;height:17px;padding:0 4px;border-radius:999px;
+display:flex;align-items:center;justify-content:center;border:2px solid var(--headS)}
+.co{max-width:1180px;margin:0 auto;padding:22px 16px 60px;padding-bottom:calc(60px + env(safe-area-inset-bottom))}
 .pt{font-size:1.35rem;font-weight:800;letter-spacing:-.5px;line-height:1.25}
 .ps{color:var(--muted);font-size:.84rem;margin-top:4px}
 
 .tp{position:relative}
-.tt{display:flex;align-items:center;gap:6px;background:var(--surface);
-border:1px solid var(--line2);color:var(--text2);font-size:.78rem;font-weight:600;
-padding:8px 11px;border-radius:9px;cursor:pointer;min-height:36px}
+.tt{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line2);
+color:var(--text2);font-size:.78rem;font-weight:600;padding:8px 11px;border-radius:9px;
+cursor:pointer;min-height:36px}
 .tt:active{border-color:var(--primary);color:var(--primary);background:var(--primaryS)}
-.tt .sw{width:14px;height:14px;border-radius:50%;
-background:linear-gradient(135deg,var(--primary),var(--accent));flex-shrink:0}
+.tt .sw{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));flex-shrink:0}
 .tt .tl{display:none}
 @media(min-width:520px){.tt .tl{display:inline}}
-.tpop{position:absolute;top:calc(100% + 8px);right:0;z-index:60;
-background:var(--surface);border:1px solid var(--line);border-radius:14px;
-box-shadow:0 18px 44px -18px var(--shX);padding:8px;min-width:190px;display:none}
+.tpop{position:absolute;top:calc(100% + 8px);right:0;z-index:60;background:var(--surface);
+border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px -18px var(--shX);
+padding:8px;min-width:190px;display:none}
 .tpop.open{display:block}
 .tpop-t{font-size:.68rem;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);
 font-weight:700;padding:8px 10px 6px}
-.topt{display:flex;align-items:center;gap:10px;width:100%;background:transparent;
-border:none;font-size:.86rem;color:var(--text2);padding:10px;border-radius:8px;
-cursor:pointer;text-align:left;min-height:42px}
+.topt{display:flex;align-items:center;gap:10px;width:100%;background:transparent;border:none;
+font-size:.86rem;color:var(--text2);padding:10px;border-radius:8px;cursor:pointer;text-align:left;min-height:42px}
 .topt:active{background:var(--surface2);color:var(--text)}
 .topt.active{background:var(--primaryS);color:var(--primary);font-weight:600}
 .topt .dot{width:18px;height:18px;border-radius:50%;flex-shrink:0}
@@ -235,72 +223,57 @@ cursor:pointer;text-align:left;min-height:42px}
 .topt.active .ck{opacity:1}
 
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
-.st{background:var(--surface);border:1px solid var(--line);border-radius:14px;
-padding:16px;box-shadow:0 1px 2px var(--sh)}
+.st{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 2px var(--sh)}
 .stn{font-size:1.65rem;font-weight:800;letter-spacing:-1.2px;line-height:1}
-.stl{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;
-margin-top:8px;font-weight:700}
-.st.ok .stn{color:var(--ok)}
-.st.warn .stn{color:var(--warn)}
+.stl{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;margin-top:8px;font-weight:700}
+.st.ok .stn{color:var(--ok)}.st.warn .stn{color:var(--warn)}
 .st.acc .stn{background:linear-gradient(100deg,var(--primary),var(--accent));
 -webkit-background-clip:text;background-clip:text;color:transparent}
 .pg{height:9px;background:var(--track);border-radius:999px;overflow:hidden;margin-bottom:22px}
 .pgf{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));
 border-radius:999px;transition:width .6s}
 
-.tabs{display:flex;gap:8px;margin:18px -16px;padding:0 16px 4px;
-overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs{display:flex;gap:8px;margin:18px -16px;padding:0 16px 4px;overflow-x:auto;
+-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{background:var(--surface);border:1px solid var(--line);color:var(--muted);
-padding:9px 15px;border-radius:999px;font-size:.8rem;font-weight:600;
-cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:38px}
+padding:9px 15px;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer;
+white-space:nowrap;flex-shrink:0;min-height:38px}
 .tab.active{background:var(--primary);border-color:var(--primary);color:#fff}
 
-.pn{background:var(--surface);border:1px solid var(--line);border-radius:14px;
-padding:18px;margin-bottom:14px;box-shadow:0 1px 2px var(--sh)}
+.pn{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;
+margin-bottom:14px;box-shadow:0 1px 2px var(--sh)}
 .pn h3{font-size:1rem;font-weight:700;margin-bottom:4px}
 .pn .psub{color:var(--muted);font-size:.8rem;margin-bottom:14px;line-height:1.55}
 
-/* ANNOUNCEMENTS */
 .ann-form{margin-bottom:16px}
 .ann-form .row{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:10px}
 @media(max-width:600px){.ann-form .row{grid-template-columns:1fr}}
 .ann-form textarea{min-height:100px;resize:vertical;font-family:inherit}
 .ann-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
 .ann-list{display:flex;flex-direction:column;gap:12px}
-.ann-card{
-  border:1px solid var(--line);border-radius:12px;padding:14px 16px;
-  background:var(--surface2);position:relative;
-}
+.ann-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface2);position:relative}
 .ann-card.pinned{border-color:var(--primary);background:var(--primaryS)}
 .ann-card.normal{border-left:4px solid var(--primary)}
 .ann-card.important{border-left:4px solid var(--warn);background:var(--warnS)}
 .ann-card.urgent{border-left:4px solid var(--bad);background:var(--badS)}
-.ann-head{display:flex;justify-content:space-between;align-items:flex-start;
-gap:10px;margin-bottom:6px;flex-wrap:wrap}
-.ann-title{font-size:.95rem;font-weight:700;color:var(--text);display:flex;
-align-items:center;gap:8px;flex-wrap:wrap}
+.ann-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.ann-title{font-size:.95rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ann-time{font-size:.72rem;color:var(--muted);white-space:nowrap}
-.ann-body{font-size:.85rem;color:var(--text2);line-height:1.65;
-white-space:pre-wrap;word-break:break-word}
-.ann-tag{
-  font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
-  padding:3px 8px;border-radius:999px;
-}
+.ann-body{font-size:.85rem;color:var(--text2);line-height:1.65;white-space:pre-wrap;word-break:break-word}
+.ann-tag{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:999px}
 .ann-tag.pin{background:var(--primary);color:#fff}
 .ann-tag.new{background:var(--bad);color:#fff}
 .ann-tag.important{background:var(--warnS);color:var(--warn);border:1px solid var(--warnB)}
 .ann-tag.urgent{background:var(--badS);color:var(--bad);border:1px solid var(--badB)}
 .ann-tag.normal{background:var(--primaryS);color:var(--primary);border:1px solid var(--primaryS)}
-.ann-foot{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;
-padding-top:10px;border-top:1px dashed var(--line)}
-.ann-empty{text-align:center;color:var(--muted);padding:30px 14px;
-font-size:.86rem;background:var(--surface2);border-radius:12px;
-border:1px dashed var(--line)}
+.ann-foot{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.ann-empty{text-align:center;color:var(--muted);padding:30px 14px;font-size:.86rem;
+background:var(--surface2);border-radius:12px;border:1px dashed var(--line)}
 
 .sgr{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:18px}
-.sc{background:var(--surface);border:1px solid var(--line);border-radius:14px;
-padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px var(--sh)}
+.sc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;
+display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px var(--sh)}
 .sc.done{border-color:var(--okB)}
 .sch{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .sch h4{font-size:.98rem;font-weight:700;line-height:1.35}
@@ -310,18 +283,17 @@ padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px va
 padding:5px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0}
 .bg.ok{background:var(--okS);color:var(--ok);border:1px solid var(--okB)}
 .bg.pd{background:var(--warnS);color:var(--warn);border:1px solid var(--warnB)}
-.fi{font-size:.75rem;color:var(--muted);background:var(--surface2);
-border:1px solid var(--line);border-radius:9px;padding:10px 12px;word-break:break-word;line-height:1.7}
+.fi{font-size:.75rem;color:var(--muted);background:var(--surface2);border:1px solid var(--line);
+border-radius:9px;padding:10px 12px;word-break:break-word;line-height:1.7}
 .fi b{color:var(--text2)}
 .sa{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;padding-top:4px}
 .sa .btn{flex:1;min-width:100px}
 
 .ms{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.mst{background:var(--surface);border:1px solid var(--line);border-radius:12px;
-padding:12px 16px;display:flex;flex-direction:column;gap:3px;min-width:100px;flex:1}
+.mst{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;
+display:flex;flex-direction:column;gap:3px;min-width:100px;flex:1}
 .mst b{font-size:1.2rem;letter-spacing:-.6px}
-.mst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;
-letter-spacing:.8px;font-weight:700}
+.mst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
 
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);
 border-radius:14px;background:var(--surface)}
@@ -332,33 +304,27 @@ border-bottom:1px solid var(--line);white-space:nowrap}
 tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle;color:var(--text2)}
 tbody tr:last-child td{border-bottom:none}
 .rb{display:inline-block;background:var(--primaryS);border:1px solid var(--primaryS);
-color:var(--primaryD);border-radius:8px;padding:5px 11px;font-weight:700;
-letter-spacing:1.1px;font-size:.8rem}
+color:var(--primaryD);border-radius:8px;padding:5px 11px;font-weight:700;letter-spacing:1.1px;font-size:.8rem}
 .ra{display:flex;gap:6px;flex-wrap:wrap}
 .tbr{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
 .tbr .inp,.tbr select{max-width:100%;flex:1 1 200px;min-width:0}
 
 .lg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .lc{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--surface2)}
-.lc.ok{border-color:var(--okB)}
-.lc.pd{border-color:var(--warnB)}
-.lh2{display:flex;justify-content:space-between;align-items:center;gap:8px;
-margin-bottom:10px;flex-wrap:wrap}
+.lc.ok{border-color:var(--okB)}.lc.pd{border-color:var(--warnB)}
+.lh2{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
 .lh2 b{font-size:.88rem;font-weight:700}
-.lh2 .cnt{font-size:.72rem;font-weight:700;color:var(--muted);
-background:var(--surface);border:1px solid var(--line);border-radius:999px;
-padding:3px 9px;margin-left:6px}
+.lh2 .cnt{font-size:.72rem;font-weight:700;color:var(--muted);background:var(--surface);
+border:1px solid var(--line);border-radius:999px;padding:3px 9px;margin-left:6px}
 .lc.ok .cnt{color:var(--ok);border-color:var(--okB);background:var(--okS)}
 .lc.pd .cnt{color:var(--warn);border-color:var(--warnB);background:var(--warnS)}
-.la{width:100%;min-height:110px;max-height:200px;resize:vertical;
-background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;
-font-family:ui-monospace,Menlo,monospace;font-size:16px;line-height:1.85;
-color:var(--text2);white-space:pre-wrap;word-break:break-word;overflow-y:auto}
+.la{width:100%;min-height:110px;max-height:200px;resize:vertical;background:var(--surface);
+border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,monospace;
+font-size:16px;line-height:1.85;color:var(--text2);white-space:pre-wrap;word-break:break-word;overflow-y:auto}
 .la:focus{outline:none;border-color:var(--primary)}
-.wb{background:var(--waBg);border:1px solid var(--waBd);border-radius:12px;
-padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:.82rem;
-line-height:1.85;color:var(--waTx);white-space:pre-wrap;word-break:break-word;
-max-height:240px;overflow-y:auto;margin-top:6px}
+.wb{background:var(--waBg);border:1px solid var(--waBd);border-radius:12px;padding:14px;
+font-family:ui-monospace,Menlo,monospace;font-size:.82rem;line-height:1.85;color:var(--waTx);
+white-space:pre-wrap;word-break:break-word;max-height:240px;overflow-y:auto;margin-top:6px}
 .cr2{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
 @media(max-width:760px){.lg{grid-template-columns:1fr}}
 
@@ -366,18 +332,16 @@ max-height:240px;overflow-y:auto;margin-top:6px}
 border-radius:14px;padding:22px;margin-bottom:14px;box-shadow:0 18px 40px -16px var(--glow)}
 .zh h2{font-size:1.2rem;font-weight:800;margin-bottom:8px}
 .zh p{font-size:.85rem;opacity:.92;line-height:1.65}
-.zt{background:var(--surface2);border:1px solid var(--line);border-radius:12px;
-padding:14px 16px;font-family:ui-monospace,Menlo,monospace;font-size:.76rem;
-line-height:1.8;color:var(--text2);white-space:pre;overflow-x:auto;margin-top:8px}
+.zt{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+font-family:ui-monospace,Menlo,monospace;font-size:.76rem;line-height:1.8;color:var(--text2);
+white-space:pre;overflow-x:auto;margin-top:8px}
 .zt b{color:var(--primaryD);font-weight:600}
 .zs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
-.zst{background:var(--surface);border:1px solid var(--line);border-radius:12px;
-padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+.zst{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+display:flex;flex-direction:column;gap:3px}
 .zst b{font-size:1.3rem;font-weight:800;letter-spacing:-.8px}
-.zst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;
-letter-spacing:.8px;font-weight:700}
-.zpg{margin-top:14px;height:8px;background:var(--track);border-radius:999px;
-overflow:hidden;display:none}
+.zst span{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
+.zpg{margin-top:14px;height:8px;background:var(--track);border-radius:999px;overflow:hidden;display:none}
 .zpg.show{display:block}
 .zpg span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));
 border-radius:999px;transition:width .3s}
@@ -385,8 +349,8 @@ border-radius:999px;transition:width .3s}
 .za{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .za .btn{flex:1 1 200px;margin:0}
 .mc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 16px}
-.mcard{background:var(--surface2);border:2px solid var(--line);border-radius:12px;
-padding:14px;cursor:pointer;text-align:left;color:var(--text2);min-height:80px;font-size:inherit}
+.mcard{background:var(--surface2);border:2px solid var(--line);border-radius:12px;padding:14px;
+cursor:pointer;text-align:left;color:var(--text2);min-height:80px;font-size:inherit}
 .mcard.active{border-color:var(--primary);background:var(--primaryS)}
 .mcard .mt{font-weight:700;color:var(--text);font-size:.85rem;margin-bottom:4px;
 display:flex;align-items:center;gap:8px}
@@ -398,77 +362,61 @@ display:inline-grid;place-items:center;flex-shrink:0}
 @media(max-width:600px){.mc{grid-template-columns:1fr}}
 
 .subj-dl-list{display:flex;flex-direction:column;gap:10px}
-.subj-dl-row{
-  display:flex;justify-content:space-between;align-items:center;gap:12px;
-  padding:12px 14px;border:1px solid var(--line);border-radius:12px;
-  background:var(--surface2);flex-wrap:wrap;
-}
+.subj-dl-row{display:flex;justify-content:space-between;align-items:center;gap:12px;
+padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);flex-wrap:wrap}
 .subj-dl-info{flex:1;min-width:180px}
 .subj-dl-name{font-weight:600;color:var(--text);font-size:.9rem;margin-bottom:4px}
 .subj-dl-meta{display:flex;gap:12px;flex-wrap:wrap}
 .ok-tag{font-size:.72rem;color:var(--ok);font-weight:600}
 .pd-tag{font-size:.72rem;color:var(--warn);font-weight:600}
 .subj-dl-btns{display:flex;gap:8px;flex-wrap:wrap}
-@media(max-width:520px){
-  .subj-dl-btns{width:100%}
-  .subj-dl-btns .btn{flex:1}
-}
+@media(max-width:520px){.subj-dl-btns{width:100%}.subj-dl-btns .btn{flex:1}}
 
 .sr{display:grid;grid-template-columns:1.1fr 1.3fr auto;gap:10px;align-items:center;
-padding:12px;border:1px solid var(--line);border-radius:12px;
-background:var(--surface2);margin-bottom:10px}
-.sr .lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;
-letter-spacing:.7px;display:block;margin-bottom:4px;font-weight:700}
+padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);margin-bottom:10px}
+.sr .lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;
+display:block;margin-bottom:4px;font-weight:700}
 .ar{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:16px}
 .empty{text-align:center;color:var(--muted);padding:30px 14px;font-size:.86rem}
 
-.cri{display:flex;align-items:center;justify-content:space-between;gap:10px;
-padding:12px 14px;border:1px solid var(--line);border-radius:12px;
-background:var(--surface2);margin-bottom:8px;flex-wrap:wrap}
+.cri{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;
+border:1px solid var(--line);border-radius:12px;background:var(--surface2);margin-bottom:8px;flex-wrap:wrap}
 .cri .info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .tag2{background:var(--primaryS);color:var(--primaryD);border:1px solid var(--primaryS);
-font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
-padding:3px 9px;border-radius:999px}
+font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:3px 9px;border-radius:999px}
 .you{background:var(--okS);color:var(--ok);border:1px solid var(--okB);
-font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
-padding:3px 9px;border-radius:999px}
+font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:3px 9px;border-radius:999px}
 .cr2r{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:14px}
 
 .br{margin-bottom:16px}
-.brt{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:7px;
-gap:10px;flex-wrap:wrap}
+.brt{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:7px;gap:10px;flex-wrap:wrap}
 .brt .n{color:var(--muted);font-size:.76rem;white-space:nowrap;font-weight:600}
 .bar{height:8px;background:var(--track);border-radius:999px;overflow:hidden}
 .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));
 border-radius:999px;transition:width .5s}
 
-.mbd{position:fixed;inset:0;background:var(--modal);
--webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:none;
-align-items:center;justify-content:center;padding:16px;z-index:100;
-padding-top:calc(16px + env(safe-area-inset-top));
-padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+.mbd{position:fixed;inset:0;background:var(--modal);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+display:none;align-items:center;justify-content:center;padding:16px;z-index:100;
+padding-top:calc(16px + env(safe-area-inset-top));padding-bottom:calc(16px + env(safe-area-inset-bottom))}
 .mbd.open{display:flex}
-.mdl{width:100%;max-width:460px;max-height:calc(100vh - 32px);
-max-height:calc(100dvh - 32px);overflow-y:auto;-webkit-overflow-scrolling:touch;
-background:var(--surface);border:1px solid var(--line);border-radius:18px;
-padding:22px;box-shadow:0 30px 70px -20px var(--shX)}
+.mdl{width:100%;max-width:460px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);
+overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--surface);border:1px solid var(--line);
+border-radius:18px;padding:22px;box-shadow:0 30px 70px -20px var(--shX)}
 .mdl h3{font-size:1.1rem;font-weight:700;margin-bottom:5px}
 .mdl .sub{color:var(--muted);font-size:.8rem;margin-bottom:6px}
 .ma{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
 .ma .btn{flex:1 1 120px;margin:0}
 .fs{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;
-background:var(--surface2);border:1.5px dashed var(--line2);color:var(--muted);
-padding:14px;border-radius:10px;font-size:.85rem;cursor:pointer;min-height:52px;text-align:center}
+background:var(--surface2);border:1.5px dashed var(--line2);color:var(--muted);padding:14px;
+border-radius:10px;font-size:.85rem;cursor:pointer;min-height:52px;text-align:center}
 .fs:active{border-color:var(--primary);background:var(--primaryS)}
-.fs input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;
-opacity:0;cursor:pointer;font-size:100px;padding:0;border:none;margin:0}
-.fpick{position:relative;overflow:hidden;display:inline-flex;align-items:center;
-justify-content:center;gap:6px}
-.fpick input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;
-opacity:0;cursor:pointer;font-size:100px;padding:0;border:none}
+.fs input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;
+cursor:pointer;font-size:100px;padding:0;border:none;margin:0}
+.fpick{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.fpick input[type=file]{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;
+cursor:pointer;font-size:100px;padding:0;border:none}
 
-.fn{text-align:center;color:var(--muted);font-size:.74rem;
-padding:22px 16px calc(30px + env(safe-area-inset-bottom));
+.fn{text-align:center;color:var(--muted);font-size:.74rem;padding:22px 16px calc(30px + env(safe-area-inset-bottom));
 line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(--surface)}
 
 @media(max-width:640px){
@@ -491,6 +439,8 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
 </style>
 </head>
 <body>
+
+<div class="loading" id="loading"><div class="spinner"></div><div id="loadMsg">Connecting…</div></div>
 
 <!-- LANDING -->
 <section class="view active" id="v-landing">
@@ -630,32 +580,29 @@ line-height:1.8;border-top:1px solid var(--line);margin-top:24px;background:var(
   </div>
 </section>
 
-<!-- MODAL -->
 <div class="mbd" id="modal"><div class="mdl" id="modalBox"></div></div>
-
-<div class="fn">DS-F · roll numbers 451–546 · 96 students<br>Data is saved in this browser.</div>
+<div class="fn">DS-F · roll numbers 451–546 · 96 students<br>Data syncs live across all devices via Firebase.</div>
 
 <script>
 /* ============================================================
-   ⚙️ CONFIG — EDIT THESE
+   ⚙️ FIREBASE CONFIG — PASTE YOURS HERE
    ============================================================ */
-// CR password (shared by every CR, current and future)
-var CR_PASSWORD = 'CR_DSF_2025';
-
-// Fallback list of CR roll numbers. These ALWAYS work on every device
-// (PC, mobile, any browser), even if the browser has never seen the app.
-//
-// ⚠️ IMPORTANT: When you appoint a new CR via Settings on the PC, also add
-// their roll number to this list so they can log in from their phone too.
-// Example: ['451', '452', '453']
-var FALLBACK_CR_ROLLS = ['451,464,465'];
+var FIREBASE_CONFIG = {
+  apiKey: "PASTE_YOUR_API_KEY_HERE",
+  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+  projectId: "PASTE_YOUR_PROJECT_ID",
+  storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
+  messagingSenderId: "PASTE_YOUR_SENDER_ID",
+  appId: "PASTE_YOUR_APP_ID"
+};
 
 /* ============================================================
-   CONSTANTS
+   APP CONFIG
    ============================================================ */
+var CR_PASSWORD = 'CR_DSF_2025';
 var PREFIX = '25MVCSDR';
 var ROLL_START = 451, ROLL_END = 546;
-var KEY = 'dsf_state_v2', SESS_KEY = 'dsf_session', THEME_KEY = 'dsf_theme';
+var THEME_KEY = 'dsf_theme';
 
 var ROLLS = [];
 for (var i = ROLL_START; i <= ROLL_END; i++) ROLLS.push(String(i));
@@ -679,136 +626,219 @@ function esc(s){
     return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
   });
 }
-function uid(){ return Math.random().toString(36).slice(2,9); }
+function uid(){ return Math.random().toString(36).slice(2,9) + Date.now().toString(36); }
 
 var LS = {
   get: function(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
-  set: function(k,v){ try { localStorage.setItem(k,v); return true; } catch(e){ return false; } },
-  rm:  function(k){ try { localStorage.removeItem(k); } catch(e){} }
-};
-var SS = {
-  get: function(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } },
-  set: function(k,v){ try { sessionStorage.setItem(k,v); return true; } catch(e){ return false; } },
-  rm:  function(k){ try { sessionStorage.removeItem(k); } catch(e){} }
+  set: function(k,v){ try { localStorage.setItem(k,v); return true; } catch(e){ return false; } }
 };
 
 /* ============================================================
-   INDEXEDDB
+   STATE (populated from Firestore, kept in memory)
    ============================================================ */
-var DB_NAME = 'dsf_files_db', STORE = 'files';
-var dbPromise = null;
-function openDB(){
-  if (dbPromise) return dbPromise;
-  dbPromise = new Promise(function(resolve,reject){
-    if (!window.indexedDB){ reject(new Error('no idb')); return; }
-    var req;
-    try { req = indexedDB.open(DB_NAME,1); } catch(e){ reject(e); return; }
-    req.onupgradeneeded = function(e){
-      var db = e.target.result;
-      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE,{keyPath:'key'});
-    };
-    req.onsuccess = function(){ resolve(req.result); };
-    req.onerror = function(){ reject(req.error); };
-  }).catch(function(err){ dbPromise = null; throw err; });
-  return dbPromise;
-}
-function saveFileBlob(key, blob, meta){
-  return openDB().then(function(db){
-    return new Promise(function(resolve,reject){
-      var tx = db.transaction(STORE,'readwrite');
-      var rec = { key:key, blob:blob };
-      if (meta) for (var k in meta) rec[k] = meta[k];
-      tx.objectStore(STORE).put(rec);
-      tx.oncomplete = function(){ resolve(true); };
-      tx.onerror = function(){ reject(tx.error); };
-    });
-  }).catch(function(e){ console.warn('saveFileBlob failed',e); return false; });
-}
-function deleteFileBlob(key){
-  return openDB().then(function(db){
-    return new Promise(function(resolve,reject){
-      var tx = db.transaction(STORE,'readwrite');
-      tx.objectStore(STORE).delete(key);
-      tx.oncomplete = function(){ resolve(true); };
-      tx.onerror = function(){ reject(tx.error); };
-    });
-  }).catch(function(){ return false; });
-}
-function getAllFileBlobs(){
-  return openDB().then(function(db){
-    return new Promise(function(resolve,reject){
-      var tx = db.transaction(STORE,'readonly');
-      var req = tx.objectStore(STORE).getAll();
-      req.onsuccess = function(){ resolve(req.result || []); };
-      req.onerror = function(){ reject(req.error); };
-    });
-  }).catch(function(){ return []; });
-}
-
-/* ============================================================
-   STATE
-   ============================================================ */
-function defaultState(){
-  return {
-    className: 'MCS — Semester 1',
-    crRolls: ['451'],
-    crEmail: '',
-    subjects: [
-      { id: uid(), name:'Research Methodology',        topic:'Literature Review & Citation' },
-      { id: uid(), name:'Advanced Data Structures',    topic:'Graph Traversal Algorithms' },
-      { id: uid(), name:'Operating Systems',           topic:'CPU Scheduling Algorithms' },
-      { id: uid(), name:'Database Management Systems', topic:'Normalization & Indexing' }
-    ],
-    submissions: {},
-    announcements: []
-  };
-}
-
-var state;
-try {
-  var raw = LS.get(KEY);
-  state = raw ? JSON.parse(raw) : null;
-  if (!state || !state.subjects || !state.subjects.length) state = defaultState();
-} catch(e){ state = defaultState(); }
-if (!state.crRolls || !state.crRolls.length) state.crRolls = ['451'];
-if (typeof state.crEmail !== 'string') state.crEmail = '';
-if (!state.submissions) state.submissions = {};
-if (!Array.isArray(state.announcements)) state.announcements = [];
-
-function save(){ LS.set(KEY, JSON.stringify(state)); }
+var state = {
+  className: 'MCS — Semester 1',
+  crRolls: ['451'],
+  crEmail: '',
+  subjects: [],
+  submissions: {},
+  announcements: []
+};
 
 var session = null;
-try { var sraw = SS.get(SESS_KEY); session = sraw ? JSON.parse(sraw) : null; } catch(e){ session = null; }
+try { var sraw = LS.get('dsf_session'); session = sraw ? JSON.parse(sraw) : null; } catch(e){ session = null; }
 function setSession(s){
   session = s;
-  if (s) SS.set(SESS_KEY, JSON.stringify(s));
-  else SS.rm(SESS_KEY);
+  LS.set('dsf_session', s ? JSON.stringify(s) : '');
+  if (!s) try { localStorage.removeItem('dsf_session'); } catch(e){}
+}
+
+var db = null, storage = null, dataReady = false;
+
+/* ============================================================
+   FIREBASE INIT
+   ============================================================ */
+function firebaseConfigured(){
+  return FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.apiKey.indexOf('PASTE_') !== 0;
+}
+
+function initFirebase(){
+  if (!firebaseConfigured()){
+    document.getElementById('loadMsg').innerHTML =
+      '<b style="color:#dc2626">Firebase is not configured.</b><br>' +
+      'Please edit the file and add your Firebase config.<br>' +
+      'See the setup instructions in the code comments.';
+    return Promise.reject(new Error('Firebase not configured'));
+  }
+
+  firebase.initializeApp(FIREBASE_CONFIG);
+  db = firebase.firestore();
+  storage = firebase.storage();
+
+  return firebase.auth().signInAnonymously().then(function(){
+    // Config listener — subjects, class name, CR rolls, CR email
+    db.collection('dsf_config').doc('main').onSnapshot(function(doc){
+      if (doc.exists){
+        var d = doc.data();
+        state.className = d.className || state.className;
+        state.crRolls = Array.isArray(d.crRolls) && d.crRolls.length ? d.crRolls : ['451'];
+        state.crEmail = typeof d.crEmail === 'string' ? d.crEmail : '';
+        state.subjects = Array.isArray(d.subjects) ? d.subjects : [];
+      } else {
+        // First ever run — create defaults
+        var defaults = {
+          className: 'MCS — Semester 1',
+          crRolls: ['451'],
+          crEmail: '',
+          subjects: [
+            { id: uid(), name:'Research Methodology',        topic:'Literature Review & Citation' },
+            { id: uid(), name:'Advanced Data Structures',    topic:'Graph Traversal Algorithms' },
+            { id: uid(), name:'Operating Systems',           topic:'CPU Scheduling Algorithms' },
+            { id: uid(), name:'Database Management Systems', topic:'Normalization & Indexing' }
+          ]
+        };
+        db.collection('dsf_config').doc('main').set(defaults);
+        state.subjects = defaults.subjects;
+      }
+      refresh();
+    }, function(err){ console.error('config listener', err); });
+
+    // Submissions listener
+    db.collection('dsf_submissions').onSnapshot(function(snap){
+      var subs = {};
+      snap.forEach(function(doc){
+        var d = doc.data();
+        if (!d.roll || !d.subjectId) return;
+        if (!subs[d.roll]) subs[d.roll] = {};
+        subs[d.roll][d.subjectId] = d;
+      });
+      state.submissions = subs;
+      refresh();
+    }, function(err){ console.error('submissions listener', err); });
+
+    // Announcements listener
+    db.collection('dsf_announcements').onSnapshot(function(snap){
+      var arr = [];
+      snap.forEach(function(doc){
+        var d = doc.data();
+        d.id = doc.id;
+        arr.push(d);
+      });
+      state.announcements = arr;
+      refresh();
+    }, function(err){ console.error('announcements listener', err); });
+
+    dataReady = true;
+    document.getElementById('loading').style.display = 'none';
+  }).catch(function(err){
+    console.error('Auth failed:', err);
+    document.getElementById('loadMsg').innerHTML =
+      '<b style="color:#dc2626">Connection failed.</b><br>' + err.message;
+  });
 }
 
 /* ============================================================
-   CR ROLL RESOLUTION — combines localStorage, fallback, and URL
+   DATA WRITES
    ============================================================ */
-function getEffectiveCRRolls(){
-  var list = state.crRolls.slice();
-  // Add fallback rolls
-  FALLBACK_CR_ROLLS.forEach(function(r){
-    if (list.indexOf(r) === -1) list.push(r);
-  });
-  // Add URL param rolls (?cr=451,452,453)
-  try {
-    var params = new URLSearchParams(window.location.search);
-    var urlCrs = params.get('cr');
-    if (urlCrs){
-      urlCrs.split(',').forEach(function(r){
-        r = r.trim();
-        if (r && list.indexOf(r) === -1) list.push(r);
-      });
-    }
-  } catch(e){}
-  return list;
+function saveConfig(){
+  if (!db) return;
+  db.collection('dsf_config').doc('main').set({
+    className: state.className,
+    crRolls: state.crRolls,
+    crEmail: state.crEmail,
+    subjects: state.subjects
+  }).catch(function(e){ console.error(e); alert('Could not save. Check your internet.'); });
 }
-function isCRRoll(roll){
-  return getEffectiveCRRolls().indexOf(roll) !== -1;
+
+function saveSubmissionDoc(roll, subjectId, entry){
+  if (!db) return Promise.reject(new Error('no db'));
+  return db.collection('dsf_submissions').doc(roll + '__' + subjectId).set(entry);
+}
+function deleteSubmissionDoc(roll, subjectId){
+  if (!db) return Promise.resolve();
+  return db.collection('dsf_submissions').doc(roll + '__' + subjectId).delete();
+}
+async function uploadSubmissionFile(roll, subjectId, file){
+  if (!storage) throw new Error('no storage');
+  var ext = (file.name.split('.').pop() || 'bin').toLowerCase();
+  var path = 'submissions/' + roll + '__' + subjectId + '.' + ext;
+  var ref = storage.ref(path);
+  await ref.put(file);
+  var url = await ref.getDownloadURL();
+  return { url: url, path: path, ext: ext };
+}
+async function deleteSubmissionFile(path){
+  if (!storage || !path) return;
+  try { await storage.ref(path).delete(); } catch(e){ console.warn(e); }
+}
+
+function saveAnnouncement(a){
+  if (!db) return;
+  var id = a.id;
+  var data = { title: a.title, body: a.body, priority: a.priority, pinned: a.pinned, createdAt: a.createdAt };
+  if (id){
+    db.collection('dsf_announcements').doc(id).set(data).catch(function(e){ console.error(e); });
+  } else {
+    db.collection('dsf_announcements').add(data).catch(function(e){ console.error(e); });
+  }
+}
+function deleteAnnouncementDoc(id){
+  if (!db) return;
+  db.collection('dsf_announcements').doc(id).delete();
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function computeStats(){
+  var submitted = 0;
+  ROLLS.forEach(function(r){
+    if (Object.keys(state.submissions[r] || {}).length > 0) submitted++;
+  });
+  return { submitted: submitted, pending: TOTAL - submitted, percent: Math.round(submitted/TOTAL*100) };
+}
+function subjectCount(sid){
+  var n = 0;
+  ROLLS.forEach(function(r){ if ((state.submissions[r]||{})[sid]) n++; });
+  return n;
+}
+function fmtDate(iso){
+  if (!iso) return '';
+  try {
+    var d = new Date(iso);
+    return d.toLocaleDateString(undefined,{day:'2-digit',month:'short'}) + ' ' +
+           d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
+  } catch(e){ return ''; }
+}
+function fmtSize(b){
+  if (!b) return '';
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+function compactRolls(rolls){
+  if (!rolls.length) return '—';
+  var nums = rolls.map(Number).sort(function(a,b){ return a-b; });
+  var out = [], s = nums[0], p = nums[0];
+  for (var i = 1; i < nums.length; i++){
+    if (nums[i] === p+1){ p = nums[i]; continue; }
+    out.push(s === p ? String(s) : s+'–'+p);
+    s = p = nums[i];
+  }
+  out.push(s === p ? String(s) : s+'–'+p);
+  return out.join(', ');
+}
+function safeName(str, fb){
+  var s = String(str || '').replace(/[\\/:*?"<>|]+/g,'_').replace(/\s+/g,'_').trim();
+  return s || fb || 'file';
+}
+function fileKey(r, sid){ return r + '__' + sid; }
+function updateLanding(){
+  var el = document.getElementById('lfEmail');
+  if (!el) return;
+  el.innerHTML = state.crEmail
+    ? '<br>✉️ Contact CR: <a href="mailto:'+esc(state.crEmail)+'">'+esc(state.crEmail)+'</a>'
+    : '';
 }
 
 /* ============================================================
@@ -926,66 +956,12 @@ function crLogin(){
   var roll = extractRoll(document.getElementById('cRoll').value);
   var pass = document.getElementById('cPass').value.trim();
   if (!roll){ err.textContent = 'Please enter your roll number.'; return; }
-  if (!isCRRoll(roll)){ err.textContent = 'This roll number is not a CR.'; return; }
+  if (state.crRolls.indexOf(roll) === -1){ err.textContent = 'This roll number is not a CR.'; return; }
   if (pass !== CR_PASSWORD){ err.textContent = 'Incorrect password.'; return; }
   setSession({ role:'cr', roll: roll });
   crTab = 'ov';
   renderCR();
   show('v-cr');
-}
-
-/* ============================================================
-   HELPERS
-   ============================================================ */
-function computeStats(){
-  var submitted = 0;
-  ROLLS.forEach(function(r){
-    if (Object.keys(state.submissions[r] || {}).length > 0) submitted++;
-  });
-  return { submitted: submitted, pending: TOTAL - submitted, percent: Math.round(submitted/TOTAL*100) };
-}
-function subjectCount(sid){
-  var n = 0;
-  ROLLS.forEach(function(r){ if ((state.submissions[r]||{})[sid]) n++; });
-  return n;
-}
-function fmtDate(iso){
-  if (!iso) return '';
-  try {
-    var d = new Date(iso);
-    return d.toLocaleDateString(undefined,{day:'2-digit',month:'short'}) + ' ' +
-           d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
-  } catch(e){ return ''; }
-}
-function fmtSize(b){
-  if (!b) return '';
-  if (b < 1024) return b + ' B';
-  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-  return (b/1048576).toFixed(2) + ' MB';
-}
-function compactRolls(rolls){
-  if (!rolls.length) return '—';
-  var nums = rolls.map(Number).sort(function(a,b){ return a-b; });
-  var out = [], s = nums[0], p = nums[0];
-  for (var i = 1; i < nums.length; i++){
-    if (nums[i] === p+1){ p = nums[i]; continue; }
-    out.push(s === p ? String(s) : s+'–'+p);
-    s = p = nums[i];
-  }
-  out.push(s === p ? String(s) : s+'–'+p);
-  return out.join(', ');
-}
-function safeName(str, fb){
-  var s = String(str || '').replace(/[\\/:*?"<>|]+/g,'_').replace(/\s+/g,'_').trim();
-  return s || fb || 'file';
-}
-function fileKey(r, sid){ return r + '__' + sid; }
-function updateLanding(){
-  var el = document.getElementById('lfEmail');
-  if (!el) return;
-  el.innerHTML = state.crEmail
-    ? '<br>✉️ Contact CR: <a href="mailto:'+esc(state.crEmail)+'">'+esc(state.crEmail)+'</a>'
-    : '';
 }
 
 /* ============================================================
@@ -996,29 +972,20 @@ function getLastSeen(roll){
   try { return LS.get(getSeenKey(roll)) || '1970-01-01T00:00:00.000Z'; }
   catch(e){ return '1970-01-01T00:00:00.000Z'; }
 }
-function markSeen(roll){
-  LS.set(getSeenKey(roll), new Date().toISOString());
-}
+function markSeen(roll){ LS.set(getSeenKey(roll), new Date().toISOString()); }
 function getUnreadCount(roll){
   var lastSeen = getLastSeen(roll);
   return state.announcements.filter(function(a){
-    return a.createdAt > lastSeen;
+    return (a.createdAt || '') > lastSeen;
   }).length;
 }
 function sortAnnouncements(){
-  // pinned first, then newest
   return state.announcements.slice().sort(function(a, b){
     if (a.pinned && !b.pinned) return -1;
     if (!a.pinned && b.pinned) return 1;
-    return new Date(b.createdAt) - new Date(a.createdAt);
+    return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
   });
 }
-function priorityLabel(p){
-  if (p === 'urgent') return 'Urgent';
-  if (p === 'important') return 'Important';
-  return 'Normal';
-}
-
 function scrollToNotices(){
   var el = document.getElementById('sAnnounceWrap');
   if (!el) return;
@@ -1026,37 +993,27 @@ function scrollToNotices(){
   if (session && session.roll) markSeen(session.roll);
   updateBellCount();
 }
-
 function updateBellCount(){
   var badge = document.getElementById('bellCount');
   if (!badge || !session || session.role !== 'student') return;
   var n = getUnreadCount(session.roll);
-  if (n > 0){
-    badge.style.display = 'flex';
-    badge.textContent = n > 99 ? '99+' : String(n);
-  } else {
-    badge.style.display = 'none';
-  }
+  if (n > 0){ badge.style.display = 'flex'; badge.textContent = n > 99 ? '99+' : String(n); }
+  else badge.style.display = 'none';
 }
-
 function renderStudentAnnouncements(){
   var wrap = document.getElementById('sAnnounceWrap');
   if (!wrap) return;
   var roll = session.roll;
   var lastSeen = getLastSeen(roll);
   var sorted = sortAnnouncements();
-
   if (!sorted.length){
     wrap.innerHTML = '<div class="pn"><h3>📢 Notices</h3>' +
       '<p class="psub">Announcements from your CR will appear here.</p>' +
       '<div class="ann-empty">No announcements yet.</div></div>';
-    markSeen(roll);
-    updateBellCount();
-    return;
+    markSeen(roll); updateBellCount(); return;
   }
-
   var cards = sorted.map(function(a){
-    var isNew = a.createdAt > lastSeen;
+    var isNew = (a.createdAt || '') > lastSeen;
     var cls = 'ann-card ' + (a.priority || 'normal');
     if (a.pinned) cls += ' pinned';
     var tags = '';
@@ -1064,79 +1021,57 @@ function renderStudentAnnouncements(){
     if (isNew) tags += '<span class="ann-tag new">NEW</span>';
     if (a.priority === 'urgent') tags += '<span class="ann-tag urgent">Urgent</span>';
     else if (a.priority === 'important') tags += '<span class="ann-tag important">Important</span>';
-    return '<div class="' + cls + '">' +
-      '<div class="ann-head">' +
-        '<div class="ann-title">' + esc(a.title || '(no title)') + ' ' + tags + '</div>' +
-        '<div class="ann-time">🕒 ' + fmtDate(a.createdAt) + '</div>' +
-      '</div>' +
-      '<div class="ann-body">' + esc(a.body || '') + '</div>' +
-    '</div>';
+    return '<div class="'+cls+'"><div class="ann-head">' +
+      '<div class="ann-title">'+esc(a.title || '(no title)')+' '+tags+'</div>' +
+      '<div class="ann-time">🕒 '+fmtDate(a.createdAt)+'</div></div>' +
+      '<div class="ann-body">'+esc(a.body || '')+'</div></div>';
   }).join('');
-
-  wrap.innerHTML = '<div class="pn">' +
-    '<h3>📢 Notices</h3>' +
+  wrap.innerHTML = '<div class="pn"><h3>📢 Notices</h3>' +
     '<p class="psub">Announcements from your CR. ' +
       '<button type="button" class="btn sm ghost" style="margin-left:6px;padding:4px 10px;font-size:.7rem" onclick="markAllReadAndRefresh()">Mark all as read</button>' +
-    '</p>' +
-    '<div class="ann-list">' + cards + '</div></div>';
-
-  // Mark as seen so the bell count clears
-  markSeen(roll);
-  updateBellCount();
+    '</p><div class="ann-list">'+cards+'</div></div>';
+  markSeen(roll); updateBellCount();
 }
-
 function markAllReadAndRefresh(){
   if (!session || session.role !== 'student') return;
   markSeen(session.roll);
   renderStudentAnnouncements();
 }
-
-/* CR announcement management */
 function addAnnouncement(){
   var title = (document.getElementById('annTitle') || {}).value || '';
   var body = (document.getElementById('annBody') || {}).value || '';
   var priority = (document.getElementById('annPriority') || {}).value || 'normal';
-  title = title.trim();
-  body = body.trim();
+  title = title.trim(); body = body.trim();
   if (!title && !body){ alert('Please enter a title or a message.'); return; }
-  state.announcements.push({
-    id: uid(),
+  saveAnnouncement({
+    id: null,
     title: title || '(no title)',
     body: body,
     priority: priority,
     pinned: false,
     createdAt: new Date().toISOString()
   });
-  save();
-  renderCR();
   alert('Announcement posted.');
 }
 function deleteAnnouncement(id){
   if (!confirm('Delete this announcement?')) return;
-  state.announcements = state.announcements.filter(function(a){ return a.id !== id; });
-  save();
-  renderCR();
+  deleteAnnouncementDoc(id);
 }
 function togglePinAnnouncement(id){
   var a = state.announcements.filter(function(x){ return x.id === id; })[0];
   if (!a) return;
-  a.pinned = !a.pinned;
-  save();
-  renderCR();
+  saveAnnouncement({ id: id, title: a.title, body: a.body, priority: a.priority,
+                     pinned: !a.pinned, createdAt: a.createdAt });
 }
 function editAnnouncement(id){
   var a = state.announcements.filter(function(x){ return x.id === id; })[0];
   if (!a) return;
-  var newTitle = prompt('Edit title:', a.title);
-  if (newTitle === null) return;
-  var newBody = prompt('Edit message:', a.body);
-  if (newBody === null) return;
-  a.title = (newTitle || '').trim() || '(no title)';
-  a.body = (newBody || '').trim();
-  save();
-  renderCR();
+  var newTitle = prompt('Edit title:', a.title); if (newTitle === null) return;
+  var newBody = prompt('Edit message:', a.body); if (newBody === null) return;
+  saveAnnouncement({ id: id, title: (newTitle || '').trim() || '(no title)',
+                     body: (newBody || '').trim(), priority: a.priority,
+                     pinned: a.pinned, createdAt: a.createdAt });
 }
-
 function crAnnounceHTML(){
   var sorted = sortAnnouncements();
   var cards = sorted.map(function(a){
@@ -1146,21 +1081,16 @@ function crAnnounceHTML(){
     if (a.pinned) tags += '<span class="ann-tag pin">📌 Pinned</span>';
     if (a.priority === 'urgent') tags += '<span class="ann-tag urgent">Urgent</span>';
     else if (a.priority === 'important') tags += '<span class="ann-tag important">Important</span>';
-    return '<div class="' + cls + '">' +
-      '<div class="ann-head">' +
-        '<div class="ann-title">' + esc(a.title) + ' ' + tags + '</div>' +
-        '<div class="ann-time">🕒 ' + fmtDate(a.createdAt) + '</div>' +
-      '</div>' +
-      '<div class="ann-body">' + esc(a.body) + '</div>' +
+    return '<div class="'+cls+'"><div class="ann-head">' +
+      '<div class="ann-title">'+esc(a.title)+' '+tags+'</div>' +
+      '<div class="ann-time">🕒 '+fmtDate(a.createdAt)+'</div></div>' +
+      '<div class="ann-body">'+esc(a.body)+'</div>' +
       '<div class="ann-foot">' +
-        '<button type="button" class="btn sm ghost" onclick="togglePinAnnouncement(\'' + a.id + '\')">' +
-          (a.pinned ? '📌 Unpin' : '📌 Pin') + '</button>' +
-        '<button type="button" class="btn sm ghost" onclick="editAnnouncement(\'' + a.id + '\')">✏️ Edit</button>' +
-        '<button type="button" class="btn sm danger" onclick="deleteAnnouncement(\'' + a.id + '\')">🗑 Delete</button>' +
-      '</div>' +
-    '</div>';
+        '<button type="button" class="btn sm ghost" onclick="togglePinAnnouncement(\''+a.id+'\')">'+(a.pinned?'📌 Unpin':'📌 Pin')+'</button>' +
+        '<button type="button" class="btn sm ghost" onclick="editAnnouncement(\''+a.id+'\')">✏️ Edit</button>' +
+        '<button type="button" class="btn sm danger" onclick="deleteAnnouncement(\''+a.id+'\')">🗑 Delete</button>' +
+      '</div></div>';
   }).join('');
-
   return '<div class="pn"><h3>Create a new announcement</h3>' +
     '<p class="psub">Post a message that every student sees on their dashboard.</p>' +
     '<div class="ann-form">' +
@@ -1178,38 +1108,31 @@ function crAnnounceHTML(){
       '<textarea id="annBody" class="inp" placeholder="Write the announcement here..."></textarea>' +
       '<div class="ann-actions">' +
         '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addAnnouncement()">📢 Post announcement</button>' +
-      '</div>' +
-    '</div></div>' +
-    '<div class="pn"><h3>Posted announcements (' + sorted.length + ')</h3>' +
+      '</div></div></div>' +
+    '<div class="pn"><h3>Posted announcements ('+sorted.length+')</h3>' +
     '<p class="psub">Pinned announcements appear at the top for students.</p>' +
-    (cards || '<div class="ann-empty">No announcements yet. Create one above.</div>') +
-    '</div>';
+    (cards || '<div class="ann-empty">No announcements yet. Create one above.</div>') + '</div>';
 }
 
 /* ============================================================
    STUDENT DASHBOARD
    ============================================================ */
 function renderStudent(){
+  if (!session || session.role !== 'student') return;
   var roll = session.roll;
   var subs = state.submissions[roll] || {};
-
   document.getElementById('sChip').textContent = 'Roll ' + roll;
   document.getElementById('sClass').textContent = state.className;
   document.getElementById('sLine').textContent = 'Logged in as roll ' + roll;
-
   var doneCount = state.subjects.filter(function(s){ return subs[s.id]; }).length;
   document.getElementById('sStats').innerHTML =
     '<div class="mst"><b style="color:var(--ok)">'+doneCount+'</b><span>Submitted</span></div>' +
     '<div class="mst"><b style="color:var(--warn)">'+(state.subjects.length-doneCount)+'</b><span>Pending</span></div>' +
     '<div class="mst"><b>'+state.subjects.length+'</b><span>Subjects</span></div>';
-
-  // Render announcements section
   renderStudentAnnouncements();
-
   var wrap = document.getElementById('sSubjects');
   if (!state.subjects.length){
-    wrap.innerHTML = '<div class="empty">No subjects yet. Your CR will add them soon.</div>';
-    return;
+    wrap.innerHTML = '<div class="empty">No subjects yet. Your CR will add them soon.</div>'; return;
   }
   wrap.innerHTML = state.subjects.map(function(s){
     var sub = subs[s.id], done = !!sub;
@@ -1218,7 +1141,8 @@ function renderStudent(){
       '<span class="bg '+(done?'ok':'pd')+'">'+(done?'Submitted':'Pending')+'</span></div>' +
       '<p class="tpc"><b>Topic:</b> '+esc(sub?(sub.topic||s.topic):s.topic)+'</p>' +
       (done ? '<div class="fi">📎 '+esc(sub.fileName||'No file')+(sub.fileSize?' · '+fmtSize(sub.fileSize):'')+'<br>🕒 '+fmtDate(sub.at)+
-        (sub.link?'<br>🔗 <a href="'+esc(sub.link)+'" target="_blank" rel="noopener">Open link</a>':'')+
+        (sub.downloadUrl?'<br>🔗 <a href="'+esc(sub.downloadUrl)+'" target="_blank" rel="noopener">Open / download file</a>':'')+
+        (sub.link?'<br>🔗 <a href="'+esc(sub.link)+'" target="_blank" rel="noopener">External link</a>':'')+
         (sub.note?'<br>📝 '+esc(sub.note):'')+'</div>' : '') +
       '<div class="sa">' +
       '<button type="button" class="btn sm '+(done?'ghost':'primary')+'" onclick="openSubmit(\''+roll+'\',\''+s.id+'\')">'+(done?'Replace / Edit':'Submit PPT')+'</button>' +
@@ -1235,18 +1159,15 @@ var crSubFilter = null, crSearch = '', crListFilter = 'all';
 var crDlScope = 'all', crDlMode = 'submitted';
 
 function setTab(t){ crTab = t; renderCR(); }
-
 function renderCR(){
+  if (!session || session.role !== 'cr') return;
   document.getElementById('cClass').textContent = state.className;
-  if (session && session.roll) document.getElementById('cChip').textContent = 'CR ' + session.roll;
-
+  document.getElementById('cChip').textContent = 'CR ' + session.roll;
   if (!state.subjects.length && (crTab === 'sb' || crTab === 'ls' || crTab === 'dl')) crTab = 'ov';
   if (crTab === 'sb' && !crSubFilter) crSubFilter = state.subjects[0] ? state.subjects[0].id : null;
   if (crTab === 'dl' && crDlScope !== 'all' && !state.subjects.some(function(s){ return s.id === crDlScope; })) crDlScope = 'all';
-
   var tabs = document.querySelectorAll('.tab');
   for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('active', tabs[i].getAttribute('data-tab') === crTab);
-
   var body = document.getElementById('crBody');
   if (crTab === 'ov') body.innerHTML = crOverviewHTML();
   else if (crTab === 'ls') body.innerHTML = crListsHTML();
@@ -1255,20 +1176,16 @@ function renderCR(){
   else if (crTab === 'an') body.innerHTML = crAnnounceHTML();
   else if (crTab === 'dl') body.innerHTML = crDownloadsHTML();
   else if (crTab === 'st') body.innerHTML = crSettingsHTML();
-
   if (crTab === 'dl') updateZipStats();
 }
-
 function crOverviewHTML(){
   var st = computeStats();
   var perSubject = state.subjects.map(function(sub){
-    var n = subjectCount(sub.id);
-    var pct = Math.round(n/TOTAL*100);
+    var n = subjectCount(sub.id), pct = Math.round(n/TOTAL*100);
     return '<div class="br"><div class="brt"><span>'+esc(sub.name)+'</span>' +
       '<span class="n">'+n+' / '+TOTAL+' submitted</span></div>' +
       '<div class="bar"><span style="width:'+pct+'%"></span></div></div>';
   }).join('');
-
   var recent = [];
   ROLLS.forEach(function(r){
     var subs = state.submissions[r] || {};
@@ -1288,13 +1205,11 @@ function crOverviewHTML(){
       esc(x.subject)+' — <span style="color:var(--muted)">'+esc(x.topic||'—')+'</span></span>' +
       '<span class="n">'+fmtDate(x.at)+'</span></div></div>';
   }).join('') || '<div class="empty">No submissions yet.</div>';
-
   return '<div class="sg">' +
     '<div class="st"><div class="stn">'+TOTAL+'</div><div class="stl">Total Students</div></div>' +
     '<div class="st ok"><div class="stn">'+st.submitted+'</div><div class="stl">Submitted</div></div>' +
     '<div class="st warn"><div class="stn">'+st.pending+'</div><div class="stl">Pending</div></div>' +
-    '<div class="st acc"><div class="stn">'+st.percent+'%</div><div class="stl">Completion</div></div>' +
-    '</div>' +
+    '<div class="st acc"><div class="stn">'+st.percent+'%</div><div class="stl">Completion</div></div></div>' +
     '<div class="pg"><div class="pgf" style="width:'+st.percent+'%"></div></div>' +
     '<div class="pn"><h3>Progress by subject</h3>' +
     '<p class="psub">How many students have submitted each subject\'s PPT</p>' +
@@ -1302,7 +1217,6 @@ function crOverviewHTML(){
     '<div class="pn"><h3>Recent submissions</h3>' +
     '<p class="psub">Latest activity across the class</p>' + recList + '</div>';
 }
-
 function getListsFor(scope){
   var sub = [], pend = [];
   if (scope === 'all'){
@@ -1316,24 +1230,20 @@ function getListsFor(scope){
   }
   return { submitted: sub, pending: pend };
 }
-
 function crListsHTML(){
   var scopeOpts = '<option value="all"'+(crListFilter==='all'?' selected':'')+'>All subjects (overall)</option>' +
     state.subjects.map(function(s){
       return '<option value="'+s.id+'"'+(s.id===crListFilter?' selected':'')+'>'+esc(s.name)+'</option>';
     }).join('');
   var L = getListsFor(crListFilter);
-  var subCsv = L.submitted.join(', ');
-  var penCsv = L.pending.join(', ');
-  var subRange = compactRolls(L.submitted);
-  var penRange = compactRolls(L.pending);
+  var subCsv = L.submitted.join(', '), penCsv = L.pending.join(', ');
+  var subRange = compactRolls(L.submitted), penRange = compactRolls(L.pending);
   var scopeLabel = crListFilter === 'all' ? 'Overall PPT submission'
     : ((state.subjects.filter(function(s){ return s.id === crListFilter; })[0] || {}).name || 'Subject');
   var waMsg = '*DS-F — '+scopeLabel+'*\n\nTotal students: '+TOTAL+
     '\n✅ Submitted: '+L.submitted.length+'\n⏳ Pending: '+L.pending.length+
     '\n\n*Pending roll numbers ('+L.pending.length+'):*\n'+penRange+
     '\n\n*Submitted roll numbers ('+L.submitted.length+'):*\n'+subRange;
-
   return '<div class="pn"><h3>Submission lists</h3>' +
     '<p class="psub">Choose what to show — copy and send on WhatsApp. Only the last 3 digits are used.</p>' +
     '<div class="tbr"><select class="inp" onchange="crListFilter=this.value; renderCR()">'+scopeOpts+'</select>' +
@@ -1352,14 +1262,12 @@ function crListsHTML(){
     '<div class="wb" id="waBox">'+esc(waMsg)+'</div>' +
     '<div class="cr2"><button type="button" class="btn primary sm" style="margin:0;width:auto" onclick="copyText(\'waBox\', this)">Copy message</button></div></div>';
 }
-
 function copyText(id, btn){
   var el = document.getElementById(id);
   if (!el) return;
   var text = (el.value !== undefined) ? el.value : el.textContent;
   var done = function(){
-    var old = btn.textContent;
-    btn.textContent = '✓ Copied';
+    var old = btn.textContent; btn.textContent = '✓ Copied';
     setTimeout(function(){ btn.textContent = old; }, 1400);
   };
   if (navigator.clipboard && navigator.clipboard.writeText){
@@ -1369,10 +1277,8 @@ function copyText(id, btn){
 function fallbackCopy(text, done){
   try {
     var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '0';
-    ta.style.width = '1px'; ta.style.height = '1px'; ta.style.opacity = '0';
-    ta.style.fontSize = '16px';
+    ta.value = text; ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '0';
+    ta.style.width = '1px'; ta.style.height = '1px'; ta.style.opacity = '0'; ta.style.fontSize = '16px';
     ta.setAttribute('readonly','');
     document.body.appendChild(ta);
     if (isIOS){
@@ -1384,11 +1290,9 @@ function fallbackCopy(text, done){
     ta.focus();
     var ok = document.execCommand('copy');
     document.body.removeChild(ta);
-    if (ok) done();
-    else alert('Copy failed. Please select and copy the text manually.');
+    if (ok) done(); else alert('Copy failed. Please select and copy the text manually.');
   } catch(e){ alert('Copy failed. Please select and copy the text manually.'); }
 }
-
 function crSubmissionsHTML(){
   var opts = state.subjects.map(function(s){
     return '<option value="'+s.id+'"'+(s.id===crSubFilter?' selected':'')+'>'+esc(s.name)+'</option>';
@@ -1412,17 +1316,15 @@ function submRowsHTML(){
       '<td>'+(sub?'<span class="bg ok">Submitted</span>':'<span class="bg pd">Pending</span>')+'</td>' +
       '<td>'+(sub?esc(sub.topic||'—'):'—')+'</td>' +
       '<td style="color:var(--muted);font-size:.78rem;word-break:break-word">'+(sub&&sub.fileName?esc(sub.fileName):'—')+'</td>' +
-      '<td>'+(sub&&sub.link?'<a href="'+esc(sub.link)+'" target="_blank" rel="noopener">Open</a>':'—')+'</td>' +
+      '<td>'+(sub&&sub.downloadUrl?'<a href="'+esc(sub.downloadUrl)+'" target="_blank" rel="noopener">File</a> ':'')+
+        (sub&&sub.link?'<a href="'+esc(sub.link)+'" target="_blank" rel="noopener">Link</a>':'')+
+        (!sub||(!sub.downloadUrl&&!sub.link)?'—':'')+'</td>' +
       '<td><div class="ra"><button type="button" class="btn sm '+(sub?'ghost':'primary')+'" onclick="openSubmit(\''+r+'\',\''+sid+'\')">'+(sub?'Replace':'Add')+'</button>' +
       (sub?'<button type="button" class="btn sm danger" onclick="removeSubmission(\''+r+'\',\''+sid+'\')">Remove</button>':'') +
       '</div></td></tr>';
   }).join('');
 }
-function updateSubmBody(){
-  var el = document.getElementById('submBody');
-  if (el) el.innerHTML = submRowsHTML();
-}
-
+function updateSubmBody(){ var el = document.getElementById('submBody'); if (el) el.innerHTML = submRowsHTML(); }
 function crSubjectsHTML(){
   var rows = state.subjects.map(function(s){
     return '<div class="sr"><div><span class="lbl">Subject name</span>' +
@@ -1441,54 +1343,54 @@ function crSubjectsHTML(){
 function updateSubject(id, field, value){
   var s = state.subjects.filter(function(x){ return x.id === id; })[0];
   if (!s) return;
-  s[field] = value; save();
+  s[field] = value;
+  saveConfig();
 }
 function addSubject(){
   var name = document.getElementById('newSubj').value.trim();
   var topic = document.getElementById('newTopic').value.trim();
   if (!name){ alert('Please enter a subject name.'); return; }
   state.subjects.push({ id: uid(), name: name, topic: topic || '—' });
-  save(); renderCR();
+  saveConfig();
 }
-function deleteSubject(id){
+async function deleteSubject(id){
   var s = state.subjects.filter(function(x){ return x.id === id; })[0];
   if (!s) return;
   if (!confirm('Delete "'+s.name+'" and all its submissions?')) return;
+  // Delete all submissions for this subject
+  var dels = [];
   ROLLS.forEach(function(r){
-    if (state.submissions[r] && state.submissions[r][id]) deleteFileBlob(fileKey(r,id));
+    var sub = (state.submissions[r] || {})[id];
+    if (sub){
+      if (sub.storagePath) dels.push(deleteSubmissionFile(sub.storagePath));
+      dels.push(deleteSubmissionDoc(r, id));
+    }
   });
+  await Promise.all(dels);
   state.subjects = state.subjects.filter(function(x){ return x.id !== id; });
-  ROLLS.forEach(function(r){ if (state.submissions[r]) delete state.submissions[r][id]; });
+  saveConfig();
   if (crSubFilter === id) crSubFilter = state.subjects[0] ? state.subjects[0].id : null;
   if (crListFilter === id) crListFilter = 'all';
   if (crDlScope === id) crDlScope = 'all';
-  save(); renderCR();
 }
-
 function crDownloadsHTML(){
   var scopeOpts = '<option value="all"'+(crDlScope==='all'?' selected':'')+'>All subjects (everything)</option>' +
     state.subjects.map(function(s){
       return '<option value="'+s.id+'"'+(s.id===crDlScope?' selected':'')+'>'+esc(s.name)+'</option>';
     }).join('');
-
   var perSubjectHTML = state.subjects.map(function(s){
-    var submitted = subjectCount(s.id);
-    var pending = TOTAL - submitted;
-    return '<div class="subj-dl-row">' +
-      '<div class="subj-dl-info">' +
+    var submitted = subjectCount(s.id), pending = TOTAL - submitted;
+    return '<div class="subj-dl-row"><div class="subj-dl-info">' +
         '<div class="subj-dl-name">'+esc(s.name)+'</div>' +
         '<div class="subj-dl-meta">' +
           '<span class="ok-tag">✅ '+submitted+' submitted</span>' +
           '<span class="pd-tag">⏳ '+pending+' pending</span>' +
-        '</div>' +
-      '</div>' +
+        '</div></div>' +
       '<div class="subj-dl-btns">' +
         '<button type="button" class="btn ghost sm" data-dl-btn="'+s.id+'_submitted" onclick="downloadSubjectZip(\''+s.id+'\',\'submitted\')">⬇ Submitted</button>' +
         '<button type="button" class="btn ghost sm" data-dl-btn="'+s.id+'_pending" onclick="downloadSubjectZip(\''+s.id+'\',\'pending\')">⬇ Pending</button>' +
-      '</div>' +
-    '</div>';
+      '</div></div>';
   }).join('') || '<div class="empty">No subjects yet.</div>';
-
   return '<div class="zh"><h2>📦 Export submissions as ZIP</h2>' +
     '<p>Download uploaded PPTs in one ZIP file. Files are arranged inside folders by roll number.</p></div>' +
     '<div class="pn"><h3>1. Choose students to include</h3>' +
@@ -1511,69 +1413,49 @@ function crDownloadsHTML(){
     '<div class="pn"><h3>Per-subject downloads</h3>' +
     '<p class="psub">Get a separate ZIP for each subject — submitted files or the pending students list.</p>' +
     '<div class="subj-dl-list">'+perSubjectHTML+'</div></div>' +
-    '<div class="pn"><h3>ZIP folder structure</h3>' +
-    '<p class="psub">Each student gets their own folder named by their roll number (last 3 digits only).</p>' +
-    '<div class="zt"><b>DS-F_Submissions/</b>\n' +
-    '├── <b>Roll_451/</b>\n│   ├── Research_Methodology.pptx\n│   └── Operating_Systems.pdf\n' +
-    '├── <b>Roll_452/</b>\n│   └── ...\n├── ...\n' +
-    '├── _SUMMARY.txt\n├── _SUBMITTED_ROLLS.txt\n└── _PENDING_ROLLS.txt</div></div>' +
     '<div class="pn"><h3>Notes</h3><p class="psub" style="margin-bottom:8px">' +
-    '• Files are stored only inside this browser (IndexedDB).<br>' +
+    '• Files are stored in Firebase Storage.<br>' +
     '• On iPhone/iPad, the ZIP opens in a new tab — tap "Save to Files".<br>' +
-    '• "Only submitted" mode skips students who haven\'t submitted anything for the selected scope.<br>' +
     '• Per-subject buttons download one subject at a time (submitted files or pending list).</p></div>';
 }
-
 function updateZipStats(){
   var statsEl = document.getElementById('zipStats');
   if (!statsEl) return;
   var scope = crDlScope;
-  getAllFileBlobs().then(function(stored){
-    var map = {};
-    stored.forEach(function(f){ map[f.key] = f; });
-    var withFile = 0, withoutFile = 0, totalBytes = 0, submittedCount = 0;
-    ROLLS.forEach(function(r){
-      var subs = state.submissions[r] || {};
-      var hasAny = false;
-      Object.keys(subs).forEach(function(sid){
-        if (scope !== 'all' && sid !== scope) return;
-        hasAny = true;
-        var rec = map[fileKey(r,sid)];
-        if (rec && rec.blob){ withFile++; totalBytes += (rec.blob.size || 0); }
-        else withoutFile++;
-      });
-      if (hasAny) submittedCount++;
+  var withFile = 0, withoutFile = 0, totalBytes = 0, submittedCount = 0;
+  ROLLS.forEach(function(r){
+    var subs = state.submissions[r] || {};
+    var hasAny = false;
+    Object.keys(subs).forEach(function(sid){
+      if (scope !== 'all' && sid !== scope) return;
+      hasAny = true;
+      var sub = subs[sid];
+      if (sub.downloadUrl){ withFile++; totalBytes += (sub.fileSize || 0); }
+      else withoutFile++;
     });
-    var totalSize = fmtSize(totalBytes) || '0 B';
-    statsEl.innerHTML =
-      '<div class="zst"><b>'+withFile+'</b><span>Files ready</span></div>' +
-      '<div class="zst"><b>'+withoutFile+'</b><span>Link-only</span></div>' +
-      '<div class="zst"><b>'+totalSize+'</b><span>Total size</span></div>' +
-      '<div class="zst"><b style="color:var(--ok)">'+submittedCount+'</b><span>With content</span></div>';
+    if (hasAny) submittedCount++;
   });
+  var totalSize = fmtSize(totalBytes) || '0 B';
+  statsEl.innerHTML =
+    '<div class="zst"><b>'+withFile+'</b><span>Files ready</span></div>' +
+    '<div class="zst"><b>'+withoutFile+'</b><span>Link-only</span></div>' +
+    '<div class="zst"><b>'+totalSize+'</b><span>Total size</span></div>' +
+    '<div class="zst"><b style="color:var(--ok)">'+submittedCount+'</b><span>With content</span></div>';
 }
-
 function triggerDownload(blob, filename){
   var url = URL.createObjectURL(blob);
   if (isIOS){
     try {
       var file = new File([blob], filename, { type: 'application/zip' });
       if (navigator.canShare && navigator.canShare({ files: [file] })){
-        navigator.share({ files: [file], title: filename }).then(function(){
-          URL.revokeObjectURL(url);
-        }).catch(function(){
-          window.open(url, '_blank');
-          setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
-        });
+        navigator.share({ files: [file], title: filename }).then(function(){ URL.revokeObjectURL(url); })
+          .catch(function(){ window.open(url, '_blank'); setTimeout(function(){ URL.revokeObjectURL(url); }, 60000); });
         return;
       }
     } catch(e){}
     var w = window.open(url, '_blank');
-    if (!w){
-      var a = document.createElement('a');
-      a.href = url; a.download = filename;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    }
+    if (!w){ var a = document.createElement('a'); a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); }
     setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
     return;
   }
@@ -1582,52 +1464,52 @@ function triggerDownload(blob, filename){
   document.body.appendChild(a2); a2.click(); document.body.removeChild(a2);
   setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
 }
-
-function downloadZip(){
+async function fetchFileBlob(url){
+  try { var r = await fetch(url); return await r.blob(); }
+  catch(e){ console.warn('fetch failed', e); return null; }
+}
+async function downloadZip(){
   var btn = document.getElementById('zipBtn');
   var prog = document.getElementById('zipProg');
   var bar = document.getElementById('zipBar');
   var status = document.getElementById('zipStatus');
-  if (typeof JSZip === 'undefined'){
-    alert('ZIP library failed to load. Check your internet connection and reload the page.');
-    return;
-  }
+  if (typeof JSZip === 'undefined'){ alert('ZIP library failed to load.'); return; }
   btn.disabled = true; btn.textContent = '⏳ Preparing...';
   prog.classList.add('show'); bar.style.width = '5%';
   status.textContent = 'Collecting files...';
-
   var scope = crDlScope, mode = crDlMode;
-
-  getAllFileBlobs().then(function(stored){
-    var map = {};
-    stored.forEach(function(f){ map[f.key] = f; });
+  try {
     var zip = new JSZip();
     var root = zip.folder('DS-F_Submissions');
     var added = 0, infoOnly = 0, total = 0;
-
     ROLLS.forEach(function(r){
       var subs = state.submissions[r] || {};
       var rel = Object.keys(subs).filter(function(sid){ return scope === 'all' || sid === scope; });
       if (mode === 'submitted' && rel.length === 0) return;
       total += rel.length;
     });
-
     var processed = 0;
-    ROLLS.forEach(function(roll){
+    for (var ri = 0; ri < ROLLS.length; ri++){
+      var roll = ROLLS[ri];
       var subs = state.submissions[roll] || {};
       var rel = Object.keys(subs).filter(function(sid){ return scope === 'all' || sid === scope; });
-      if (mode === 'submitted' && rel.length === 0) return;
+      if (mode === 'submitted' && rel.length === 0) continue;
       var rf = root.folder('Roll_' + roll);
-      rel.forEach(function(sid){
+      for (var si = 0; si < rel.length; si++){
+        var sid = rel[si];
         var subj = state.subjects.filter(function(s){ return s.id === sid; })[0];
-        if (!subj) return;
+        if (!subj) continue;
         var sub = subs[sid];
         var subjName = safeName(subj.name, 'Subject');
-        var rec = map[fileKey(roll, sid)];
-        if (rec && rec.blob){
-          var orig = rec.fileName || sub.fileName || 'file';
-          var ext = orig.indexOf('.') !== -1 ? orig.split('.').pop() : 'bin';
-          rf.file(roll + '_' + subjName + '.' + ext, rec.blob);
+        if (sub.downloadUrl){
+          var ext = (sub.fileName || 'file').split('.').pop().toLowerCase() || 'bin';
+          var blob = await fetchFileBlob(sub.downloadUrl);
+          if (blob) rf.file(roll + '_' + subjName + '.' + ext, blob);
+          else {
+            rf.file(roll + '_' + subjName + '_INFO.txt',
+              'Roll: '+roll+'\nSubject: '+subj.name+'\nFile: '+(sub.fileName||'')+
+              '\nDownload: '+sub.downloadUrl+'\n(File fetch failed)');
+          }
           added++;
         } else {
           var info = 'Roll: '+roll+'\nSubject: '+subj.name+'\nTopic: '+(sub.topic||'—')+
@@ -1639,17 +1521,15 @@ function downloadZip(){
         processed++;
         var pct = total ? Math.max(5, Math.round(processed/total*85)) : 85;
         bar.style.width = pct + '%';
-      });
-    });
-
+      }
+    }
     var st = computeStats();
     var L = getListsFor(scope === 'all' ? 'all' : scope);
     var summary = 'DS-F — Submission Export\n=====================================\n' +
       'Class: '+state.className+'\nExported: '+new Date().toLocaleString()+
       '\nDownload mode: '+(mode==='submitted'?'Only submitted students':'All students')+
       '\nSubject scope: '+(scope==='all'?'All subjects':((state.subjects.filter(function(s){return s.id===scope;})[0]||{}).name||'—'))+
-      '\nCR Contact: '+(state.crEmail||'(not set)')+'\n\n' +
-      'Total students: '+TOTAL+'\nSubmitted: '+st.submitted+'\nPending: '+st.pending+
+      '\n\nTotal students: '+TOTAL+'\nSubmitted: '+st.submitted+'\nPending: '+st.pending+
       '\nCompletion: '+st.percent+'%\n\nFiles in this ZIP: '+added+
       '\nLink-only entries: '+infoOnly+'\n\nPer-subject counts:\n' +
       state.subjects.map(function(s){ return '  - '+s.name+': '+subjectCount(s.id)+'/'+TOTAL; }).join('\n');
@@ -1660,137 +1540,95 @@ function downloadZip(){
     root.file('_PENDING_ROLLS.txt', L.pending.length
       ? 'Pending ('+L.pending.length+'):\n'+L.pending.join(', ')+'\n\nRanges: '+compactRolls(L.pending)
       : 'No pending students. Everyone submitted! 🎉');
-
     status.textContent = 'Building ZIP...'; bar.style.width = '92%';
-    return zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} },
-      function(meta){ bar.style.width = (92 + Math.round(meta.percent*0.08)) + '%'; })
-      .then(function(blob){
-        bar.style.width = '100%';
-        status.textContent = isIOS ? 'Opening ZIP...' : 'Download starting...';
-        var stamp = new Date().toISOString().slice(0,10);
-        var scopeTag = scope === 'all' ? 'All_Subjects'
-          : safeName((state.subjects.filter(function(s){return s.id===scope;})[0]||{}).name||'Subject','Subject');
-        var modeTag = mode === 'submitted' ? 'Submitted' : 'All';
-        var filename = 'DS-F_'+modeTag+'_'+scopeTag+'_'+stamp+'.zip';
-        triggerDownload(blob, filename);
-        status.textContent = '✅ Done! '+added+' file(s) + '+infoOnly+' info file(s) packed.';
-        btn.textContent = '⬇ Download ZIP'; btn.disabled = false;
-        setTimeout(function(){ prog.classList.remove('show'); bar.style.width = '0'; status.textContent = ''; }, 5000);
-      });
-  }).catch(function(err){
+    var blob = await zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} },
+      function(meta){ bar.style.width = (92 + Math.round(meta.percent*0.08)) + '%'; });
+    bar.style.width = '100%';
+    status.textContent = isIOS ? 'Opening ZIP...' : 'Download starting...';
+    var stamp = new Date().toISOString().slice(0,10);
+    var scopeTag = scope === 'all' ? 'All_Subjects'
+      : safeName((state.subjects.filter(function(s){return s.id===scope;})[0]||{}).name||'Subject','Subject');
+    var modeTag = mode === 'submitted' ? 'Submitted' : 'All';
+    triggerDownload(blob, 'DS-F_'+modeTag+'_'+scopeTag+'_'+stamp+'.zip');
+    status.textContent = '✅ Done! '+added+' file(s) + '+infoOnly+' info file(s) packed.';
+    btn.textContent = '⬇ Download ZIP'; btn.disabled = false;
+    setTimeout(function(){ prog.classList.remove('show'); bar.style.width = '0'; status.textContent = ''; }, 5000);
+  } catch(err){
     console.error(err);
     alert('ZIP failed: ' + (err.message || 'Unknown error'));
     status.textContent = '❌ Export failed.';
     btn.textContent = '⬇ Download ZIP'; btn.disabled = false;
     prog.classList.remove('show');
-  });
+  }
 }
-
-function downloadSubjectZip(subjectId, mode){
+async function downloadSubjectZip(subjectId, mode){
   var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
   if (!subj) return;
-
-  if (typeof JSZip === 'undefined'){
-    alert('ZIP library failed to load. Check your internet connection and reload the page.');
-    return;
-  }
-
+  if (typeof JSZip === 'undefined'){ alert('ZIP library failed to load.'); return; }
   var btn = document.querySelector('[data-dl-btn="'+subjectId+'_'+mode+'"]');
   if (btn){ btn.disabled = true; btn.textContent = '⏳ Working...'; }
-
   var safeSubj = safeName(subj.name, 'Subject');
   var isSubmitted = mode === 'submitted';
-
-  getAllFileBlobs().then(function(stored){
-    var map = {};
-    stored.forEach(function(f){ map[f.key] = f; });
-
+  try {
     var zip = new JSZip();
     var folderName = 'DS-F_' + safeSubj + '_' + (isSubmitted ? 'Submitted' : 'Pending');
     var root = zip.folder(folderName);
     var fileCount = 0;
     var submittedRolls = [], pendingRolls = [];
-
     if (isSubmitted){
-      ROLLS.forEach(function(r){
+      for (var i = 0; i < ROLLS.length; i++){
+        var r = ROLLS[i];
         var sub = (state.submissions[r] || {})[subjectId];
-        if (!sub) return;
+        if (!sub) continue;
         submittedRolls.push(r);
-        var rec = map[fileKey(r, subjectId)];
-        if (rec && rec.blob){
-          var orig = rec.fileName || sub.fileName || 'file';
-          var ext = orig.indexOf('.') !== -1 ? orig.split('.').pop() : 'bin';
-          root.file(r + '_' + safeSubj + '.' + ext, rec.blob);
-          fileCount++;
+        if (sub.downloadUrl){
+          var ext = (sub.fileName || 'file').split('.').pop().toLowerCase() || 'bin';
+          var blob = await fetchFileBlob(sub.downloadUrl);
+          if (blob){ root.file(r + '_' + safeSubj + '.' + ext, blob); fileCount++; }
         } else {
-          var info = 'Roll: ' + r + '\nSubject: ' + subj.name +
-                     '\nTopic: ' + (sub.topic || '—') +
-                     '\nLink: ' + (sub.link || '—') +
-                     '\nNote: ' + (sub.note || '—') +
-                     '\nSubmitted: ' + fmtDate(sub.at) +
-                     '\n(No file — link/note only)';
-          root.file(r + '_' + safeSubj + '_INFO.txt', info);
+          root.file(r + '_' + safeSubj + '_INFO.txt',
+            'Roll: '+r+'\nSubject: '+subj.name+'\nTopic: '+(sub.topic||'—')+
+            '\nLink: '+(sub.link||'—')+'\nNote: '+(sub.note||'—')+
+            '\nSubmitted: '+fmtDate(sub.at)+'\n(No file — link/note only)');
           fileCount++;
         }
-      });
+      }
     } else {
       ROLLS.forEach(function(r){
         if (!(state.submissions[r] || {})[subjectId]) pendingRolls.push(r);
       });
-      var pendingText =
-        'DS-F — Pending students for: ' + subj.name + '\n' +
+      var pendingText = 'DS-F — Pending students for: ' + subj.name + '\n' +
         '============================================\n' +
-        'Total students: ' + TOTAL + '\n' +
-        'Pending: ' + pendingRolls.length + '\n' +
-        'Submitted: ' + (TOTAL - pendingRolls.length) + '\n\n' +
-        'Pending roll numbers (last 3 digits):\n' +
-        (pendingRolls.join(', ') || '— none —') + '\n\n' +
-        'Grouped ranges:\n' + compactRolls(pendingRolls) + '\n';
+        'Total students: ' + TOTAL + '\nPending: ' + pendingRolls.length +
+        '\nSubmitted: ' + (TOTAL - pendingRolls.length) + '\n\n' +
+        'Pending roll numbers:\n' + (pendingRolls.join(', ') || '— none —') +
+        '\n\nGrouped ranges:\n' + compactRolls(pendingRolls) + '\n';
       root.file('_PENDING_' + safeSubj + '.txt', pendingText);
       fileCount = 1;
     }
-
     var stats = isSubmitted ? submittedRolls : pendingRolls;
-    var summary =
-      'DS-F — ' + (isSubmitted ? 'Submitted files' : 'Pending students') + '\n' +
-      '=====================================\n' +
-      'Subject: ' + subj.name + '\n' +
+    var summary = 'DS-F — ' + (isSubmitted ? 'Submitted files' : 'Pending students') + '\n' +
+      '=====================================\nSubject: ' + subj.name + '\n' +
       'Exported: ' + new Date().toLocaleString() + '\n' +
-      'Mode: ' + (isSubmitted ? 'Submitted files only' : 'Pending list only') + '\n' +
-      'CR Contact: ' + (state.crEmail || '(not set)') + '\n\n' +
-      'Count: ' + stats.length + ' students\n' +
-      'Files in this ZIP: ' + fileCount + '\n\n' +
+      'Count: ' + stats.length + ' students\nFiles: ' + fileCount + '\n\n' +
       'Roll numbers:\n' + (stats.join(', ') || '— none —') + '\n\n' +
       'Grouped ranges:\n' + compactRolls(stats) + '\n';
     root.file('_SUMMARY.txt', summary);
-
-    return zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} });
-  }).then(function(blob){
-    var stamp = new Date().toISOString().slice(0, 10);
-    var filename = 'DS-F_' + safeSubj + '_' + (isSubmitted ? 'Submitted' : 'Pending') + '_' + stamp + '.zip';
-    triggerDownload(blob, filename);
-    if (btn){
-      btn.disabled = false;
-      btn.textContent = isSubmitted ? '⬇ Submitted' : '⬇ Pending';
-    }
-  }).catch(function(err){
+    var blob2 = await zip.generateAsync({ type:'blob', compression:'DEFLATE', compressionOptions:{level:6} });
+    var stamp2 = new Date().toISOString().slice(0, 10);
+    triggerDownload(blob2, 'DS-F_' + safeSubj + '_' + (isSubmitted ? 'Submitted' : 'Pending') + '_' + stamp2 + '.zip');
+    if (btn){ btn.disabled = false; btn.textContent = isSubmitted ? '⬇ Submitted' : '⬇ Pending'; }
+  } catch(err){
     console.error(err);
     alert('Download failed: ' + (err.message || 'Unknown error'));
-    if (btn){
-      btn.disabled = false;
-      btn.textContent = isSubmitted ? '⬇ Submitted' : '⬇ Pending';
-    }
-  });
+    if (btn){ btn.disabled = false; btn.textContent = isSubmitted ? '⬇ Submitted' : '⬇ Pending'; }
+  }
 }
-
 function crSettingsHTML(){
   var crItems = state.crRolls.map(function(roll){
     var isYou = session && session.roll === roll;
-    var isFallback = FALLBACK_CR_ROLLS.indexOf(roll) !== -1;
     return '<div class="cri"><div class="info"><span class="rb">'+roll+'</span>' +
-      (isYou ? '<span class="you">You</span>' : '<span class="tag2">CR</span>') +
-      (isFallback ? ' <span class="tag2" style="background:var(--okS);color:var(--ok);border-color:var(--okB)">Always works</span>' : '') +
-      '</div>' +
+      (isYou ? '<span class="you">You</span>' : '<span class="tag2">CR</span>') + '</div>' +
       (state.crRolls.length > 1
         ? '<button type="button" class="btn danger sm" onclick="removeCR(\''+roll+'\')">Remove</button>'
         : '<span style="font-size:.72rem;color:var(--muted)">Last CR</span>') + '</div>';
@@ -1804,36 +1642,28 @@ function crSettingsHTML(){
     '<input class="inp" id="crEmail" type="email" value="'+esc(state.crEmail)+'" placeholder="cr@example.com">' +
     '<button type="button" class="btn primary" onclick="saveEmail()">Save email</button></div>' +
     '<div class="pn"><h3>Class Representatives</h3>' +
-    '<p class="psub">Add or remove CRs. Every CR logs in with the shared password <b>'+esc(CR_PASSWORD)+'</b>.</p>' +
+    '<p class="psub">Add or remove CRs. Every CR logs in with the shared password <b>'+esc(CR_PASSWORD)+'</b>. ' +
+    'Changes sync to every device instantly.</p>' +
     crItems + '<div class="cr2r"><div class="ri"><span class="px">25MVCSDR0</span>' +
     '<input id="newCR" type="text" inputmode="numeric" maxlength="3" placeholder="452" autocomplete="off"></div>' +
     '<button type="button" class="btn primary" style="margin:0;width:auto" onclick="addCR()">+ Appoint</button></div>' +
-    '<div class="hint" style="margin-top:10px">Range: 451 – 546. Shared CR password: <b>'+esc(CR_PASSWORD)+'</b>.<br>' +
-    '<span style="color:var(--warn)">⚠️ To let a new CR log in from <b>their own phone</b>, add their roll number to the <b>FALLBACK_CR_ROLLS</b> list in the code, then redeploy.</span></div></div>' +
-    '<div class="pn"><h3>Data</h3>' +
-    '<p class="psub">Backup or restore metadata. Uploaded files stay in this browser.</p>' +
-    '<div style="display:flex;gap:10px;flex-wrap:wrap">' +
-    '<button type="button" class="btn ghost" onclick="exportData()">⬇ Export JSON</button>' +
-    '<label class="fpick btn ghost" style="margin:0">⬆ Import backup' +
-    '<input type="file" accept="application/json,.json" onchange="importData(this)"></label>' +
-    '<button type="button" class="btn danger" onclick="resetData()">Reset everything</button></div></div>' +
+    '<div class="hint" style="margin-top:10px">Range: 451 – 546. Shared CR password: <b>'+esc(CR_PASSWORD)+'</b>.</div></div>' +
     '<div class="pn"><h3>Class info</h3><p class="psub">' +
     'Total students: <b>'+TOTAL+'</b><br>Roll range: <b>451 – 546</b><br>' +
-    'Subjects: <b>'+state.subjects.length+'</b><br>CRs (this browser): <b>'+state.crRolls.length+'</b><br>' +
-    'CRs (fallback list): <b>'+FALLBACK_CR_ROLLS.length+'</b></p></div>';
+    'Subjects: <b>'+state.subjects.length+'</b><br>CRs: <b>'+state.crRolls.length+'</b></p></div>';
 }
-
 function saveClassName(){
   var v = document.getElementById('className').value.trim();
   if (!v){ alert('Class name cannot be empty.'); return; }
-  state.className = v; save();
+  state.className = v; saveConfig();
   document.getElementById('cClass').textContent = v;
   alert('Class name saved.');
 }
 function saveEmail(){
   var v = document.getElementById('crEmail').value.trim();
   if (v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ alert('Please enter a valid email.'); return; }
-  state.crEmail = v; save(); updateLanding();
+  state.crEmail = v; saveConfig();
+  updateLanding();
   alert('CR email saved.');
 }
 function addCR(){
@@ -1842,58 +1672,18 @@ function addCR(){
   if (!roll){ alert('Please enter a roll number.'); return; }
   var num = parseInt(roll,10);
   if (isNaN(num) || num < ROLL_START || num > ROLL_END){ alert('Roll must be 451-546.'); return; }
-  if (state.crRolls.indexOf(roll) !== -1){ alert('Already a CR in this browser.'); return; }
+  if (state.crRolls.indexOf(roll) !== -1){ alert('Already a CR.'); return; }
   state.crRolls.push(roll);
   state.crRolls.sort(function(a,b){ return parseInt(a)-parseInt(b); });
-  save(); input.value = ''; renderCR();
-  var extra = FALLBACK_CR_ROLLS.indexOf(roll) === -1
-    ? '\n\n⚠️ IMPORTANT: This CR will only be able to log in from THIS browser. To let them log in from their own phone/PC, add "'+roll+'" to the FALLBACK_CR_ROLLS array in the code and redeploy.'
-    : '';
-  alert('Roll '+roll+' is now a CR in this browser.\nShared password: '+CR_PASSWORD+extra);
+  saveConfig();
+  input.value = '';
+  alert('Roll ' + roll + ' is now a CR. They can log in from any device with password: ' + CR_PASSWORD);
 }
 function removeCR(roll){
   if (state.crRolls.length <= 1){ alert('At least one CR must remain.'); return; }
   if (!confirm('Remove roll '+roll+' as CR?')) return;
   state.crRolls = state.crRolls.filter(function(r){ return r !== roll; });
-  save(); renderCR();
-}
-function exportData(){
-  var blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
-  triggerDownload(blob, 'ds-f-backup.json');
-}
-function importData(input){
-  var f = input.files[0]; if (!f) return;
-  var reader = new FileReader();
-  reader.onload = function(e){
-    try {
-      var parsed = JSON.parse(e.target.result);
-      if (!parsed.subjects) throw new Error('bad');
-      state = parsed;
-      if (!state.crRolls || !state.crRolls.length) state.crRolls = ['451'];
-      if (typeof state.crEmail !== 'string') state.crEmail = '';
-      if (!Array.isArray(state.announcements)) state.announcements = [];
-      save(); renderCR(); updateLanding();
-      alert('Backup imported.');
-    } catch(err){ alert('Invalid backup file.'); }
-  };
-  reader.onerror = function(){ alert('Failed to read file.'); };
-  reader.readAsText(f);
-  input.value = '';
-}
-function resetData(){
-  if (!confirm('Erase ALL submissions, announcements and settings?')) return;
-  openDB().then(function(db){
-    return new Promise(function(res,rej){
-      var tx = db.transaction(STORE,'readwrite');
-      tx.objectStore(STORE).clear();
-      tx.oncomplete = res; tx.onerror = rej;
-    });
-  }).catch(function(){}).then(function(){
-    state = defaultState();
-    crSubFilter = null; crListFilter = 'all'; crDlScope = 'all'; crDlMode = 'submitted';
-    save(); renderCR(); updateLanding();
-    alert('All data reset.');
-  });
+  saveConfig();
 }
 
 /* ============================================================
@@ -1903,10 +1693,8 @@ var modal = document.getElementById('modal');
 var modalBox = document.getElementById('modalBox');
 modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
-
 function openModal(){ modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeModal(){ modal.classList.remove('open'); document.body.style.overflow = ''; modalBox.innerHTML = ''; }
-
 function openSubmit(roll, subjectId){
   var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
   if (!subj){ alert('Subject not found.'); return; }
@@ -1918,7 +1706,7 @@ function openSubmit(roll, subjectId){
     '<label for="mFile">File (PPT / PPTX / PDF)</label>' +
     '<label class="fs" for="mFile"><span>📎</span>' +
     '<span id="mFileName">'+(cur.fileName ? 'Replace: '+esc(cur.fileName) : 'Tap to choose a file')+'</span>' +
-    '<input id="mFile" type="file" accept=".ppt,.pptx,.pdf,.odp,.key,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf" onchange="onFileChosen(this)">' +
+    '<input id="mFile" type="file" accept=".ppt,.pptx,.pdf,.odp,.key" onchange="onFileChosen(this)">' +
     '</label>' +
     (cur.fileName ? '<div class="hint">Current: <b>'+esc(cur.fileName)+'</b></div>' : '') +
     '<label for="mLink">Link (optional)</label>' +
@@ -1926,14 +1714,15 @@ function openSubmit(roll, subjectId){
     '<label for="mNote">Note (optional)</label>' +
     '<input id="mNote" class="inp" value="'+esc(cur.note||'')+'" placeholder="Any remark">' +
     '<div class="ma"><button type="button" class="btn ghost" onclick="closeModal()">Cancel</button>' +
-    '<button type="button" class="btn primary" onclick="saveModal(\''+roll+'\',\''+subjectId+'\')">Save</button></div>';
+    '<button type="button" class="btn primary" id="mSaveBtn" onclick="saveModal(\''+roll+'\',\''+subjectId+'\')">Save</button></div>';
   openModal();
 }
 function onFileChosen(input){
   var el = document.getElementById('mFileName'); if (!el) return;
   el.textContent = input.files && input.files[0] ? '📎 ' + input.files[0].name : 'Tap to choose a file';
 }
-function saveModal(roll, subjectId){
+async function saveModal(roll, subjectId){
+  var btn = document.getElementById('mSaveBtn');
   var topic = document.getElementById('mTopic').value.trim();
   var link = document.getElementById('mLink').value.trim();
   var note = document.getElementById('mNote').value.trim();
@@ -1941,113 +1730,102 @@ function saveModal(roll, subjectId){
   var file = fileEl.files && fileEl.files[0];
   var prev = (state.submissions[roll] || {})[subjectId] || {};
   var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0] || {};
+  btn.disabled = true; btn.textContent = '⏳ Saving...';
   var entry = {
+    roll: roll, subjectId: subjectId,
     topic: topic || subj.topic || '',
     fileName: file ? file.name : (prev.fileName || ''),
     fileSize: file ? file.size : (prev.fileSize || 0),
+    downloadUrl: prev.downloadUrl || '',
+    storagePath: prev.storagePath || '',
     link: link, note: note,
     at: new Date().toISOString()
   };
-  if (!state.submissions[roll]) state.submissions[roll] = {};
-  state.submissions[roll][subjectId] = entry;
-  save();
-  var done = function(){ closeModal(); refresh(); };
-  if (file){
-    saveFileBlob(fileKey(roll, subjectId), file, {
-      fileName: file.name, fileSize: file.size,
-      mimeType: file.type || 'application/octet-stream',
-      savedAt: entry.at, roll: roll, subjectId: subjectId
-    }).then(done).catch(done);
-  } else done();
+  try {
+    if (file){
+      var up = await uploadSubmissionFile(roll, subjectId, file);
+      if (prev.storagePath && prev.storagePath !== up.path) await deleteSubmissionFile(prev.storagePath);
+      entry.downloadUrl = up.url;
+      entry.storagePath = up.path;
+    }
+    await saveSubmissionDoc(roll, subjectId, entry);
+    closeModal();
+    refresh();
+  } catch(err){
+    console.error(err);
+    alert('Upload failed: ' + (err.message || 'Check your internet connection.'));
+    btn.disabled = false; btn.textContent = 'Save';
+  }
 }
-function removeSubmission(roll, subjectId){
+async function removeSubmission(roll, subjectId){
   var subj = state.subjects.filter(function(s){ return s.id === subjectId; })[0];
   if (!confirm('Remove submission for roll '+roll+'?')) return;
-  if (state.submissions[roll]){
-    delete state.submissions[roll][subjectId];
-    if (!Object.keys(state.submissions[roll]).length) delete state.submissions[roll];
-  }
-  deleteFileBlob(fileKey(roll, subjectId)).then(function(){ save(); refresh(); });
+  var sub = (state.submissions[roll] || {})[subjectId];
+  try {
+    if (sub && sub.storagePath) await deleteSubmissionFile(sub.storagePath);
+    await deleteSubmissionDoc(roll, subjectId);
+    refresh();
+  } catch(e){ alert('Delete failed: ' + e.message); }
 }
 function refresh(){
-  if (session && session.role === 'cr') renderCR();
+  if (!dataReady && !state.subjects.length) return;
+  if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1) renderCR();
   else if (session && session.role === 'student') renderStudent();
+  updateLanding();
 }
 
 /* ============================================================
    INIT
    ============================================================ */
 (function init(){
-  try {
-    var savedTheme = LS.get(THEME_KEY) || 'classic';
-    setTheme(savedTheme);
-    updateLanding();
+  var savedTheme = LS.get(THEME_KEY) || 'classic';
+  setTheme(savedTheme);
 
-    if (session && session.role === 'cr' && isCRRoll(session.roll)){
+  document.getElementById('loading').style.display = 'flex';
+
+  initFirebase().then(function(){
+    // Restore session after Firebase data has loaded
+    if (session && session.role === 'cr' && state.crRolls.indexOf(session.roll) !== -1){
       renderCR(); show('v-cr');
     } else if (session && session.role === 'student' && ROLLS.indexOf(session.roll) !== -1){
       renderStudent(); show('v-student');
     } else {
-      session = null; SS.rm(SESS_KEY);
+      session = null; setSession(null);
     }
+  });
 
-    function bindEnter(fromId, toId, action){
-      var from = document.getElementById(fromId); if (!from) return;
-      from.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.keyCode === 13){
-          e.preventDefault();
-          var to = toId ? document.getElementById(toId) : null;
-          if (to) to.focus();
-          else if (typeof action === 'function') action();
-        }
-      });
-    }
-    bindEnter('sRoll', 'sPass', null);
-    bindEnter('sPass', null, studentLogin);
-    bindEnter('cRoll', 'cPass', null);
-    bindEnter('cPass', null, crLogin);
-
-    window.show = show;
-    window.logout = logout;
-    window.studentLogin = studentLogin;
-    window.crLogin = crLogin;
-    window.togglePw = togglePw;
-    window.setTab = setTab;
-    window.toggleTheme = toggleTheme;
-    window.copyText = copyText;
-    window.updateSubmBody = updateSubmBody;
-    window.updateSubject = updateSubject;
-    window.addSubject = addSubject;
-    window.deleteSubject = deleteSubject;
-    window.updateZipStats = updateZipStats;
-    window.downloadZip = downloadZip;
-    window.downloadSubjectZip = downloadSubjectZip;
-    window.saveClassName = saveClassName;
-    window.saveEmail = saveEmail;
-    window.addCR = addCR;
-    window.removeCR = removeCR;
-    window.exportData = exportData;
-    window.importData = importData;
-    window.resetData = resetData;
-    window.openSubmit = openSubmit;
-    window.onFileChosen = onFileChosen;
-    window.saveModal = saveModal;
-    window.removeSubmission = removeSubmission;
-    window.closeModal = closeModal;
-    window.addAnnouncement = addAnnouncement;
-    window.deleteAnnouncement = deleteAnnouncement;
-    window.editAnnouncement = editAnnouncement;
-    window.togglePinAnnouncement = togglePinAnnouncement;
-    window.scrollToNotices = scrollToNotices;
-    window.markAllReadAndRefresh = markAllReadAndRefresh;
-
-  } catch(err){
-    console.error('Init failed:', err);
-    var el = document.createElement('div');
-    el.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#dc2626;color:#fff;padding:12px;font-size:14px;z-index:9999';
-    el.textContent = 'Script error: ' + err.message;
-    document.body.appendChild(el);
+  function bindEnter(fromId, toId, action){
+    var from = document.getElementById(fromId); if (!from) return;
+    from.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.keyCode === 13){
+        e.preventDefault();
+        var to = toId ? document.getElementById(toId) : null;
+        if (to) to.focus();
+        else if (typeof action === 'function') action();
+      }
+    });
   }
+  bindEnter('sRoll', 'sPass', null);
+  bindEnter('sPass', null, studentLogin);
+  bindEnter('cRoll', 'cPass', null);
+  bindEnter('cPass', null, crLogin);
+
+  window.show = show; window.logout = logout;
+  window.studentLogin = studentLogin; window.crLogin = crLogin;
+  window.togglePw = togglePw; window.setTab = setTab; window.toggleTheme = toggleTheme;
+  window.copyText = copyText; window.updateSubmBody = updateSubmBody;
+  window.updateSubject = updateSubject; window.addSubject = addSubject;
+  window.deleteSubject = deleteSubject; window.updateZipStats = updateZipStats;
+  window.downloadZip = downloadZip; window.downloadSubjectZip = downloadSubjectZip;
+  window.saveClassName = saveClassName; window.saveEmail = saveEmail;
+  window.addCR = addCR; window.removeCR = removeCR;
+  window.openSubmit = openSubmit; window.onFileChosen = onFileChosen;
+  window.saveModal = saveModal; window.removeSubmission = removeSubmission;
+  window.closeModal = closeModal; window.addAnnouncement = addAnnouncement;
+  window.deleteAnnouncement = deleteAnnouncement; window.editAnnouncement = editAnnouncement;
+  window.togglePinAnnouncement = togglePinAnnouncement;
+  window.scrollToNotices = scrollToNotices;
+  window.markAllReadAndRefresh = markAllReadAndRefresh;
 })();
 </script>
 </body>
