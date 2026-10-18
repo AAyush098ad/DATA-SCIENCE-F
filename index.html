@@ -220,6 +220,23 @@ tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:mi
 </style>
 </head>
 <body>
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker
+      .register('./service-worker.js')
+      .then(function (reg) {
+        // Check for a new SW every 60s
+        setInterval(function () {
+          reg.update().catch(function () {});
+        }, 60000);
+      })
+      .catch(function (err) {
+        console.warn('Service worker not registered:', err);
+      });
+  });
+}
+</script>
 
 <section class="view active" id="v-landing">
   <header class="lh"><div class="brand"><span class="bmark">DSF</span><span>DS-F</span></div><div class="hint">451 – 546 · 96 students</div></header>
